@@ -1,28 +1,35 @@
-s=5; %% Distance between wheels
-% waypoints: [x y]
-P = [...
-    0   0
-    0.5 0
-    0.5 0.5
-    1   1
-    1.5 1.5
-    2   1.5
-    2.5 1.5
-    2.5 2
-    3 2
-    3 2.5
-    3 3];
+L = 0.2; %% Distance between wheels
 
-ds = 0.1;  % desired spacing between points (change to 0.05 if you want denser)
+%% Create a simple map with obstacles
+map = binaryOccupancyMap(10,10,5);
+setOccupancy(map,[3 3;3 4;3 5;4 5;5 5],1);
+setOccupancy(map,[7 2;7 3;7 4;7 5],1);
+setOccupancy(map,[5 7;6 7;7 7],1);
+inflate(map,0.2);
 
-% Distance along the polyline
-d = [0; cumsum(sqrt(sum(diff(P).^2,2)))];
+figure
+show(map)
+hold on
+title('Robot Map')
 
-% New equally-spaced samples
-d_new = (0:ds:d(end)).';
+%% Define start and goal
+start = [1 1];
+start = [start(1)  start(2)];
+goal  = [8 8];
 
-% Interpolate to get densified waypoints
-x_new = interp1(d, P(:,1), d_new, 'linear');
-y_new = interp1(d, P(:,2), d_new, 'linear');
+%% Use a path planner
+prm = mobileRobotPRM(map,100);
+prm.ConnectionDistance = 2;
+path = findpath(prm,start,goal);
 
-P_dense = [x_new y_new];
+if isempty(path)
+    error('No path found');
+end
+
+%% Visualize the planned path
+plot(start(1),start(2),'go','MarkerSize',10)
+plot(goal(1),goal(2),'rx','MarkerSize',10)
+plot(path(:,1),path(:,2),'b','LineWidth',2)
+
+%% Identify path
+P = path;
