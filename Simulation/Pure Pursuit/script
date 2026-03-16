@@ -1,0 +1,11 @@
+config load "C:\Users\hassa\OneDrive\Desktop\GIU\git\Wheeled-Bipedal-mobile-Robot\Simulation\Pure Pursuit\Pure_Pursuit.ioc"
+project toolchain STM32CubeIDE
+
+SetStructure Advanced
+
+project setCustomFWPath "D:\programs\STM32Cube\Repository\STM32Cube_FW_H7_V1.11.2"
+
+config save C:\Users\hassa\OneDrive\Desktop\GIU\git\Wheeled-Bipedal-mobile-Robot\Simulation\Pure Pursuit\Pure_Pursuit.ioc
+
+
+exit wait

@@ -1,0 +1,14 @@
+-I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Simulation/Pure Pursuit"
+-I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Simulation/Pure Pursuit/Pure_Pursuit_ert_rtw"
+-ID:/programs/matlab/extern/include
+-ID:/programs/matlab/simulink/include
+-ID:/programs/matlab/rtw/c/src
+-ID:/programs/matlab/rtw/c/src/ext_mode/common
+-ID:/programs/matlab/rtw/c/ert
+-ID:/programs/matlab/toolbox/target/shared/armcortexmbase/scheduler/include
+-ID:/programs/matlab/rtw/c/src/ext_mode/serial
+-IC:/ProgramData/MATLAB/SupportPackages/R2025a/toolbox/shared/supportpackages/stm32/include
+-ID:/programs/matlab/toolbox/target/shared/svd/common/include
+-IC:/ProgramData/MATLAB/SupportPackages/R2025a/3P.instrset/cmsis.instrset/CMSIS/Core/Include
+-IC:/ProgramData/MATLAB/SupportPackages/R2025a/3P.instrset/cmsis_dsp.instrset/Include
+-IC:/ProgramData/MATLAB/SupportPackages/R2025a/3P.instrset/cmsis_dsp.instrset/Include/dsp
