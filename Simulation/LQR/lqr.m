@@ -6,92 +6,90 @@ clear; clc; close all;
 L      = 0.2;      % wheelbase [m]
 Ts_ref = 0.05;     % reference sample time [s]
 vd_nom = 0.3;      % nominal speed for LQR linearization
+desiredVelocity = 0.25;  % planner trajectory speed target [m/s]
 
 %% =========================
-% 2) Map from mapMatrix
+% 2) Build occupancy map for planner
 % ==========================
-mapMatrix = zeros(100,100);
-mapMatrix(30:50,20:25) = 1;
-mapMatrix(60:75,80:90) = 1;
-mapMatrix(20:30,70:80) = 1;
-mapMatrix(75:80,30:40) = 1;
-mapMatrix(45:55,45:55) = 1;
+gridSize = 100;
+mapMatrix = zeros(gridSize, gridSize);
+mapMatrix(10:22,15:20) = 1;
+mapMatrix(35:45,55:65) = 1;
+mapMatrix(55:70,18:28) = 1;
+mapMatrix(72:85,72:78) = 1;
+mapMatrix(25:32,78:90) = 1;
 
 resolution = 10;   % cells per meter
-map = binaryOccupancyMap(mapMatrix, resolution);
+map = binaryOccupancyMap(flipud(mapMatrix), resolution);
+inflate(map, 0.45);
 
 %% =========================
-% 3) Read trajectory from CSV
+% 3) Plan path using Hybrid A*
 % ==========================
-excelFile = 'Path 3.csv';
-data = readtable(excelFile);
+stateSpace = stateSpaceSE2;
+stateSpace.StateBounds = [map.XWorldLimits; map.YWorldLimits; [-pi pi]];
 
-t_excel = data.Time_s;
-x_excel = data.X_m;
-y_excel = data.Y_m;
+validator = validatorOccupancyMap(stateSpace);
+validator.Map = map;
+validator.ValidationDistance = 0.1;
 
-t_excel = t_excel(:);
-x_excel = x_excel(:);
-y_excel = y_excel(:);
+planner = plannerHybridAStar(validator, ...
+    'MinTurningRadius', 0.9, ...
+    'MotionPrimitiveLength', 0.8);
+planner.ReverseCost = 1e20;
 
-% Remove invalid rows
-valid = ~(isnan(t_excel) | isnan(x_excel) | isnan(y_excel));
-t_excel = t_excel(valid);
-x_excel = x_excel(valid);
-y_excel = y_excel(valid);
+startPose = [9, 1, pi/2];
+goalPose  = [5, 9, pi/2];
 
-% Sort by time
-[t_excel, idxSort] = sort(t_excel);
-x_excel = x_excel(idxSort);
-y_excel = y_excel(idxSort);
+refPath = plan(planner, startPose, goalPose);
+poses = refPath.States;
 
-% Remove duplicate time values
-[t_excel, idxUnique] = unique(t_excel, 'stable');
-x_excel = x_excel(idxUnique);
-y_excel = y_excel(idxUnique);
-
-%% =========================
-% 4) Uniform time for Simulink
-% ==========================
-t_ref = (t_excel(1):Ts_ref:t_excel(end))';
-if t_ref(end) < t_excel(end)
-    t_ref = [t_ref; t_excel(end)];
+if isempty(poses)
+    error('Hybrid A* failed to find a feasible path.');
 end
 
-x_ref = interp1(t_excel, x_excel, t_ref, 'pchip');
-y_ref = interp1(t_excel, y_excel, t_ref, 'pchip');
+%% =========================
+% 4) Smooth planner output and build timed reference
+% ==========================
+controlFrequency = 1 / Ts_ref;
+dt = 1 / controlFrequency;
+ds_target = desiredVelocity * dt;
 
-% Mild smoothing for path only
-x_ref = smoothdata(x_ref, 'gaussian', 9);
-y_ref = smoothdata(y_ref, 'gaussian', 9);
+dx = diff(poses(:,1));
+dy = diff(poses(:,2));
+stepDistances = sqrt(dx.^2 + dy.^2);
+S = [0; cumsum(stepDistances)];
 
+S_equi = (0:ds_target:S(end))';
+if S_equi(end) < S(end)
+    S_equi = [S_equi; S(end)];
+end
+
+x_ref = spline(S, poses(:,1), S_equi);
+y_ref = spline(S, poses(:,2), S_equi);
+
+theta_unwrapped = unwrap(poses(:,3));
+theta_ref = spline(S, theta_unwrapped, S_equi);
+theta_ref = wrapToPi(theta_ref);
+
+t_ref = S_equi / desiredVelocity;
 P = [x_ref y_ref];
 
 %% =========================
-% 5) Derive theta from path
+% 5) Derive v and w from timed reference
 % ==========================
-dx_geom = gradient(x_ref);
-dy_geom = gradient(y_ref);
-
-theta_ref = atan2(dy_geom, dx_geom);
-theta_ref = unwrap(theta_ref);
-
-%% =========================
-% 6) Derive v and w from path
-% ==========================
-% Linear speed from path spacing
 ds = sqrt(diff(x_ref).^2 + diff(y_ref).^2);
 ds = [ds; ds(end)];
 
 vd_ref = ds / Ts_ref;
 vd_ref = smoothdata(vd_ref, 'gaussian', 9);
 
-% Optional overall scaling if robot is too fast
-% vd_ref = 0.5 * vd_ref;
-
-% Angular speed from heading
-wd_ref = gradient(theta_ref) / Ts_ref;
+wd_ref = gradient(unwrap(theta_ref)) / Ts_ref;
 wd_ref = smoothdata(wd_ref, 'gaussian', 21);
+
+%% =========================
+% 6) Start/end conditions and initial state
+% ==========================
 
 % Start/end conditions
 vd_ref(1)   = 0;
@@ -176,6 +174,8 @@ figure;
 show(map);
 hold on;
 plot(P(:,1), P(:,2), 'g--', 'LineWidth', 2);
+plot(startPose(1), startPose(2), 'go', 'MarkerFaceColor', 'g');
+plot(goalPose(1), goalPose(2), 'bo', 'MarkerFaceColor', 'b');
 
 robot = plot(x(1), y(1), 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
 dirr  = quiver(x(1), y(1), cos(theta(1)), sin(theta(1)), 0.4, 'r', 'LineWidth', 2);
