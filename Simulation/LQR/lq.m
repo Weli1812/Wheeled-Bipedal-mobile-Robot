@@ -1,6 +1,5 @@
 clear; clc; close all;
 
-
 %% =========================
 % 0) Choose planner
 % ==========================
@@ -62,9 +61,6 @@ inflate(map, 0.2);
 startPose = [9, 1, pi/2];
 goalPose  = [2, 9, pi/2];
 
-
-
-
 %% =========================
 % 4) Plan path using selected planner
 % ==========================
@@ -98,34 +94,147 @@ switch upper(plannerType)
 
         poses = refPath.States;
 
-    case "RRTSTAR"
-        ss = stateSpaceDubins;
-        ss.MinTurningRadius = 0.9;
-        ss.StateBounds = [map.XWorldLimits; map.YWorldLimits; [-pi pi]];
+        % -------- Original smoothing pipeline for Hybrid A* --------
+        controlFrequency = 1 / Ts_ref;
+        dt = 1 / controlFrequency;
+        ds_target = desiredVelocity * dt;
 
-        validator = validatorOccupancyMap(ss);
-        validator.Map = map;
-        validator.ValidationDistance = 0.05;
+        dx = diff(poses(:,1));
+        dy = diff(poses(:,2));
+        stepDistances = sqrt(dx.^2 + dy.^2);
+        S = [0; cumsum(stepDistances)];
 
-        planner = plannerRRTStar(ss, validator);
-        planner.MaxConnectionDistance = 0.25;
-        planner.MaxIterations = 2500;
+        [S, uniqueIdx] = unique(S, 'stable');
+        poses = poses(uniqueIdx, :);
 
-        if ~isStateValid(validator, startPose) || ~isStateValid(validator, goalPose)
-            error('RRT*: Start or Goal is invalid.');
+        if numel(S) < 2
+            error('Not enough unique path points after preprocessing.');
         end
 
-        disp('Running RRT*...');
-        rng('default');
-        tic;
-        [pthObj, solnInfo] = plan(planner, startPose, goalPose);
-        planningTime = toc;
-
-        if ~solnInfo.IsPathFound || isempty(pthObj) || isempty(pthObj.States)
-            error('RRT* failed to find a feasible path.');
+        S_equi = (0:ds_target:S(end))';
+        if S_equi(end) < S(end)
+            S_equi = [S_equi; S(end)];
         end
 
-        poses = pthObj.States;
+        x_ref = spline(S, poses(:,1), S_equi);
+        y_ref = spline(S, poses(:,2), S_equi);
+
+        dx_ref = gradient(x_ref);
+        dy_ref = gradient(y_ref);
+
+        theta_ref = atan2(dy_ref, dx_ref);
+        theta_ref_unwrapped = unwrap(theta_ref);
+
+        P = [x_ref y_ref];
+
+case "RRTSTAR"
+    samplingFreq = 1 / Ts_ref;
+    dt_sim       = Ts_ref;
+
+    minTurningRadius = 0.9;
+
+    % Use the already-inflated main map directly
+    mapInflated = map;
+
+    ss = stateSpaceDubins;
+    ss.MinTurningRadius = minTurningRadius;
+    ss.StateBounds = [mapInflated.XWorldLimits; mapInflated.YWorldLimits; [-pi pi]];
+
+    validator = validatorOccupancyMap(ss);
+    validator.Map = mapInflated;
+    validator.ValidationDistance = 0.05;
+
+    planner = plannerRRTStar(ss, validator);
+    planner.MaxConnectionDistance = 0.25;
+    planner.MaxIterations = 2500;
+
+    if ~isStateValid(validator, startPose) || ~isStateValid(validator, goalPose)
+        error('RRT*: Start or Goal is invalid.');
+    end
+
+    disp('Running RRT*...');
+    rng('default');
+    tic;
+    [pthObj, solnInfo] = plan(planner, startPose, goalPose);
+    planningTime = toc;
+
+    if ~solnInfo.IsPathFound || isempty(pthObj) || isempty(pthObj.States)
+        error('RRT* failed to find a feasible path.');
+    end
+
+    rawStates = pthObj.States;
+    poses = rawStates;
+
+    numAnchors = min(16, max(6, size(rawStates,1)-2));
+
+    if size(rawStates,1) < 4
+        warning('RRT* returned too few states for anchor-based smoothing. Using raw path directly.');
+        x_ref = rawStates(:,1);
+        y_ref = rawStates(:,2);
+        theta_ref = unwrap(rawStates(:,3));
+        theta_ref_unwrapped = theta_ref;
+        P = [x_ref y_ref];
+    else
+        idx = unique(round(linspace(2, size(rawStates,1)-1, numAnchors)));
+        middlePoints = [rawStates(idx,1)'; rawStates(idx,2)'];
+
+        departDist   = 0.2;
+        approachDist = 0.2;
+
+        startApp = [startPose(1) + departDist * cos(startPose(3));
+                    startPose(2) + departDist * sin(startPose(3))];
+
+        goalApp  = [goalPose(1) - approachDist * cos(goalPose(3));
+                    goalPose(2) - approachDist * sin(goalPose(3))];
+
+        anchorPoints = [[startPose(1); startPose(2)], ...
+                        startApp, ...
+                        middlePoints, ...
+                        goalApp, ...
+                        [goalPose(1); goalPose(2)]];
+
+        tSamplesRaw = linspace(0, 1, 3000);
+        [qRaw, ~] = bsplinepolytraj(anchorPoints, [0 1], tSamplesRaw);
+
+        baseX = qRaw(1,:)';
+        baseY = qRaw(2,:)';
+
+        segLen = sqrt(diff(baseX).^2 + diff(baseY).^2);
+        arcLen = [0; cumsum(segLen)];
+        totalPathLength = arcLen(end);
+        totalTravelTime = totalPathLength / desiredVelocity;
+
+        ds = desiredVelocity * dt_sim;
+        sQuery = (0:ds:totalPathLength)';
+
+        if sQuery(end) < totalPathLength
+            sQuery = [sQuery; totalPathLength];
+        end
+
+        sampledX = interp1(arcLen, baseX, sQuery, 'pchip');
+        sampledY = interp1(arcLen, baseY, sQuery, 'pchip');
+
+        dXs = gradient(sampledX);
+        dYs = gradient(sampledY);
+        sampledTheta = atan2(dYs, dXs);
+
+        blendFrames = min(15, numel(sQuery)-1);
+        if blendFrames >= 1
+            startBlend = sampledTheta(end - blendFrames);
+            angleDiff  = atan2(sin(goalPose(3) - startBlend), cos(goalPose(3) - startBlend));
+            sampledTheta(end-blendFrames:end) = ...
+                startBlend + linspace(0, angleDiff, blendFrames+1)';
+        end
+
+        x_ref = sampledX;
+        y_ref = sampledY;
+        theta_ref = sampledTheta;
+        theta_ref_unwrapped = unwrap(theta_ref);
+        P = [x_ref y_ref];
+
+        fprintf('RRT* smoothed path length: %.3f m\n', totalPathLength);
+        fprintf('Estimated travel time: %.3f s\n', totalTravelTime);
+    end
 
     otherwise
         error('Unknown plannerType. Use "HYBRID_ASTAR" or "RRTSTAR".');
@@ -135,50 +244,26 @@ fprintf('Selected planner: %s\n', plannerType);
 fprintf('Planning time: %.4f s\n', planningTime);
 
 %% =========================
-% 5) Smooth planner output and build timed reference
+% 5) Compare raw vs final reference
 % ==========================
-controlFrequency = 1 / Ts_ref;
-dt = 1 / controlFrequency;
-ds_target = desiredVelocity * dt;
+figure;
+show(map); hold on; grid on; axis equal;
 
-dx = diff(poses(:,1));
-dy = diff(poses(:,2));
-stepDistances = sqrt(dx.^2 + dy.^2);
-S = [0; cumsum(stepDistances)];
+plot(poses(:,1), poses(:,2), 'r-', 'LineWidth', 2);   % raw planner output
+plot(P(:,1), P(:,2), 'g--', 'LineWidth', 2);          % final path used by controller
 
-% Remove duplicate arc-length points
-[S, uniqueIdx] = unique(S, 'stable');
-poses = poses(uniqueIdx, :);
+plot(startPose(1), startPose(2), 'go', 'MarkerFaceColor', 'g');
+plot(goalPose(1), goalPose(2), 'bo', 'MarkerFaceColor', 'b');
 
-if numel(S) < 2
-    error('Not enough unique path points after preprocessing.');
-end
-
-S_equi = (0:ds_target:S(end))';
-if S_equi(end) < S(end)
-    S_equi = [S_equi; S(end)];
-end
-
-x_ref = spline(S, poses(:,1), S_equi);
-y_ref = spline(S, poses(:,2), S_equi);
-
-% unwrap before interpolation, then keep unwrapped for reference generation
-dx_ref = gradient(x_ref);
-dy_ref = gradient(y_ref);
-
-theta_ref = atan2(dy_ref, dx_ref);
-theta_ref_unwrapped = unwrap(theta_ref);
-
-P = [x_ref y_ref];
+legend('Raw Path', 'Final Path', 'Start', 'Goal');
+title('Raw Planner Output vs Final Path');
 
 figure;
 show(map);
 hold on;
 
-% Plot planned (smoothed) path
 plot(P(:,1), P(:,2), 'g--', 'LineWidth', 2);
 
-% Plot start and goal
 plot(startPose(1), startPose(2), 'go', 'MarkerFaceColor', 'g', 'MarkerSize', 8);
 plot(goalPose(1), goalPose(2), 'bo', 'MarkerFaceColor', 'b', 'MarkerSize', 8);
 
@@ -232,6 +317,7 @@ tailStartIdx = max(1, floor((T_total - tailTime)/Ts_ref) + 1);
 for k = tailStartIdx+1:length(vd_ref)
     vd_ref(k) = min(vd_ref(k), vd_ref(k-1));
 end
+
 %% =========================
 % 7) Start/end conditions and limits
 % ==========================
@@ -272,7 +358,6 @@ B = [1 0;
      0 0;
      0 1];
 
-% Softer than before to reduce oscillation
 Q = diag([30 50 8]);
 R = diag([6 3]);
 
@@ -321,14 +406,11 @@ figure;
 show(map);
 hold on;
 
-% Plot only the planned/reference path
 plot(P(:,1), P(:,2), 'g--', 'LineWidth', 2);
 
-% Plot start and goal points
 plot(startPose(1), startPose(2), 'go', 'MarkerFaceColor', 'g');
 plot(goalPose(1), goalPose(2), 'bo', 'MarkerFaceColor', 'b');
 
-% Robot body, heading arrow, and traced actual path
 robot = plot(x(1), y(1), 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
 dirr  = quiver(x(1), y(1), cos(theta(1)), sin(theta(1)), 0.4, 'r', 'LineWidth', 2);
 traj  = plot(x(1), y(1), 'b', 'LineWidth', 2);
