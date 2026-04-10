@@ -11,7 +11,7 @@ plannerType = "HYBRID_ASTAR";
 %% =========================
 % 1) Robot parameters
 % ==========================
-L      = 0.2;      % wheelbase [m]
+L      = 0.4;      % wheelbase [m]
 Ts_ref = 0.05;     % reference sample time [s]
 vd_nom = 0.3;      % nominal speed for LQR linearization
 desiredVelocity = 0.25;  % target trajectory speed [m/s]
@@ -328,6 +328,8 @@ wd_ref(end) = 0;
 
 wd_max = 0.25;
 wd_ref = max(min(wd_ref, wd_max), -wd_max);
+vd_max = 0.3;  % [m/s] — set to your robot's actual limit
+vd_ref = min(vd_ref, vd_max);
 
 theta0 = theta_ref(1);
 x0     = x_ref(1);
@@ -385,12 +387,20 @@ goalPose             = double(goalPose(:)');
 goalPosTol           = double(goalPosTol);
 goalThetaTol         = double(goalThetaTol);
 
+assert(size(P,2) == 2, 'P must be Nx2');
+assert(length(theta_ref_unwrapped) == size(P,1), ...
+    'Size mismatch: theta_ref_unwrapped vs P');
+assert(length(vd_ref) == size(P,1), ...
+    'Size mismatch: vd_ref vs P');
+assert(length(wd_ref) == size(P,1), ...
+    'Size mismatch: wd_ref vs P');
+
 clear out x_out y_out theta_out
 
 %% =========================
 % 12) Run Simulink model
 % ==========================
-out = sim('Traj', 'StopTime', num2str(T_end));
+out = sim('Traj2', 'StopTime', num2str(T_end));
 
 %% =========================
 % 13) Read outputs
@@ -430,4 +440,7 @@ for k = 1:length(x)
         'VData', sin(theta(k)));
     set(traj, 'XData', x(1:k), 'YData', y(1:k));
     drawnow;
+    pause(Ts_ref);
 end
+
+%%
