@@ -47,19 +47,21 @@ setOccupancy(map, [X4(:) Y4(:)], 1);
 % Obstacle 5: right-lower block
 [X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
 setOccupancy(map, [X5(:) Y5(:)], 1);
+% 
+% % Obstacle 6: right-upper block
+% [X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
+% setOccupancy(map, [X6(:) Y6(:)], 1);
+% 
+% % Obstacle 7: narrow corridor maker
+% [X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
+% setOccupancy(map, [X7(:) Y7(:)], 1);
+% 
+% inflate(map, 0.2);
 
-% Obstacle 6: right-upper block
-[X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
-setOccupancy(map, [X6(:) Y6(:)], 1);
-
-% Obstacle 7: narrow corridor maker
-[X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
-setOccupancy(map, [X7(:) Y7(:)], 1);
-
-inflate(map, 0.2);
-
-startPose = [9, 1, pi/2];
-goalPose  = [2, 9, pi/2];
+startXY = [9, 1];
+goalXY  = [2, 9];
+startPose = [startXY, pi/2];   % dummy theta for first plan
+goalPose  = [goalXY,  pi/2];   % dummy theta for first plan
 
 %% =========================
 % 4) Plan path using selected planner
@@ -83,15 +85,37 @@ switch upper(plannerType)
             error('Hybrid A*: Start or Goal is invalid.');
         end
 
-        disp('Running Hybrid A*...');
+        disp('Running Hybrid A* (first pass - dummy thetas)...');
         tic;
         refPath = plan(planner, startPose, goalPose);
         planningTime = toc;
 
         if isempty(refPath) || isempty(refPath.States)
-            error('Hybrid A* failed to find a feasible path.');
+            error('Hybrid A* first pass failed. Check start/goal are not in obstacles.');
         end
 
+        poses = refPath.States;
+
+        if size(poses, 1) < 2
+            error('Too few path points returned by Hybrid A*.');
+        end
+
+        % --- Auto-correct thetas from path geometry ---
+        theta_start_auto = atan2(poses(2,2)-poses(1,2), poses(2,1)-poses(1,1));
+        theta_goal_auto  = atan2(poses(end,2)-poses(end-1,2), poses(end,1)-poses(end-1,1));
+        startPose = [startXY, theta_start_auto];
+        goalPose  = [goalXY,  theta_goal_auto];
+        fprintf('Auto start theta: %.2f deg\n', rad2deg(theta_start_auto));
+        fprintf('Auto goal  theta: %.2f deg\n', rad2deg(theta_goal_auto));
+
+        % --- Replan with corrected thetas ---
+        disp('Replanning Hybrid A* with corrected thetas...');
+        tic;
+        refPath = plan(planner, startPose, goalPose);
+        planningTime = toc;
+        if isempty(refPath) || isempty(refPath.States)
+            error('Hybrid A* failed on replan.');
+        end
         poses = refPath.States;
 
         % -------- Original smoothing pipeline for Hybrid A* --------
@@ -127,10 +151,9 @@ switch upper(plannerType)
 
         P = [x_ref y_ref];
 
-case "RRTSTAR"
+    case "RRTSTAR"
     samplingFreq = 1 / Ts_ref;
     dt_sim       = Ts_ref;
-
     minTurningRadius = 0.9;
 
     % Use the already-inflated main map directly
@@ -152,7 +175,7 @@ case "RRTSTAR"
         error('RRT*: Start or Goal is invalid.');
     end
 
-    disp('Running RRT*...');
+    disp('Running RRT* (first pass - dummy thetas)...');
     rng('default');
     tic;
     [pthObj, solnInfo] = plan(planner, startPose, goalPose);
@@ -164,6 +187,28 @@ case "RRTSTAR"
 
     rawStates = pthObj.States;
     poses = rawStates;
+
+    % --- Auto-correct thetas from path geometry ---
+    theta_start_auto = atan2(rawStates(2,2)-rawStates(1,2), rawStates(2,1)-rawStates(1,1));
+    theta_goal_auto  = atan2(rawStates(end,2)-rawStates(end-1,2), rawStates(end,1)-rawStates(end-1,1));
+    startPose = [startXY, theta_start_auto];
+    goalPose  = [goalXY,  theta_goal_auto];
+    fprintf('Auto start theta: %.2f deg\n', rad2deg(theta_start_auto));
+    fprintf('Auto goal  theta: %.2f deg\n', rad2deg(theta_goal_auto));
+
+    % --- Replan with corrected thetas ---
+    disp('Replanning RRT* with corrected thetas...');
+    rng('default');
+    tic;
+    [pthObj, solnInfo] = plan(planner, startPose, goalPose);
+    planningTime = toc;
+
+    if ~solnInfo.IsPathFound || isempty(pthObj.States)
+        error('RRT* failed on replan.');
+    end
+
+    rawStates = pthObj.States;
+    poses     = rawStates;
 
     numAnchors = min(16, max(6, size(rawStates,1)-2));
 
@@ -285,11 +330,11 @@ vd_ref = ds / Ts_ref;
 vd_ref = smoothdata(vd_ref, 'gaussian', 9);
 
 wd_ref = gradient(theta_ref_unwrapped) / Ts_ref;
-wd_ref = smoothdata(wd_ref, 'gaussian', 21);
+wd_ref = smoothdata(wd_ref, 'gaussian', 41);
 
 % -------- Smooth speed ramp up/down --------
-t_ramp_up   = 2.5;   % seconds
-t_ramp_down = 3.0;   % seconds
+t_ramp_up   = 2.0;   % seconds
+t_ramp_down = 1.0;   % seconds
 
 t_vec = (0:length(vd_ref)-1)' * Ts_ref;
 T_total = t_vec(end);
@@ -349,7 +394,7 @@ end
 % ==========================
 vd_pos = vd_ref(vd_ref > 0.02);
 if ~isempty(vd_pos)
-    vd_nom = mean(vd_pos);
+    vd_nom = quantile(vd_pos, 0.75);
 end
 
 A = [0 0 0;
@@ -360,7 +405,7 @@ B = [1 0;
      0 0;
      0 1];
 
-Q = diag([30 50 8]);
+Q = diag([30 50 15]);
 R = diag([6 3]);
 
 K = lqr(A, B, Q, R);

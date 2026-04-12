@@ -6,12 +6,12 @@ clear; clc; close all;
 % Options:
 %   "HYBRID_ASTAR"
 %   "RRTSTAR"
-plannerType = "RRTSTAR";
+plannerType = "HYBRID_ASTAR";
 
 %% =========================
 % 1) Robot parameters
 % ==========================
-L      = 0.2;      % wheelbase [m]
+L      = 0.4;      % wheelbase [m]
 Ts_ref = 0.05;     % reference sample time [s]
 vd_nom = 0.3;      % nominal speed for LQR linearization
 desiredVelocity = 0.25;  % target trajectory speed [m/s]
@@ -58,8 +58,10 @@ setOccupancy(map, [X7(:) Y7(:)], 1);
 
 inflate(map, 0.2);
 
-startPose = [9, 1, pi/2];
-goalPose  = [2, 9, pi/2];
+startXY = [9, 1];
+goalXY  = [2, 9];
+startPose = [startXY, pi/2];   % dummy theta for first plan
+goalPose  = [goalXY,  pi/2];   % dummy theta for first plan
 
 %% =========================
 % 4) Plan path using selected planner
@@ -83,15 +85,37 @@ switch upper(plannerType)
             error('Hybrid A*: Start or Goal is invalid.');
         end
 
-        disp('Running Hybrid A*...');
+        disp('Running Hybrid A* (first pass - dummy thetas)...');
         tic;
         refPath = plan(planner, startPose, goalPose);
         planningTime = toc;
 
         if isempty(refPath) || isempty(refPath.States)
-            error('Hybrid A* failed to find a feasible path.');
+            error('Hybrid A* first pass failed. Check start/goal are not in obstacles.');
         end
 
+        poses = refPath.States;
+
+        if size(poses, 1) < 2
+            error('Too few path points returned by Hybrid A*.');
+        end
+
+        % --- Auto-correct thetas from path geometry ---
+        theta_start_auto = atan2(poses(2,2)-poses(1,2), poses(2,1)-poses(1,1));
+        theta_goal_auto  = atan2(poses(end,2)-poses(end-1,2), poses(end,1)-poses(end-1,1));
+        startPose = [startXY, theta_start_auto];
+        goalPose  = [goalXY,  theta_goal_auto];
+        fprintf('Auto start theta: %.2f deg\n', rad2deg(theta_start_auto));
+        fprintf('Auto goal  theta: %.2f deg\n', rad2deg(theta_goal_auto));
+
+        % --- Replan with corrected thetas ---
+        disp('Replanning Hybrid A* with corrected thetas...');
+        tic;
+        refPath = plan(planner, startPose, goalPose);
+        planningTime = toc;
+        if isempty(refPath) || isempty(refPath.States)
+            error('Hybrid A* failed on replan.');
+        end
         poses = refPath.States;
 
         % -------- Original smoothing pipeline for Hybrid A* --------
@@ -127,145 +151,114 @@ switch upper(plannerType)
 
         P = [x_ref y_ref];
 
-    case "RRTSTAR"
-        % =========================
-        % RRT* PARAMETERS
-        % =========================
-        samplingFreq = 1 / Ts_ref;       % use main code timing
-        dt_sim       = Ts_ref;           % keep consistent with controller
+case "RRTSTAR"
+    samplingFreq = 1 / Ts_ref;
+    dt_sim       = Ts_ref;
 
-        % Use existing turning radius from main code
-        minTurningRadius = 0.9;
+    minTurningRadius = 0.9;
 
-        % Added robot geometry for inflated-map version
-        robotLength  = 0.6;
-        robotWidth   = 0.4;
-        safetyMargin = 0.0;
+    % Use the already-inflated main map directly
+    mapInflated = map;
 
-        robotDiagonal   = sqrt(robotLength^2 + robotWidth^2);
-        inflationRadius = (robotDiagonal / 2) + safetyMargin;
+    ss = stateSpaceDubins;
+    ss.MinTurningRadius = minTurningRadius;
+    ss.StateBounds = [mapInflated.XWorldLimits; mapInflated.YWorldLimits; [-pi pi]];
 
-        % =========================
-        % INFLATED MAP FOR RRT*
-        % =========================
-        mapInflated = copy(map);
-        inflate(mapInflated, inflationRadius);
+    validator = validatorOccupancyMap(ss);
+    validator.Map = mapInflated;
+    validator.ValidationDistance = 0.05;
 
-        % =========================
-        % STATE SPACE & VALIDATOR
-        % =========================
-        ss = stateSpaceDubins;
-        ss.MinTurningRadius = minTurningRadius;
-        ss.StateBounds = [mapInflated.XWorldLimits; mapInflated.YWorldLimits; [-pi pi]];
+    planner = plannerRRTStar(ss, validator);
+    planner.MaxConnectionDistance = 0.25;
+    planner.MaxIterations = 2500;
 
-        validator = validatorOccupancyMap(ss);
-        validator.Map = mapInflated;
-        validator.ValidationDistance = 0.05;
+    if ~isStateValid(validator, startPose) || ~isStateValid(validator, goalPose)
+        error('RRT*: Start or Goal is invalid.');
+    end
 
-        % =========================
-        % RRT* PLANNER
-        % =========================
-        planner = plannerRRTStar(ss, validator);
-        planner.MaxConnectionDistance = 0.25;
-        planner.MaxIterations = 2500;
+    disp('Running RRT*...');
+    rng('default');
+    tic;
+    [pthObj, solnInfo] = plan(planner, startPose, goalPose);
+    planningTime = toc;
 
-        if ~isStateValid(validator, startPose) || ~isStateValid(validator, goalPose)
-            error('RRT*: Start or Goal is invalid.');
+    if ~solnInfo.IsPathFound || isempty(pthObj) || isempty(pthObj.States)
+        error('RRT* failed to find a feasible path.');
+    end
+
+    rawStates = pthObj.States;
+    poses = rawStates;
+
+    numAnchors = min(16, max(6, size(rawStates,1)-2));
+
+    if size(rawStates,1) < 4
+        warning('RRT* returned too few states for anchor-based smoothing. Using raw path directly.');
+        x_ref = rawStates(:,1);
+        y_ref = rawStates(:,2);
+        theta_ref = unwrap(rawStates(:,3));
+        theta_ref_unwrapped = theta_ref;
+        P = [x_ref y_ref];
+    else
+        idx = unique(round(linspace(2, size(rawStates,1)-1, numAnchors)));
+        middlePoints = [rawStates(idx,1)'; rawStates(idx,2)'];
+
+        departDist   = 0.2;
+        approachDist = 0.2;
+
+        startApp = [startPose(1) + departDist * cos(startPose(3));
+                    startPose(2) + departDist * sin(startPose(3))];
+
+        goalApp  = [goalPose(1) - approachDist * cos(goalPose(3));
+                    goalPose(2) - approachDist * sin(goalPose(3))];
+
+        anchorPoints = [[startPose(1); startPose(2)], ...
+                        startApp, ...
+                        middlePoints, ...
+                        goalApp, ...
+                        [goalPose(1); goalPose(2)]];
+
+        tSamplesRaw = linspace(0, 1, 3000);
+        [qRaw, ~] = bsplinepolytraj(anchorPoints, [0 1], tSamplesRaw);
+
+        baseX = qRaw(1,:)';
+        baseY = qRaw(2,:)';
+
+        segLen = sqrt(diff(baseX).^2 + diff(baseY).^2);
+        arcLen = [0; cumsum(segLen)];
+        totalPathLength = arcLen(end);
+        totalTravelTime = totalPathLength / desiredVelocity;
+
+        ds = desiredVelocity * dt_sim;
+        sQuery = (0:ds:totalPathLength)';
+
+        if sQuery(end) < totalPathLength
+            sQuery = [sQuery; totalPathLength];
         end
 
-        disp('Running RRT*...');
-        rng('default');
-        tic;
-        [pthObj, solnInfo] = plan(planner, startPose, goalPose);
-        planningTime = toc;
+        sampledX = interp1(arcLen, baseX, sQuery, 'pchip');
+        sampledY = interp1(arcLen, baseY, sQuery, 'pchip');
 
-        if ~solnInfo.IsPathFound || isempty(pthObj) || isempty(pthObj.States)
-            error('RRT* failed to find a feasible path.');
+        dXs = gradient(sampledX);
+        dYs = gradient(sampledY);
+        sampledTheta = atan2(dYs, dXs);
+
+        blendFrames = min(15, numel(sQuery)-1);
+        if blendFrames >= 1
+            startBlend = sampledTheta(end - blendFrames);
+            angleDiff  = atan2(sin(goalPose(3) - startBlend), cos(goalPose(3) - startBlend));
+            sampledTheta(end-blendFrames:end) = ...
+                startBlend + linspace(0, angleDiff, blendFrames+1)';
         end
 
-        % Raw RRT* output
-        rawStates = pthObj.States;
-        poses = rawStates;   % keep raw path for comparison plots
+        x_ref = sampledX;
+        y_ref = sampledY;
+        theta_ref = sampledTheta;
+        theta_ref_unwrapped = unwrap(theta_ref);
+        P = [x_ref y_ref];
 
-        % =========================
-        % B-SPLINE SMOOTHING
-        % =========================
-        numAnchors = min(16, max(6, size(rawStates,1)-2));
-
-        if size(rawStates,1) < 4
-            warning('RRT* returned too few states for anchor-based smoothing. Using raw path directly.');
-            x_ref = rawStates(:,1);
-            y_ref = rawStates(:,2);
-            theta_ref = unwrap(rawStates(:,3));
-            theta_ref_unwrapped = theta_ref;
-            P = [x_ref y_ref];
-        else
-            idx = unique(round(linspace(2, size(rawStates,1)-1, numAnchors)));
-            middlePoints = [rawStates(idx,1)'; rawStates(idx,2)'];
-
-            departDist   = 0.2;
-            approachDist = 0.2;
-
-            startApp = [startPose(1) + departDist * cos(startPose(3));
-                        startPose(2) + departDist * sin(startPose(3))];
-
-            goalApp  = [goalPose(1) - approachDist * cos(goalPose(3));
-                        goalPose(2) - approachDist * sin(goalPose(3))];
-
-            anchorPoints = [[startPose(1); startPose(2)], ...
-                            startApp, ...
-                            middlePoints, ...
-                            goalApp, ...
-                            [goalPose(1); goalPose(2)]];
-
-            tSamplesRaw = linspace(0, 1, 3000);
-            [qRaw, ~] = bsplinepolytraj(anchorPoints, [0 1], tSamplesRaw);
-
-            baseX = qRaw(1,:)';
-            baseY = qRaw(2,:)';
-
-            % =========================
-            % ARC LENGTH
-            % =========================
-            segLen = sqrt(diff(baseX).^2 + diff(baseY).^2);
-            arcLen = [0; cumsum(segLen)];
-            totalPathLength = arcLen(end);
-            totalTravelTime = totalPathLength / desiredVelocity;
-
-            % =========================
-            % DYNAMIC SAMPLING
-            % =========================
-            ds = desiredVelocity * dt_sim;
-            sQuery = (0:ds:totalPathLength)';
-
-            if sQuery(end) < totalPathLength
-                sQuery = [sQuery; totalPathLength];
-            end
-
-            sampledX = interp1(arcLen, baseX, sQuery, 'pchip');
-            sampledY = interp1(arcLen, baseY, sQuery, 'pchip');
-
-            dXs = gradient(sampledX);
-            dYs = gradient(sampledY);
-            sampledTheta = atan2(dYs, dXs);
-
-            blendFrames = min(15, numel(sQuery)-1);
-            if blendFrames >= 1
-                startBlend = sampledTheta(end - blendFrames);
-                angleDiff  = atan2(sin(goalPose(3) - startBlend), cos(goalPose(3) - startBlend));
-                sampledTheta(end-blendFrames:end) = ...
-                    startBlend + linspace(0, angleDiff, blendFrames+1)';
-            end
-
-            x_ref = sampledX;
-            y_ref = sampledY;
-            theta_ref = sampledTheta;
-            theta_ref_unwrapped = unwrap(theta_ref);
-            P = [x_ref y_ref];
-
-            fprintf('RRT* smoothed path length: %.3f m\n', totalPathLength);
-            fprintf('Estimated travel time: %.3f s\n', totalTravelTime);
-        end
+        fprintf('RRT* smoothed path length: %.3f m\n', totalPathLength);
+        fprintf('Estimated travel time: %.3f s\n', totalTravelTime);
+    end
 
     otherwise
         error('Unknown plannerType. Use "HYBRID_ASTAR" or "RRTSTAR".');
@@ -316,11 +309,11 @@ vd_ref = ds / Ts_ref;
 vd_ref = smoothdata(vd_ref, 'gaussian', 9);
 
 wd_ref = gradient(theta_ref_unwrapped) / Ts_ref;
-wd_ref = smoothdata(wd_ref, 'gaussian', 21);
+wd_ref = smoothdata(wd_ref, 'gaussian', 41);
 
 % -------- Smooth speed ramp up/down --------
-t_ramp_up   = 2.5;   % seconds
-t_ramp_down = 3.0;   % seconds
+t_ramp_up   = 4.0;   % seconds
+t_ramp_down = 1.0;   % seconds
 
 t_vec = (0:length(vd_ref)-1)' * Ts_ref;
 T_total = t_vec(end);
@@ -359,6 +352,8 @@ wd_ref(end) = 0;
 
 wd_max = 0.25;
 wd_ref = max(min(wd_ref, wd_max), -wd_max);
+vd_max = 0.3;  % [m/s] — set to your robot's actual limit
+vd_ref = min(vd_ref, vd_max);
 
 theta0 = theta_ref(1);
 x0     = x_ref(1);
@@ -378,7 +373,7 @@ end
 % ==========================
 vd_pos = vd_ref(vd_ref > 0.02);
 if ~isempty(vd_pos)
-    vd_nom = mean(vd_pos);
+    vd_nom = quantile(vd_pos, 0.75);
 end
 
 A = [0 0 0;
@@ -416,12 +411,20 @@ goalPose             = double(goalPose(:)');
 goalPosTol           = double(goalPosTol);
 goalThetaTol         = double(goalThetaTol);
 
+assert(size(P,2) == 2, 'P must be Nx2');
+assert(length(theta_ref_unwrapped) == size(P,1), ...
+    'Size mismatch: theta_ref_unwrapped vs P');
+assert(length(vd_ref) == size(P,1), ...
+    'Size mismatch: vd_ref vs P');
+assert(length(wd_ref) == size(P,1), ...
+    'Size mismatch: wd_ref vs P');
+
 clear out x_out y_out theta_out
 
 %% =========================
 % 12) Run Simulink model
 % ==========================
-out = sim('Traj', 'StopTime', num2str(T_end));
+out = sim('Traj2', 'StopTime', num2str(T_end));
 
 %% =========================
 % 13) Read outputs
@@ -461,4 +464,7 @@ for k = 1:length(x)
         'VData', sin(theta(k)));
     set(traj, 'XData', x(1:k), 'YData', y(1:k));
     drawnow;
+    pause(Ts_ref);
 end
+
+%%
