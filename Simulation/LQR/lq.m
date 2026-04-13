@@ -28,25 +28,25 @@ goalThetaTol = deg2rad(8);    % [rad]
 resolution = 10;
 map = binaryOccupancyMap(10, 10, resolution);
 
-% Obstacle 1: lower-left vertical block
-[X1, Y1] = meshgrid(1.0:0.1:2.0, 1.0:0.1:3.8);
-setOccupancy(map, [X1(:) Y1(:)], 1);
-
-% Obstacle 2: upper-left block
-[X2, Y2] = meshgrid(1.5:0.1:3.2, 5.2:0.1:7.8);
-setOccupancy(map, [X2(:) Y2(:)], 1);
-
-% Obstacle 3: center-lower block
-[X3, Y3] = meshgrid(4.0:0.1:5.8, 2.0:0.1:4.2);
-setOccupancy(map, [X3(:) Y3(:)], 1);
-
-% Obstacle 4: center-upper block
-[X4, Y4] = meshgrid(4.8:0.1:6.4, 5.3:0.1:7.2);
-setOccupancy(map, [X4(:) Y4(:)], 1);
-
-% Obstacle 5: right-lower block
-[X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
-setOccupancy(map, [X5(:) Y5(:)], 1);
+% % Obstacle 1: lower-left vertical block
+% [X1, Y1] = meshgrid(1.0:0.1:2.0, 1.0:0.1:3.8);
+% setOccupancy(map, [X1(:) Y1(:)], 1);
+% 
+% % Obstacle 2: upper-left block
+% [X2, Y2] = meshgrid(1.5:0.1:3.2, 5.2:0.1:7.8);
+% setOccupancy(map, [X2(:) Y2(:)], 1);
+% 
+% % Obstacle 3: center-lower block
+% [X3, Y3] = meshgrid(4.0:0.1:5.8, 2.0:0.1:4.2);
+% setOccupancy(map, [X3(:) Y3(:)], 1);
+% 
+% % Obstacle 4: center-upper block
+% [X4, Y4] = meshgrid(4.8:0.1:6.4, 5.3:0.1:7.2);
+% setOccupancy(map, [X4(:) Y4(:)], 1);
+% 
+% % Obstacle 5: right-lower block
+% [X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
+% setOccupancy(map, [X5(:) Y5(:)], 1);
 % 
 % % Obstacle 6: right-upper block
 % [X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
@@ -476,7 +476,8 @@ xlabel('x (m)');
 ylabel('y (m)');
 title(['Robot Motion on Planned Path - ' char(plannerType)]);
 
-for k = 1:length(x)
+step = 10;
+for k = 1:step:length(x)
     set(robot, 'XData', x(k), 'YData', y(k));
     set(dirr, ...
         'XData', x(k), ...
@@ -485,7 +486,7 @@ for k = 1:length(x)
         'VData', sin(theta(k)));
     set(traj, 'XData', x(1:k), 'YData', y(1:k));
     drawnow;
-    pause(Ts_ref);
+    pause(0.00001);
 end
 
 %%
