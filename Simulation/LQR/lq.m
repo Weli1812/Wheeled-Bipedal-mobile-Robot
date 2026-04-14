@@ -413,7 +413,7 @@ K = lqr(A, B, Q, R);
 %% =========================
 % 10) Simulation time
 % ==========================
-T_end = t_vec(end) + 4;
+T_end = t_vec(end) + 5.4;
 
 %% =========================
 % 11) Prepare signals for Simulink
