@@ -1,507 +1,517 @@
-%% ================================================================
-%  BIPEDAL TWO-WHEELED SELF-BALANCING ROBOT
-%  Kinematic Model, Dynamic Model & LQR Control
-% ================================================================
-% Methodology follows the structure of:
-%   "Trajectory Tracking Control of a Nonholonomic Mobile Robot
-%    with Differential Drive" – Silva Sousa et al., 2016
+%% =========================================================
+%  WHEEL-BIPED ROBOT ANIMATION — SCENARIO A ONLY
+%  Run this file directly. No other files needed.
 %
-% The BIPEDAL variant extends that work by adding a body that must
-% be actively balanced (inverted-pendulum on differential wheels).
-%
-% SYSTEM OVERVIEW
-% ----------------
-%   • Two driven wheels, differential configuration
-%   • Body modelled as a rigid pendulum above the wheel axle
-%   • Needs active BALANCING (pitch) + POSITION + HEADING control
-%
-% DECOUPLED SUBSYSTEMS
-% ---------------------
-%   1. Longitudinal:  [theta, theta_dot, x_p, x_p_dot]  — balance + forward
-%      Input: u1 = tau_R + tau_L  (sum of wheel torques)
-%
-%   2. Lateral (Yaw): [psi, psi_dot]  — heading
-%      Input: u2 = tau_R - tau_L  (differential torque)
-%
-% Each subsystem gets its own LQR controller.
-% ================================================================
+%  What happens step by step:
+%  1. Robot parameters are defined
+%  2. LQR controller is designed
+%  3. Robot response is simulated (Scenario A: tilt only)
+%  4. If tilt exceeds the allowed maximum before stabilization,
+%     the controller is switched OFF
+%  5. Animation + torque plots are shown
+%% =========================================================
 
-clear all; clc; close all;
+clear; clc; close all;
 
-fprintf('============================================================\n');
-fprintf('   BIPEDAL TWO-WHEELED ROBOT — KINEMATICS & LQR CONTROL\n');
-fprintf('============================================================\n\n');
+fprintf('=== WHEEL-BIPED ROBOT ANIMATION ===\n');
+fprintf('Step 1: Setting up parameters...\n');
 
-%% ================================================================
-%  SECTION I — PHYSICAL PARAMETERS
-% ================================================================
-fprintf('=== SECTION I: ROBOT PARAMETERS ===\n');
+%% =========================================================
+%  STEP 1 — ROBOT PARAMETERS
+%% =========================================================
+g     = 9.81;
+Mb    = 11.3;
+Mw    = 0.150;
+Iw    = 0.00027572;
+r     = 0.060;
+d     = 0.45;
+b_hip = 0.05;
 
-M_b = 1.5;                   % Body (chassis) mass         [kg]
-M_w = 0.05;                  % Mass of each wheel          [kg]
-R   = 0.05;                  % Wheel radius                [m]
-L   = 0.30;                  % Distance between wheels     [m]
-d   = 0.20;                  % Wheel axle → body CoM       [m]
-I_b = 0.02;                  % Body pitch inertia          [kg·m²]
-I_w = 0.5 * M_w * R^2;      % Wheel axle inertia (disk)   [kg·m²]
-I_z = (1/12)*M_b*(L^2/4 + d^2);  % Body yaw inertia       [kg·m²]
-g   = 9.81;                  % Gravity                     [m/s²]
+h_lut  = [0.170, 0.284, 0.311];
+Iy_lut = [0.137, 0.276, 0.317];
+Iz_lut = [0.134, 0.123, 0.118];
+L_lut  = [0.170, 0.284, 0.311];
 
-fprintf('  M_b = %.2f kg   (body mass)\n',   M_b);
-fprintf('  M_w = %.3f kg  (wheel mass, each)\n', M_w);
-fprintf('  R   = %.3f m   (wheel radius)\n', R);
-fprintf('  L   = %.3f m   (track width)\n',  L);
-fprintf('  d   = %.3f m   (CoM height)\n',   d);
-fprintf('  I_b = %.4f kg·m²  (pitch inertia)\n', I_b);
-fprintf('  I_w = %.6f kg·m²  (wheel inertia)\n', I_w);
-fprintf('  I_z = %.6f kg·m²  (yaw inertia)\n\n', I_z);
+h_ref  = 0.284;
 
+%% =========================================================
+%  STEP 2 — BUILD LQR CONTROLLER
+%% =========================================================
+fprintf('Step 2: Building LQR controller...\n');
 
-%% ================================================================
-%  SECTION II — KINEMATIC MODEL  (mirrors paper Eqs 1-6)
-% ================================================================
-%
-%  Let:  v_R = R * phi_dot_R      (right wheel linear speed)
-%        v_L = R * phi_dot_L      (left  wheel linear speed)
-%
-%  Wheel speeds from robot velocity (analogous to paper Eqs 1-2):
-%
-%        v_R = v + (L/2) * omega                       ...(1)
-%        v_L = v - (L/2) * omega                       ...(2)
-%
-%  Inverse (analogous to paper Eqs 3-4):
-%
-%        v     = (v_R + v_L) / 2                       ...(3)
-%        omega = (v_R - v_L) / L                       ...(4)
-%
-%  Nonholonomic constraint — robot CANNOT move sideways
-%  (analogous to paper Eq 5):
-%
-%        -sin(psi)·x_dot + cos(psi)·y_dot = 0         ...(5)
-%
-%  Kinematic model in world frame (analogous to paper Eq 6):
-%
-%   [ x_dot   ]   [ cos(psi)  0 ]   [ v     ]
-%   [ y_dot   ] = [ sin(psi)  0 ] · [       ]         ...(6)
-%   [ psi_dot ]   [    0      1 ]   [ omega ]
-%
-%  EXTENSION for the balancing body:
-%
-%   [ theta_dot ] = theta_dot          (lean-angle kinematics)
-%
-%  Full state: q = [x, y, psi, theta, theta_dot]
-%
-fprintf('=== SECTION II: KINEMATIC MODEL ===\n');
-fprintf('  v_R = v + (L/2)*omega             ...(1)\n');
-fprintf('  v_L = v - (L/2)*omega             ...(2)\n');
-fprintf('  v   = (v_R + v_L) / 2            ...(3)\n');
-fprintf('  ω   = (v_R - v_L) / L            ...(4)\n');
-fprintf('  Constraint: -sin(ψ)ẋ+cos(ψ)ẏ=0   ...(5)\n');
-fprintf('  Kinematic model:                   ...(6)\n');
-fprintf('    ẋ   = v·cos(ψ)\n');
-fprintf('    ẏ   = v·sin(ψ)\n');
-fprintf('    ψ̇   = (v_R - v_L)/L\n\n');
+[A, B, ~] = get_model(h_ref, g, Mb, Mw, Iw, r, d, ...
+                      h_lut, Iy_lut, Iz_lut, L_lut, b_hip);
 
+Q = diag([200, 10, 20, 80, 5, 1, 1, 2]);
+R = diag([1.0, 1.0, 0.5]);
+K = lqr(A, B, Q, R);
 
-%% ================================================================
-%  SECTION III — DYNAMIC MODEL  (Euler-Lagrange)
-% ================================================================
-%
-%  Generalised coordinates:  q = [x_p, theta]
-%    x_p   = forward displacement along heading direction  [m]
-%    theta = body lean angle from vertical                 [rad]
-%
-%  Kinetic energy:
-%    T = ½·alpha·ẋ_p² + beta·cos(θ)·ẋ_p·θ̇ + ½·gamma·θ̇²
-%
-%  Potential energy:
-%    V = M_b·g·d·cos(θ)
-%
-%  Intermediate inertia terms:
-%    alpha = M_b + 2·M_w + 2·I_w/R²     (translational)
-%    beta  = M_b·d                       (coupling)
-%    gamma = I_b + M_b·d²               (rotational / pitch)
-%
-%  Virtual work by wheel torques τ_total = τ_R + τ_L:
-%    Q_{x_p}  =  τ_total / R
-%    Q_{theta} = -τ_total        (motor reaction on body)
-%
-%  Euler-Lagrange Equations of Motion (nonlinear):
-%
-%    alpha·ẍ_p + beta·cos(θ)·θ̈ - beta·sin(θ)·θ̇²
-%           =  τ_total / R                             ...(7)
-%
-%    beta·cos(θ)·ẍ_p + gamma·θ̈ - M_b·g·d·sin(θ)
-%           = -τ_total                                 ...(8)
-%
-%  Matrix form:  M_inertia · q̈  =  f(q,q̇,τ)
-%    M_inertia = [alpha, beta; beta, gamma]
-%
-%  Linearised around θ=0, θ̇=0, ẋ_p=0  (upright equilibrium):
-%
-%    alpha·ẍ_p + beta·θ̈  = τ_total / R               ...(7L)
-%    beta·ẍ_p  + gamma·θ̈ = M_b·g·d·θ - τ_total       ...(8L)
-%
-%  Solving (invert 2×2 inertia matrix, det = D):
-%    θ̈   = (alpha·M_b·g·d / D)·θ  -  ((alpha + beta/R)/D)·τ  ...(9)
-%    ẍ_p = -(beta·M_b·g·d / D)·θ  +  ((gamma/R + beta)/D)·τ  ...(10)
+Acl = A - B*K;
 
-alpha   = M_b + 2*M_w + 2*I_w/R^2;
-beta    = M_b * d;
-gam     = I_b + M_b*d^2;
-D       = alpha*gam - beta^2;
-
-fprintf('=== SECTION III: DYNAMIC MODEL ===\n');
-fprintf('  alpha = M_b+2M_w+2I_w/R² = %.4f kg\n',    alpha);
-fprintf('  beta  = M_b·d            = %.4f kg·m\n',  beta);
-fprintf('  gamma = I_b+M_b·d²       = %.4f kg·m²\n', gam);
-fprintf('  D     = alpha·gamma-beta² = %.4f\n\n',     D);
-
-
-%% ================================================================
-%  SECTION IV — LINEARISED STATE-SPACE MODEL
-% ================================================================
-%
-%  ---- A) LONGITUDINAL SUBSYSTEM ----
-%  State:  z1 = [theta; theta_dot; x_p; x_p_dot]
-%  Input:  u1 = tau_R + tau_L                [N·m]
-%
-%  From Eqs (9)-(10):
-%
-%   d/dt [theta    ]   [         0          1   0  0 ] [theta    ]
-%        [theta_dot] = [alpha·Mbg·d/D       0   0  0 ] [theta_dot]
-%        [x_p      ]   [         0          0   0  1 ] [x_p      ]
-%        [x_p_dot  ]   [-beta·Mbg·d/D       0   0  0 ] [x_p_dot  ]
-%
-%                    + [            0           ]
-%                      [-(alpha+beta/R)/D       ] · u1
-%                      [            0           ]
-%                      [(gamma/R+beta)/D        ]
-
-A_lon = [ 0,                    1,   0,  0 ;
-          alpha*M_b*g*d/D,      0,   0,  0 ;
-          0,                    0,   0,  1 ;
-         -beta*M_b*g*d/D,       0,   0,  0 ];
-
-B_lon = [  0 ;
-          -(alpha + beta/R)/D ;
-           0 ;
-           (gam/R + beta)/D   ];
-
-%  ---- B) LATERAL (YAW) SUBSYSTEM ----
-%  State:  z2 = [psi; psi_dot]
-%  Input:  u2 = tau_R - tau_L               [N·m]
-%
-%  Effective yaw inertia (body + both wheels about vertical axis):
-%    I_psi = I_z + 2·(I_w + M_w·(L/2)²)
-%
-%  Yaw torque from differential input:
-%    T_yaw = (tau_R - tau_L)·L/(2R) = u2·L/(2R)
-%
-%   d/dt [psi    ]   [0  1] [psi    ]   [      0         ]
-%        [psi_dot] = [0  0] [psi_dot] + [L/(2R·I_psi_eff)] · u2
-
-I_psi_eff = I_z + 2*(I_w + M_w*(L/2)^2);
-
-A_lat = [ 0,  1 ;
-          0,  0 ];
-
-B_lat = [ 0 ;
-          L / (2*R*I_psi_eff) ];
-
-fprintf('=== SECTION IV: STATE-SPACE MODEL ===\n');
-fprintf('-- Longitudinal --\n');
-fprintf('A_lon =\n'); disp(A_lon);
-fprintf('B_lon =\n'); disp(B_lon);
-fprintf('-- Lateral --\n');
-fprintf('A_lat =\n'); disp(A_lat);
-fprintf('B_lat =\n'); disp(B_lat);
-
-% Controllability check
-rank_lon = rank(ctrb(A_lon, B_lon));
-rank_lat = rank(ctrb(A_lat, B_lat));
-fprintf('Controllability ranks — Longitudinal: %d/4   Lateral: %d/2\n\n', ...
-        rank_lon, rank_lat);
-
-% Open-loop poles (longitudinal)
-fprintf('Open-loop poles (longitudinal): ');
-disp(eig(A_lon).');
-
-
-%% ================================================================
-%  SECTION V — LQR CONTROLLER DESIGN
-% ================================================================
-%
-%  Optimal gain K minimises:
-%    J = ∫₀^∞ ( z'·Q·z + u'·R_lqr·u ) dt
-%
-%  Control law:  u = -K·(z - z_ref)   =>   u = K·e
-%
-%  Q penalises state errors; R_lqr penalises actuator effort.
-%  Heavier Q on theta → robot prioritises balance.
-
-fprintf('=== SECTION V: LQR DESIGN ===\n');
-
-% ---- Longitudinal LQR ----
-%  Q: [theta, theta_dot, x_p, x_p_dot]
-Q_lon   = diag([300, 1, 30, 5]);
-R_lon   = 1.0;
-
-[K_lon, ~, cl_poles_lon] = lqr(A_lon, B_lon, Q_lon, R_lon);
-
-fprintf('Q_lon = diag([300, 1, 30, 5]),  R_lon = %.1f\n', R_lon);
-fprintf('K_lon = [%7.4f  %7.4f  %7.4f  %7.4f]\n', K_lon);
-fprintf('Closed-loop poles (longitudinal):\n');
-for i=1:4
-    fprintf('  λ_%d = %+.4f %+.4fi\n', i, real(cl_poles_lon(i)), imag(cl_poles_lon(i)));
+ev = eig(Acl);
+if all(real(ev) < 0)
+    fprintf('  Controller: STABLE (all eigenvalues negative)\n');
+else
+    fprintf('  WARNING: controller may be unstable!\n');
 end
 
-% ---- Lateral LQR ----
-%  Q: [psi, psi_dot]
-Q_lat   = diag([80, 1]);
-R_lat   = 1.0;
+%% =========================================================
+%  STEP 3 — SIMULATE SCENARIO A
+%% =========================================================
+fprintf('Step 3: Simulating robot response...\n');
 
-[K_lat, ~, cl_poles_lat] = lqr(A_lat, B_lat, Q_lat, R_lat);
+dt    = 0.010;
+t_end = 4.0;
+t     = (0 : dt : t_end)';
+N     = length(t);
 
-fprintf('\nQ_lat = diag([80, 1]),  R_lat = %.1f\n', R_lat);
-fprintf('K_lat = [%7.4f  %7.4f]\n', K_lat);
-fprintf('Closed-loop poles (lateral):\n');
-for i=1:2
-    fprintf('  λ_%d = %+.4f %+.4fi\n', i, real(cl_poles_lat(i)), imag(cl_poles_lat(i)));
-end
-fprintf('\n');
+tilt = 6;   % <-- change this value to test different angles
 
+% --- SCENARIO A: robot tilted by 'tilt' degrees ---
+% States in this model:
+% x = [phi; s; theta; Dh; phidot; v; omega; Dhdot]
+x0A = [tilt*pi/180; 0; 0; 0; 0; 0; 0; 0];
 
-%% ================================================================
-%  SECTION VI — SIMULATION
-% ================================================================
-%
-%  Mimics the paper's Section V-VI approach:
-%    • Start with initial posture error
-%    • Euler integration of closed-loop system
-%    • Collect state history for plotting
-%
-%  Two test cases are run (as in the paper Figs 9 & 12):
-%    Case 1 — Large tilt + position offset  (balance recovery)
-%    Case 2 — Large heading offset          (yaw correction)
+% Physical validity gate
+phi_tip   = atan(r / h_ref) * 180/pi;   % about tipping geometry
+phi0A_deg = abs(x0A(1)) * 180/pi;
 
-fprintf('=== SECTION VI: SIMULATION ===\n');
-
-dt      = 0.005;        % Sampling time  [s]
-T_sim   = 12;           % Total time     [s]
-t       = 0:dt:T_sim;
-N       = length(t);
-tau_max = 3.0;          % Actuator saturation  [N·m]
-
-% ---------- CASE 1: Balance + position recovery ----------
-z1_lon  = [0.15; 0; -0.5; 0];   % theta=0.15 rad, x_p=-0.5 m
-z1_lat  = [pi/6; 0];             % psi=30 deg
-
-r_lon   = zeros(4,1);   % reference: upright, origin
-r_lat   = zeros(2,1);   % reference: psi = 0
-
-Z1_lon  = zeros(4,N);   Z1_lat = zeros(2,N);
-U1_1    = zeros(1,N);   U2_1   = zeros(1,N);
-Xw1=zeros(1,N); Yw1=zeros(1,N);
-xw=0; yw=0;
-
-for k=1:N
-    Z1_lon(:,k)=z1_lon;  Z1_lat(:,k)=z1_lat;
-    Xw1(k)=xw; Yw1(k)=yw;
-
-    u1 = K_lon*(r_lon - z1_lon);
-    u2 = K_lat*(r_lat - z1_lat);
-    u1 = max(-tau_max, min(tau_max, u1));
-    u2 = max(-tau_max, min(tau_max, u2));
-    U1_1(k)=u1;  U2_1(k)=u2;
-
-    v_k = z1_lon(4);  psi_k = z1_lat(1);
-    xw  = xw + dt*v_k*cos(psi_k);
-    yw  = yw + dt*v_k*sin(psi_k);
-
-    z1_lon = z1_lon + dt*(A_lon*z1_lon + B_lon*u1);
-    z1_lat = z1_lat + dt*(A_lat*z1_lat + B_lat*u2);
+if phi0A_deg >= 90
+    error('STOPPED: %.1f° is physically impossible — robot is horizontal or upside down. Use an angle below 90°.', phi0A_deg);
+elseif phi0A_deg > 3 * phi_tip
+    error('STOPPED: %.1f° is beyond the linearization limit (~%.1f°). The simulation result would be meaningless. Use a smaller angle.', ...
+          phi0A_deg, 3*phi_tip);
 end
 
-% ---------- CASE 2: Heading-only correction ----------
-z2_lon  = [0.05; 0; 0; 0];      % small tilt only
-z2_lat  = [pi/2; 0];            % psi=90 deg offset
+%% --- CONTROLLER SHUTDOWN SETTINGS ---
+% If tilt exceeds max_tilt_deg before the robot settles, controller turns OFF.
+max_tilt_deg    = 8.0;    % controller cutoff threshold
+phi_tol_deg     = 0.5;    % considered settled if |phi| stays below this
+phidot_tol_deg  = 5.0;    % deg/s
+stable_time_req = 0.25;   % must remain settled for this long
 
-Z2_lon  = zeros(4,N);   Z2_lat = zeros(2,N);
-U1_2    = zeros(1,N);   U2_2   = zeros(1,N);
-Xw2=zeros(1,N); Yw2=zeros(1,N);
-xw=0; yw=0;
+max_tilt_rad   = deg2rad(max_tilt_deg);
+phi_tol_rad    = deg2rad(phi_tol_deg);
+phidot_tol_rad = deg2rad(phidot_tol_deg);
+N_stable       = ceil(stable_time_req / dt);
 
-for k=1:N
-    Z2_lon(:,k)=z2_lon;  Z2_lat(:,k)=z2_lat;
-    Xw2(k)=xw; Yw2(k)=yw;
+%% --- DISCRETIZE THE OPEN-LOOP MODEL ---
+% We simulate step-by-step so we can switch controller OFF during the run.
+sysc = ss(A, B, eye(8), zeros(8,3));
+sysd = c2d(sysc, dt);
 
-    u1 = K_lon*(r_lon - z2_lon);
-    u2 = K_lat*(r_lat - z2_lat);
-    u1 = max(-tau_max, min(tau_max, u1));
-    u2 = max(-tau_max, min(tau_max, u2));
-    U1_2(k)=u1;  U2_2(k)=u2;
+Ad = sysd.A;
+Bd = sysd.B;
 
-    v_k = z2_lon(4);  psi_k = z2_lat(1);
-    xw  = xw + dt*v_k*cos(psi_k);
-    yw  = yw + dt*v_k*sin(psi_k);
+%% --- STORAGE ---
+xA     = zeros(N, 8);
+u_hist = zeros(N, 3);
 
-    z2_lon = z2_lon + dt*(A_lon*z2_lon + B_lon*u1);
-    z2_lat = z2_lat + dt*(A_lat*z2_lat + B_lat*u2);
+xA(1,:) = x0A.';
+controller_on = true;
+stabilized    = false;
+stable_count  = 0;
+stop_idx      = NaN;
+
+for k = 1:N-1
+    xk = xA(k,:).';
+
+    % States
+    phi_k    = xk(1);   % tilt angle
+    phidot_k = xk(5);   % tilt rate
+
+    % Check if robot has stabilized
+    if ~stabilized
+        if abs(phi_k) < phi_tol_rad && abs(phidot_k) < phidot_tol_rad
+            stable_count = stable_count + 1;
+            if stable_count >= N_stable
+                stabilized = true;
+                fprintf('  Robot stabilized at t = %.3f s\n', t(k));
+            end
+        else
+            stable_count = 0;
+        end
+    end
+
+    % Stop controller if tilt exceeds the allowed limit before stabilization
+    if controller_on && ~stabilized
+        if abs(phi_k) > max_tilt_rad
+            controller_on = false;
+            stop_idx = k;
+            fprintf('  Controller switched OFF at t = %.3f s because |phi| = %.2f deg exceeded %.2f deg before stabilization.\n', ...
+                    t(k), rad2deg(abs(phi_k)), max_tilt_deg);
+        end
+    end
+
+    % Control law
+    if controller_on
+        uk = -K * xk;
+    else
+        uk = zeros(3,1);   % controller OFF
+    end
+
+    % Save input
+    u_hist(k,:) = uk.';
+
+    % State update
+    xA(k+1,:) = (Ad * xk + Bd * uk).';
 end
 
-fprintf('  Case 1: theta0=0.15 rad, x_p0=-0.5 m, psi0=30 deg\n');
-fprintf('  Case 2: theta0=0.05 rad, psi0=90 deg\n');
-fprintf('  Simulation complete.\n\n');
+% Last input sample
+u_hist(end,:) = u_hist(end-1,:);
 
+% Torques for plotting
+tau_L   = u_hist(:, 1);
+tau_R   = u_hist(:, 2);
+tau_hip = u_hist(:, 3);
 
-%% ================================================================
-%  SECTION VII — PLOTS  (mirrors paper Figs 7-12)
-% ================================================================
+fprintf('  Simulation complete.\n');
+fprintf('Step 4: Starting animation...\n\n');
 
-blue = [0.12 0.47 0.71];
-red  = [0.84 0.15 0.16];
-grn  = [0.17 0.63 0.17];
+%% =========================================================
+%  STEP 4 — ANIMATE
+%% =========================================================
+scenario_title = sprintf('Scenario A: %g degree tilt', tilt);
+fprintf('--- %s ---\n', scenario_title);
 
-%% ---- Figure 1: Longitudinal states — Case 1 ----
-figure('Name','Fig1: Longitudinal States – Case 1','Position',[30 30 920 750]);
-sgtitle('Fig 1 — Longitudinal Closed-Loop Response (Case 1)', ...
-        'FontSize',13,'FontWeight','bold');
+% Pull out states
+phi   = xA(:, 1);
+s     = xA(:, 2);
+Dh    = xA(:, 4);
+h_now = h_ref + Dh;
 
-subplot(4,1,1);
-plot(t, Z1_lon(1,:)*180/pi, 'Color',blue,'LineWidth',2); hold on;
-yline(0,'--','Color',red,'LineWidth',1.5,'Label','\theta_{ref}=0');
-xlabel('Time [s]'); ylabel('\theta [deg]');
-title('Body Tilt Angle  (Balance)'); grid on; ylim([-5 15]);
+%% --- CREATE FIGURE ---
+fig = figure('Name', scenario_title, ...
+             'NumberTitle', 'off', ...
+             'Color', [0.08 0.08 0.12], ...
+             'Position', [50 50 1400 750]);
 
-subplot(4,1,2);
-plot(t, Z1_lon(2,:)*180/pi,'Color',blue,'LineWidth',2); hold on;
-yline(0,'--','Color',red,'LineWidth',1.5);
-xlabel('Time [s]'); ylabel('\thetȧ [deg/s]');
-title('Tilt Rate'); grid on;
+%% --- 3D ANIMATION PANEL (left side) ---
+ax3 = axes('Parent', fig, ...
+           'Position', [0.02 0.10 0.44 0.82], ...
+           'Color',    [0.08 0.08 0.12], ...
+           'XColor', [0.7 0.7 0.7], ...
+           'YColor', [0.7 0.7 0.7], ...
+           'ZColor', [0.7 0.7 0.7], ...
+           'GridAlpha', 0.3);
+hold(ax3, 'on');
+grid(ax3, 'on');
+view(ax3, 35, 15);
+xlabel(ax3, 'Forward (m)', 'Color', [0.8 0.8 0.8]);
+ylabel(ax3, 'Lateral (m)', 'Color', [0.8 0.8 0.8]);
+zlabel(ax3, 'Height (m)',  'Color', [0.8 0.8 0.8]);
+title(ax3, scenario_title, 'Color', 'w', 'FontSize', 13, 'FontWeight', 'bold');
 
-subplot(4,1,3);
-plot(t, Z1_lon(3,:),'Color',blue,'LineWidth',2); hold on;
-yline(0,'--','Color',red,'LineWidth',1.5,'Label','x_{ref}=0');
-xlabel('Time [s]'); ylabel('x_p [m]');
-title('Forward Position'); grid on;
+ax3.XLim = [-0.35  0.35];
+ax3.YLim = [-0.35  0.35];
+ax3.ZLim = [ 0     0.60];
 
-subplot(4,1,4);
-plot(t, Z1_lon(4,:),'Color',blue,'LineWidth',2); hold on;
-yline(0,'--','Color',red,'LineWidth',1.5);
-xlabel('Time [s]'); ylabel('v [m/s]');
-title('Linear Velocity'); grid on;
+%% --- STATIC GROUND ---
+patch(ax3, [-0.5 0.5 0.5 -0.5], [-0.35 -0.35 0.35 0.35], [0 0 0 0], ...
+      [0.30 0.28 0.22], 'EdgeColor', 'none', 'FaceAlpha', 0.6);
 
-%% ---- Figure 2: Yaw states — Case 1 ----
-figure('Name','Fig2: Yaw States – Case 1','Position',[60 60 920 450]);
-sgtitle('Fig 2 — Yaw (Heading) Closed-Loop Response (Case 1)', ...
-        'FontSize',13,'FontWeight','bold');
+%% --- ROBOT PARTS ---
+% Left wheel
+[wV, wF]  = make_wheel(r, 0.038, 32);
+h_tyre_L  = patch(ax3, 'Faces', wF, 'Vertices', wV, ...
+                  'FaceColor', [0.12 0.12 0.12], 'EdgeColor', 'none');
+h_hub_L   = patch(ax3, 'Faces', wF(1:32,:), 'Vertices', wV, ...
+                  'FaceColor', [0.75 0.10 0.10], 'EdgeColor', 'none');
 
-subplot(2,1,1);
-plot(t, Z1_lat(1,:)*180/pi,'Color',blue,'LineWidth',2); hold on;
-yline(0,'--','Color',red,'LineWidth',1.5,'Label','\psi_{ref}=0');
-xlabel('Time [s]'); ylabel('\psi [deg]');
-title('Heading Angle'); grid on;
+% Right wheel
+h_tyre_R  = patch(ax3, 'Faces', wF, 'Vertices', wV, ...
+                  'FaceColor', [0.80 0.76 0.68], 'EdgeColor', 'none');
+h_hub_R   = patch(ax3, 'Faces', wF(1:32,:), 'Vertices', wV, ...
+                  'FaceColor', [0.55 0.55 0.55], 'EdgeColor', 'none');
 
-subplot(2,1,2);
-plot(t, Z1_lat(2,:)*180/pi,'Color',blue,'LineWidth',2); hold on;
-yline(0,'--','Color',red,'LineWidth',1.5);
-xlabel('Time [s]'); ylabel('\psi̇ [deg/s]');
-title('Yaw Rate'); grid on;
+% Axle
+h_axle = line(ax3, [0 0], [-d/2 d/2], [r r], ...
+              'Color', [0.55 0.55 0.60], 'LineWidth', 4);
 
-%% ---- Figure 3: Control Inputs — Case 1 ----
-figure('Name','Fig3: Control Inputs – Case 1','Position',[90 90 920 420]);
-sgtitle('Fig 3 — Wheel Torque Inputs (Case 1)', ...
-        'FontSize',13,'FontWeight','bold');
+% Scissor linkage
+h_link_L1 = line(ax3, [0 0], [-d/2 -d/2], [0 0], 'Color', [0.68 0.70 0.74], 'LineWidth', 4);
+h_link_L2 = line(ax3, [0 0], [-d/2 -d/2], [0 0], 'Color', [0.68 0.70 0.74], 'LineWidth', 4);
+h_link_R1 = line(ax3, [0 0], [ d/2  d/2], [0 0], 'Color', [0.68 0.70 0.74], 'LineWidth', 4);
+h_link_R2 = line(ax3, [0 0], [ d/2  d/2], [0 0], 'Color', [0.68 0.70 0.74], 'LineWidth', 4);
 
-subplot(2,1,1);
-plot(t, U1_1,'k-','LineWidth',1.8); hold on;
-yline( tau_max,'r--','LineWidth',1.3,'Label','Saturation');
-yline(-tau_max,'r--','LineWidth',1.3);
-xlabel('Time [s]'); ylabel('[N·m]');
-title('u_1 = \tau_R + \tau_L  (Balance / Forward)'); grid on;
+% Pivot dots
+h_piv = gobjects(8,1);
+for pi = 1:8
+    h_piv(pi) = line(ax3, 0, 0, 0, ...
+                     'Marker', 'o', 'MarkerSize', 7, ...
+                     'MarkerFaceColor', [0.40 0.40 0.45], ...
+                     'MarkerEdgeColor', 'none', 'LineStyle', 'none');
+end
 
-subplot(2,1,2);
-plot(t, U2_1,'k-','LineWidth',1.8); hold on;
-yline( tau_max,'r--','LineWidth',1.3,'Label','Saturation');
-yline(-tau_max,'r--','LineWidth',1.3);
-xlabel('Time [s]'); ylabel('[N·m]');
-title('u_2 = \tau_R - \tau_L  (Steering / Yaw)'); grid on;
+% Platform
+[pV, pF] = make_box(0.22, 0.38, 0.014);
+h_platform = patch(ax3, 'Faces', pF, 'Vertices', pV, ...
+                   'FaceColor', [0.58 0.60 0.64], ...
+                   'EdgeColor', [0.75 0.75 0.80], 'LineWidth', 0.8);
 
-%% ---- Figure 4: XY Trajectory — both cases ----
-figure('Name','Fig4: XY Trajectory','Position',[120 120 620 620]);
-plot(Xw1, Yw1, '-','Color',blue,'LineWidth',2.5); hold on;
-plot(Xw2, Yw2, '-','Color',grn,'LineWidth',2.5);
-plot(Xw1(1),Yw1(1),'o','Color',blue,'MarkerSize',10,'MarkerFaceColor',blue);
-plot(Xw2(1),Yw2(1),'o','Color',grn,'MarkerSize',10,'MarkerFaceColor',grn);
-plot(0,0,'rs','MarkerSize',12,'MarkerFaceColor','r');
-xlabel('X [m]','FontSize',12); ylabel('Y [m]','FontSize',12);
-title('Fig 4 — Robot Trajectory in XY Plane', ...
-      'FontSize',13,'FontWeight','bold');
-legend({'Case 1  (\theta_0=0.15, x_{p0}=-0.5, \psi_0=30°)', ...
-        'Case 2  (\theta_0=0.05, \psi_0=90°)', ...
-        'Case 1 start','Case 2 start','Target (0,0)'}, ...
-       'Location','best');
-grid on; axis equal;
+% Body box
+[bV, bF] = make_box(0.20, 0.28, 0.18);
+h_body = patch(ax3, 'Faces', bF, 'Vertices', bV, ...
+               'FaceColor', [0.22 0.24 0.28], ...
+               'EdgeColor', [0.48 0.55 0.65], 'LineWidth', 1.0);
 
-%% ---- Figure 5: State Errors — both cases (mirrors Fig 8 & 11) ----
-figure('Name','Fig5: State Errors','Position',[150 150 920 620]);
-sgtitle('Fig 5 — State Error Convergence', ...
-        'FontSize',13,'FontWeight','bold');
+% Time label
+h_time = text(ax3, -0.30, 0, 0.57, 't = 0.00 s', ...
+              'Color', 'w', 'FontSize', 11, 'FontWeight', 'bold', ...
+              'FontName', 'Courier New');
 
-subplot(3,1,1);
-plot(t, Z1_lon(1,:)*180/pi,'Color',blue,'LineWidth',2); hold on;
-plot(t, Z2_lon(1,:)*180/pi,'--','Color',grn,'LineWidth',2);
-yline(0,'r:','LineWidth',1.5);
-xlabel('Time [s]'); ylabel('\theta error [deg]');
-title('Tilt Angle Error'); grid on;
-legend('Case 1','Case 2');
+% Controller status label
+if isnan(stop_idx)
+    status_text = 'Controller: ON';
+    status_color = [0.2 1.0 0.2];
+else
+    status_text = sprintf('Controller OFF at %.2f s', t(stop_idx));
+    status_color = [1.0 0.3 0.3];
+end
 
-subplot(3,1,2);
-plot(t, Z1_lon(3,:),'Color',blue,'LineWidth',2); hold on;
-plot(t, Z2_lon(3,:),'--','Color',grn,'LineWidth',2);
-yline(0,'r:','LineWidth',1.5);
-xlabel('Time [s]'); ylabel('x_p error [m]');
-title('Position Error'); grid on;
-legend('Case 1','Case 2');
+h_status = text(ax3, -0.30, 0, 0.53, status_text, ...
+                'Color', status_color, 'FontSize', 11, 'FontWeight', 'bold', ...
+                'FontName', 'Courier New');
 
-subplot(3,1,3);
-plot(t, Z1_lat(1,:)*180/pi,'Color',blue,'LineWidth',2); hold on;
-plot(t, Z2_lat(1,:)*180/pi,'--','Color',grn,'LineWidth',2);
-yline(0,'r:','LineWidth',1.5);
-xlabel('Time [s]'); ylabel('\psi error [deg]');
-title('Heading Error'); grid on;
-legend('Case 1','Case 2');
+%% --- PLOTS PANEL (right side: 5 stacked plots) ---
+col_plot = {[0.4 0.65 1.0],  [1.0 0.55 0.25],  [0.35 0.90 0.50], ...
+            [0.90 0.35 0.75], [0.95 0.85 0.25]};
+y_data   = {phi*180/pi,  Dh*1000,       s*1000,    tau_L,          tau_R};
+y_label  = {'\phi (deg)', '\Deltah (mm)', 's (mm)', '\tau_L (N.m)', '\tau_R (N.m)'};
+p_title  = {'Body tilt angle', 'Height deviation', 'Forward position', ...
+            'Left wheel torque', 'Right wheel torque'};
 
-%% ---- Figure 6: Linear & Angular Velocities (mirrors Fig 7 & 10) ----
-figure('Name','Fig6: Velocities','Position',[180 180 920 400]);
-sgtitle('Fig 6 — Linear and Angular Velocities (Case 1)', ...
-        'FontSize',13,'FontWeight','bold');
+n_plots  = 5;
+h_cursor = gobjects(n_plots, 1);
+h_cutoff = gobjects(n_plots, 1);
 
-subplot(2,1,1);
-plot(t, Z1_lon(4,:),'Color',blue,'LineWidth',2);
-xlabel('Time [s]'); ylabel('v [m/s]');
-title('Linear Velocity  V'); grid on;
+for pi = 1:n_plots
+    ypos = 0.88 - (pi-1) * 0.175;
+    axP  = axes('Parent', fig, 'Position', [0.49 ypos 0.49 0.14], ...
+                'Color', [0.06 0.06 0.09], ...
+                'XColor', 'w', 'YColor', 'w', 'FontSize', 7);
+    hold(axP, 'on'); grid(axP, 'on');
 
-subplot(2,1,2);
-plot(t, Z1_lat(2,:),'Color',red,'LineWidth',2);
-xlabel('Time [s]'); ylabel('\omega [rad/s]');
-title('Angular (Yaw) Rate  W'); grid on;
+    plot(axP, t, y_data{pi}, 'Color', col_plot{pi}, 'LineWidth', 1.5);
+    ylabel(axP, y_label{pi}, 'Color', 'w', 'FontSize', 7);
+    title(axP,  p_title{pi}, 'Color', 'w', 'FontSize', 8);
+    xlim(axP, [0 t_end]);
 
+    if pi == n_plots
+        xlabel(axP, 'Time (s)', 'Color', 'w', 'FontSize', 7);
+    else
+        set(axP, 'XTickLabel', {});
+    end
 
-%% ================================================================
-%  SECTION VIII — SUMMARY
-% ================================================================
-fprintf('=== SECTION VIII: SUMMARY ===\n\n');
-fprintf('  Kinematic model:  identical structure to paper Eqs 1-6.\n');
-fprintf('  Dynamic model:    Euler-Lagrange, inverted pendulum on wheels.\n');
-fprintf('  State-space:      decoupled into longitudinal (4 states)\n');
-fprintf('                    and lateral/yaw (2 states).\n\n');
-fprintf('  LQR Gains:\n');
-fprintf('    K_lon = [%6.3f  %6.3f  %6.3f  %6.3f]\n', K_lon);
-fprintf('    K_lat = [%6.3f  %6.3f]\n\n', K_lat);
-fprintf('  Both subsystems stabilised. Errors converge to zero.\n');
-fprintf('  6 figures generated (mirrors Figs 7-12 of the paper).\n');
-fprintf('\n============================================================\n');
-fprintf('  Done.\n');
-fprintf('============================================================\n');
+    h_cursor(pi) = xline(axP, 0, 'w--', 'LineWidth', 1.2, 'Alpha', 0.7);
+
+    if ~isnan(stop_idx)
+        h_cutoff(pi) = xline(axP, t(stop_idx), 'r--', 'LineWidth', 1.2, 'Alpha', 0.8);
+    else
+        h_cutoff(pi) = gobjects(1);
+    end
+end
+
+%% --- ANIMATE FRAME BY FRAME ---
+skip = 1;
+
+for k = 1 : skip : N
+    phi_k  = phi(k);
+    s_k    = s(k);
+    h_k    = h_now(k);
+    roll_k = s_k / r;
+
+    ax_x = s_k;
+    ax_z = r;
+
+    bc_x = ax_x + h_k * sin(phi_k);
+    bc_z = ax_z + h_k * cos(phi_k);
+
+    % Wheels
+    wV_L = transform_wheel(wV, ax_x, -d/2, ax_z, roll_k);
+    set(h_tyre_L, 'Vertices', wV_L);
+    set(h_hub_L,  'Vertices', wV_L);
+
+    wV_R = transform_wheel(wV, ax_x, d/2, ax_z, roll_k);
+    set(h_tyre_R, 'Vertices', wV_R);
+    set(h_hub_R,  'Vertices', wV_R);
+
+    % Axle
+    set(h_axle, 'XData', [ax_x ax_x], 'YData', [-d/2 d/2], 'ZData', [ax_z ax_z]);
+
+    % Scissor linkage
+    arm  = 0.10;
+    BF_x = ax_x + arm;             BF_z = ax_z;
+    BR_x = ax_x - arm;             BR_z = ax_z;
+    TF_x = bc_x + arm*cos(phi_k);  TF_z = bc_z - arm*sin(phi_k);
+    TR_x = bc_x - arm*cos(phi_k);  TR_z = bc_z + arm*sin(phi_k);
+
+    set(h_link_L1, 'XData',[BF_x TR_x], 'YData',[-d/2 -d/2], 'ZData',[BF_z TR_z]);
+    set(h_link_L2, 'XData',[BR_x TF_x], 'YData',[-d/2 -d/2], 'ZData',[BR_z TF_z]);
+    set(h_link_R1, 'XData',[BF_x TR_x], 'YData',[ d/2  d/2], 'ZData',[BF_z TR_z]);
+    set(h_link_R2, 'XData',[BR_x TF_x], 'YData',[ d/2  d/2], 'ZData',[BR_z TF_z]);
+
+    pts = [BF_x BF_z; BR_x BR_z; TF_x TF_z; TR_x TR_z];
+    for pi = 1:4
+        set(h_piv(pi),   'XData', pts(pi,1), 'YData', -d/2, 'ZData', pts(pi,2));
+        set(h_piv(pi+4), 'XData', pts(pi,1), 'YData',  d/2, 'ZData', pts(pi,2));
+    end
+
+    % Platform
+    Rmat  = rot_y(phi_k);
+    pV2   = (Rmat * pV')';
+    pV2(:,1) = pV2(:,1) + bc_x;
+    pV2(:,3) = pV2(:,3) + bc_z - 0.09 - 0.007;
+    set(h_platform, 'Vertices', pV2);
+
+    % Body
+    bV2   = (Rmat * bV')';
+    bV2(:,1) = bV2(:,1) + bc_x;
+    bV2(:,3) = bV2(:,3) + bc_z;
+    set(h_body, 'Vertices', bV2);
+
+    % Labels
+    set(h_time, 'String', sprintf('t = %.2f s', t(k)), ...
+                'Position', [ax3.XLim(1)+0.02, 0, 0.57]);
+
+    if isnan(stop_idx)
+        set(h_status, 'String', 'Controller: ON', 'Color', [0.2 1.0 0.2]);
+    else
+        if k < stop_idx
+            set(h_status, 'String', 'Controller: ON', 'Color', [0.2 1.0 0.2]);
+        else
+            set(h_status, 'String', sprintf('Controller OFF at %.2f s', t(stop_idx)), ...
+                          'Color', [1.0 0.3 0.3]);
+        end
+    end
+
+    % Cursors
+    for pi = 1:n_plots
+        h_cursor(pi).Value = t(k);
+    end
+
+    % Camera follows robot
+    ax3.XLim = s_k + [-0.35 0.35];
+
+    drawnow;
+    pause(0.000003);
+end
+
+fprintf('  Animation complete.\n');
+
+%% =========================================================
+%%  HELPER FUNCTIONS
+%% =========================================================
+
+function [V, F] = make_wheel(R, hw, n)
+    th = linspace(0, 2*pi, n+1)';
+    th(end) = [];
+    cx = R * cos(th);
+    cz = R * sin(th);
+
+    Vf = [cx, -hw*ones(n,1), cz];
+    Vb = [cx,  hw*ones(n,1), cz];
+    V  = [Vf; Vb; 0 -hw 0; 0 hw 0];
+
+    Fside = zeros(n, 4);
+    for i = 1:n
+        j = mod(i, n) + 1;
+        Fside(i,:) = [i, j, j+n, i+n];
+    end
+
+    cf     = 2*n + 1;
+    nxt_f  = [2:n, 1]';
+    Fcap_f = [cf*ones(n,1), (1:n)', nxt_f, nxt_f];
+
+    cb     = 2*n + 2;
+    nxt_b  = n + [2:n, 1]';
+    Fcap_b = [cb*ones(n,1), n+(1:n)', nxt_b, nxt_b];
+
+    F = [Fside; Fcap_f; Fcap_b];
+end
+
+function Vout = transform_wheel(V, tx, ty, tz, roll)
+    Ry = [ cos(roll), 0, sin(roll);
+           0,         1, 0;
+          -sin(roll), 0, cos(roll) ];
+    Vout = (Ry * V')';
+    Vout(:,1) = Vout(:,1) + tx;
+    Vout(:,2) = Vout(:,2) + ty;
+    Vout(:,3) = Vout(:,3) + tz;
+end
+
+function [V, F] = make_box(W, D, H)
+    hw = W/2; hd = D/2; hh = H/2;
+    V = [-hw -hd -hh;
+          hw -hd -hh;
+          hw  hd -hh;
+         -hw  hd -hh;
+         -hw -hd  hh;
+          hw -hd  hh;
+          hw  hd  hh;
+         -hw  hd  hh];
+    F = [1 2 3 4;
+         5 6 7 8;
+         1 2 6 5;
+         3 4 8 7;
+         1 4 8 5;
+         2 3 7 6];
+end
+
+function R = rot_y(angle)
+    R = [ cos(angle), 0, sin(angle);
+          0,          1, 0;
+         -sin(angle), 0, cos(angle) ];
+end
+
+function [A, B, p] = get_model(h, g, Mb, Mw, Iw, r, d, ...
+                               h_lut, Iy_lut, Iz_lut, L_lut, b_hip)
+    Iy = interp1(h_lut, Iy_lut, h, 'linear', 'extrap');
+    Iz = interp1(h_lut, Iz_lut, h, 'linear', 'extrap');
+    L  = interp1(h_lut, L_lut,  h, 'linear', 'extrap');
+
+    l = h;
+    if h > L
+        h = 0.999 * L;
+    end
+
+    a     = Mb*l^2 + Iy;
+    b_    = Mb*l;
+    c     = Mb + 2*Mw + 2*Iw/r^2;
+    Delta = a*c - b_^2;
+    Jth   = (d^2/2)*Mw + (d^2/(2*r^2))*Iw + Iz;
+
+    alpha  = asin(min(0.9999, h/L));
+    cosA   = max(0.05, cos(alpha));
+    m_eff  = Iy / (L*cosA)^2;
+    b_eff  = b_hip / (L*cosA)^2;
+    tau_h0 = Mb*g*L*cosA;
+
+    A = zeros(8,8);
+    A(1,5) = 1;   % phi_dot
+    A(2,6) = 1;   % s_dot
+    A(3,7) = 1;   % theta_dot
+    A(4,8) = 1;   % Dh_dot
+
+    A(5,1) =  c*Mb*g*l / Delta;
+    A(6,1) = -b_*Mb*g*l / Delta;
+    A(8,8) = -b_eff / m_eff;
+
+    B = zeros(8,3);
+    B(5,1) = -b_/(Delta*r);
+    B(5,2) = -b_/(Delta*r);
+
+    B(6,1) =  a/(Delta*r);
+    B(6,2) =  a/(Delta*r);
+
+    B(7,1) =  d/(2*r*Jth);
+    B(7,2) = -d/(2*r*Jth);
+
+    B(8,3) = 1/m_eff;
+
+    p.Iy     = Iy;
+    p.L      = L;
+    p.Delta  = Delta;
+    p.m_eff  = m_eff;
+    p.tau_h0 = tau_h0;
+end
