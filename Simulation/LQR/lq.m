@@ -14,7 +14,7 @@ plannerType = "HYBRID_ASTAR";
 L      = 0.4;      % wheelbase [m]
 Ts_ref = 0.05;     % reference sample time [s]
 vd_nom = 0.3;      % nominal speed for LQR linearization
-desiredVelocity = 0.25;  % target trajectory speed [m/s]
+desiredVelocity = 0.2;  % target trajectory speed [m/s]
 
 %% =========================
 % 2) Goal stop parameters
@@ -47,16 +47,16 @@ setOccupancy(map, [X4(:) Y4(:)], 1);
 % Obstacle 5: right-lower block
 [X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
 setOccupancy(map, [X5(:) Y5(:)], 1);
-% 
-% % Obstacle 6: right-upper block
-% [X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
-% setOccupancy(map, [X6(:) Y6(:)], 1);
-% 
-% % Obstacle 7: narrow corridor maker
-% [X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
-% setOccupancy(map, [X7(:) Y7(:)], 1);
-% 
-% inflate(map, 0.2);
+
+% Obstacle 6: right-upper block
+[X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
+setOccupancy(map, [X6(:) Y6(:)], 1);
+
+% Obstacle 7: narrow corridor maker
+[X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
+setOccupancy(map, [X7(:) Y7(:)], 1);
+
+inflate(map, 0.2);
 
 startXY = [9, 1];
 goalXY  = [2, 9];
@@ -333,7 +333,7 @@ wd_ref = gradient(theta_ref_unwrapped) / Ts_ref;
 wd_ref = smoothdata(wd_ref, 'gaussian', 41);
 
 % -------- Smooth speed ramp up/down --------
-t_ramp_up   = 2.0;   % seconds
+t_ramp_up   = 4.0;   % seconds
 t_ramp_down = 1.0;   % seconds
 
 t_vec = (0:length(vd_ref)-1)' * Ts_ref;
@@ -406,14 +406,14 @@ B = [1 0;
      0 1];
 
 Q = diag([30 50 15]);
-R = diag([6 3]);
+R = diag([10 3]);
 
 K = lqr(A, B, Q, R);
 
 %% =========================
 % 10) Simulation time
 % ==========================
-T_end = t_vec(end) + 4;
+T_end = t_vec(end) + 5.4;
 
 %% =========================
 % 11) Prepare signals for Simulink
@@ -476,7 +476,8 @@ xlabel('x (m)');
 ylabel('y (m)');
 title(['Robot Motion on Planned Path - ' char(plannerType)]);
 
-for k = 1:length(x)
+step = 10;
+for k = 1:step:length(x)
     set(robot, 'XData', x(k), 'YData', y(k));
     set(dirr, ...
         'XData', x(k), ...
@@ -485,7 +486,7 @@ for k = 1:length(x)
         'VData', sin(theta(k)));
     set(traj, 'XData', x(1:k), 'YData', y(1:k));
     drawnow;
-    pause(Ts_ref);
+    pause(0.00001);
 end
 
 %%
