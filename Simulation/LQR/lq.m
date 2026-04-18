@@ -14,7 +14,7 @@ plannerType = "HYBRID_ASTAR";
 L      = 0.4;      % wheelbase [m]
 Ts_ref = 0.05;     % reference sample time [s]
 vd_nom = 0.3;      % nominal speed for LQR linearization
-desiredVelocity = 0.25;  % target trajectory speed [m/s]
+desiredVelocity = 0.2;  % target trajectory speed [m/s]
 
 %% =========================
 % 2) Goal stop parameters
@@ -28,35 +28,35 @@ goalThetaTol = deg2rad(8);    % [rad]
 resolution = 10;
 map = binaryOccupancyMap(10, 10, resolution);
 
-% % Obstacle 1: lower-left vertical block
-% [X1, Y1] = meshgrid(1.0:0.1:2.0, 1.0:0.1:3.8);
-% setOccupancy(map, [X1(:) Y1(:)], 1);
-% 
-% % Obstacle 2: upper-left block
-% [X2, Y2] = meshgrid(1.5:0.1:3.2, 5.2:0.1:7.8);
-% setOccupancy(map, [X2(:) Y2(:)], 1);
-% 
-% % Obstacle 3: center-lower block
-% [X3, Y3] = meshgrid(4.0:0.1:5.8, 2.0:0.1:4.2);
-% setOccupancy(map, [X3(:) Y3(:)], 1);
-% 
-% % Obstacle 4: center-upper block
-% [X4, Y4] = meshgrid(4.8:0.1:6.4, 5.3:0.1:7.2);
-% setOccupancy(map, [X4(:) Y4(:)], 1);
-% 
-% % Obstacle 5: right-lower block
-% [X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
-% setOccupancy(map, [X5(:) Y5(:)], 1);
-% 
-% % Obstacle 6: right-upper block
-% [X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
-% setOccupancy(map, [X6(:) Y6(:)], 1);
-% 
-% % Obstacle 7: narrow corridor maker
-% [X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
-% setOccupancy(map, [X7(:) Y7(:)], 1);
-% 
-% inflate(map, 0.2);
+% Obstacle 1: lower-left vertical block
+[X1, Y1] = meshgrid(1.0:0.1:2.0, 1.0:0.1:3.8);
+setOccupancy(map, [X1(:) Y1(:)], 1);
+
+% Obstacle 2: upper-left block
+[X2, Y2] = meshgrid(1.5:0.1:3.2, 5.2:0.1:7.8);
+setOccupancy(map, [X2(:) Y2(:)], 1);
+
+% Obstacle 3: center-lower block
+[X3, Y3] = meshgrid(4.0:0.1:5.8, 2.0:0.1:4.2);
+setOccupancy(map, [X3(:) Y3(:)], 1);
+
+% Obstacle 4: center-upper block
+[X4, Y4] = meshgrid(4.8:0.1:6.4, 5.3:0.1:7.2);
+setOccupancy(map, [X4(:) Y4(:)], 1);
+
+% Obstacle 5: right-lower block
+[X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
+setOccupancy(map, [X5(:) Y5(:)], 1);
+
+% Obstacle 6: right-upper block
+[X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
+setOccupancy(map, [X6(:) Y6(:)], 1);
+
+% Obstacle 7: narrow corridor maker
+[X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
+setOccupancy(map, [X7(:) Y7(:)], 1);
+
+inflate(map, 0.2);
 
 startXY = [9, 1];
 goalXY  = [2, 9];
@@ -333,7 +333,7 @@ wd_ref = gradient(theta_ref_unwrapped) / Ts_ref;
 wd_ref = smoothdata(wd_ref, 'gaussian', 41);
 
 % -------- Smooth speed ramp up/down --------
-t_ramp_up   = 2.0;   % seconds
+t_ramp_up   = 4.0;   % seconds
 t_ramp_down = 1.0;   % seconds
 
 t_vec = (0:length(vd_ref)-1)' * Ts_ref;
@@ -406,7 +406,7 @@ B = [1 0;
      0 1];
 
 Q = diag([30 50 15]);
-R = diag([6 3]);
+R = diag([10 3]);
 
 K = lqr(A, B, Q, R);
 
