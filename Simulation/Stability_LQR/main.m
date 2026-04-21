@@ -72,7 +72,7 @@ N     = numel(t);
 
 % Initial condition:
 % 5 deg tilt + 2 cm height error
-x0 = [deg2rad(5);   % phi
+x0 = [deg2rad(180);   % phi
       0;            % s
       0.02;         % Dh
       0;            % phidot
