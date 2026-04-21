@@ -485,7 +485,7 @@ for k = 1:length(x)
         'VData', sin(theta(k)));
     set(traj, 'XData', x(1:k), 'YData', y(1:k));
     drawnow;
-    pause(Ts_ref);
+    pause(0.00001);
 end
 
 %%
