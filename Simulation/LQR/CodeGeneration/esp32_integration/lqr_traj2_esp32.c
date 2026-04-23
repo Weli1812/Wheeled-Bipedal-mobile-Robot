@@ -101,6 +101,12 @@ void lqr_traj2_step(double vrActual,
 
   Traj2_U.vr_actual = vrActual;
   Traj2_U.vl_actual = vlActual;
+
+  /* Use externally estimated pose from localization at every control step. */
+  Traj2_X.Integrator_CSTATE = currentPose[0];
+  Traj2_X.Integrator1_CSTATE = currentPose[1];
+  Traj2_X.Integrator2_CSTATE = currentPose[2];
+
   Traj2_step();
 
   out->v_cmd = v_cmd;
