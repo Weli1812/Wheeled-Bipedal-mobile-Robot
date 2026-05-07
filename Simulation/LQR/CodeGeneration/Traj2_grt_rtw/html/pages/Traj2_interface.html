@@ -1,0 +1,969 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><link rel="stylesheet" type="text/css" href="rtwreport.css" /><script language="JavaScript" type="text/javascript" src="rtwshrink.js"></script><script>function postParentWindowMessage(message) {window.parent.postMessage(message, "*");}</script><style> h3 { margin-bottom: 1ex; } h4.function {   font-size: larger; font-weight: normal;   color: #c05709;	margin-bottom: 0ex; } .description {	border-style: none;	color: DimGray; } .footnote { margin-top: 0.5ex; font-size: small; color: DimGray;} a:visited, a:hover { color: #004b87 } ul.services { margin-top: 0.5ex; } .include { color: #992211 } a.include:link { color:inherit; text-decoration: none } a.include:hover { text-decoration: underline } a.fcn:link { color:inherit; text-decoration: none } a.fcn:hover { text-decoration: underline } code.usage { white-space: pre-wrap; } .programlisting {   margin-left: 4ex; margin-right: 4ex;   margin-top: 2ex;  margin-bottom: 2ex; } .tooltip { position: relative; display: inline-block; } .tooltip .tooltip-text {   visibility: hidden;   position: absolute;   top: 110%;   left: 0;   background-color: white;   z-index: 1;   box-shadow: 5px 5px 10px 5px Gainsboro;   border-radius: 10px;   padding: 10px 15px 0px; } .tooltip:hover .tooltip-text { visibility: visible; } .tooltip-text .footnote { white-space: nowrap;} </style><title>
+Code Interface Report for Traj2
+</title>
+
+</head>
+<body>
+<h1>
+Code Interface Report for Traj2
+</h1>
+<div>
+
+</div>
+<div id="table_of_contents">
+<h3>
+Table of Contents
+</h3>
+<ol>
+<li>
+<a href="#sec_introduction" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_001_control'), 'rtwIdDataInterface_table_001')">
+Introduction
+</a>
+
+</li>
+<li>
+<span>
+<a href="#sec_execution" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Function Interfaces
+</a>
+<ul>
+<li>
+<a href="#sec_initialize_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Initialize Functions
+</a>
+
+</li>
+<li>
+<a href="#sec_terminate_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Terminate Functions
+</a>
+
+</li>
+<li>
+<a href="#sec_periodic_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Periodic Functions
+</a>
+
+</li>
+<li>
+<a href="#sec_aperiodic_functions" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_002_control'), 'rtwIdDataInterface_table_002')">
+Aperiodic Functions
+</a>
+
+</li>
+
+</ul>
+</span>
+
+</li>
+<li>
+<span>
+<a href="#sec_data_interfaces" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Data Interfaces
+</a>
+<ul>
+<li>
+<a href="#sec_inports" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Inports
+</a>
+
+</li>
+<li>
+<a href="#sec_outports" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Outports
+</a>
+
+</li>
+<li>
+<a href="#sec_interface_parameters" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Parameters
+</a>
+
+</li>
+<li>
+<a href="#sec_data_stores" onclick="rtwTableExpand(window.document, window.document.getElementById('rtwIdDataInterface_table_003_control'), 'rtwIdDataInterface_table_003')">
+Internal data
+</a>
+
+</li>
+
+</ul>
+</span>
+
+</li>
+
+</ol>
+
+</div>
+<h2 name="sec_Introduction" id="sec_introduction">
+1. Introduction <span title="Click to shrink or expand section" style="cursor:pointer;font-weight:normal;" id="rtwIdDataInterface_table_001_control" onclick ="if (rtwTableShrink) rtwTableShrink(window.document, this, 'rtwIdDataInterface_table_001', false)"><span class="shrink-button">[<u>show</u>]</span></span>
+</h2>
+<table width="100%" style="display: none" name="rtwIdDataInterface_table_001" id="rtwIdDataInterface_table_001" border="0">
+<tr>
+<td align="left" valign="top">
+<p>
+The code generator produced a data code interface for the model. The code interface report summarizes the interface code for model callable entry-point functions and data interface elements, such as root-level inports and outports.
+</p>
+
+</td>
+
+</tr>
+
+</table>
+<h2 name="sec_Function_Interfaces" id="sec_execution">
+2. Function Interfaces <span title="Click to shrink or expand section" style="cursor:pointer;font-weight:normal;" id="rtwIdDataInterface_table_002_control" onclick ="if (rtwTableShrink) rtwTableShrink(window.document, this, 'rtwIdDataInterface_table_002', false)"><span class="shrink-button">[<u>hide</u>]</span></span>
+</h2>
+<table width="100%" name="rtwIdDataInterface_table_002" id="rtwIdDataInterface_table_002" border="0">
+<tr>
+<td align="left" valign="top">
+External code initiates execution of the generated code by calling entry-point functions generated for the model. The type of function code that the code generator produces for a model depends on the modeling style and periodic rates represented in the model. For more information, see <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'legacyMCall', expr:'helpview(fullfile(docroot,\'toolbox\',\'ecoder\',\'helptargets.map\'),\'model_entry_points\')'})" >Configure Generated C Function Interface for Model Entry-Point Functions</a><br><br>
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<section id="sec_initialize_functions">
+<h3>
+2.1 Initialize Functions
+</h3>
+<p>
+Initialize entry-point functions implement startup behavior. In a model, Initialize Function blocks represent startup behavior explicitly.
+</p>
+<div id="fcn_Traj2_initialize">
+<h4 class="function">
+Traj2_initialize
+</h4>
+<span class="description">
+Initialization entry point of generated code
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2_initialize'})" class="fcn">Traj2_initialize</a>(void)</code>
+</div>
+</div>
+</section>
+<section id="sec_terminate_functions">
+<h3>
+2.2 Terminate Functions
+</h3>
+<p>
+Terminate entry-point functions implement shutdown behavior. In a model, Terminate Function blocks represent shutdown behavior explicitly.
+</p>
+<div id="fcn_Traj2_terminate">
+<h4 class="function">
+Traj2_terminate
+</h4>
+<span class="description">
+Termination entry point of generated code
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2_terminate'})" class="fcn">Traj2_terminate</a>(void)</code>
+</div>
+</div>
+</section>
+<section id="sec_periodic_functions">
+<h3>
+2.3 Periodic Functions
+</h3>
+<p>
+Periodic entry-point functions implement model behavior that occurs at a fixed sampling rate. For a rate-based model, the code generator produces a periodic entry-point function for each rate used in the model. In a function-call (export-function) model, Function Call Subsystem blocks that specify a sampling rate represent periodic functions.
+</p>
+<div id="fcn_Traj2_step">
+<h4 class="function">
+Traj2_step
+</h4>
+<span class="description">
+Output entry point of generated code. Must be called periodically, every 0.1 seconds. 
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2_step'})" class="fcn">Traj2_step</a>(void)</code>
+</div>
+</div>
+</section>
+<section id="sec_aperiodic_functions">
+<h3>
+2.4 Aperiodic Functions
+</h3>
+<p>
+Aperiodic (asynchronous) entry-point functions implement component behavior occurring asynchronously. In a function-call (export-function) model, Function Call Subsystem blocks that do not specify a sampling rate represent aperiodic functions.
+</p>
+<p>
+No aperiodic functions represented in model.
+</p>
+</section>
+
+</td>
+
+</tr>
+
+</table>
+<h2 name="sec_Data_Interfaces" id="sec_data_interfaces">
+3. Data Interfaces <span title="Click to shrink or expand section" style="cursor:pointer;font-weight:normal;" id="rtwIdDataInterface_table_003_control" onclick ="if (rtwTableShrink) rtwTableShrink(window.document, this, 'rtwIdDataInterface_table_003', false)"><span class="shrink-button">[<u>hide</u>]</span></span>
+</h2>
+<table width="100%" name="rtwIdDataInterface_table_003" id="rtwIdDataInterface_table_003" border="0">
+<tr>
+<td align="left" valign="top">
+A data code interface maps model data interface elements, such as root-level inports and outports, to storage classes. A storage class specifies the appearance and placement of data elements in the generated code. Storage classes apply direct-access data communication. The list of storage classes available for mapping is determined by the Embedded Coder Dictionary that is associated with the model. You map model interface elements to storage classes in the model code mappings.<br><br>
+</td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<section id="sec_inports">
+<h3>
+3.1 Inports
+</h3>
+Inputs are variables that are generated in the code based on storage class specifications for model root-level input ports.<div id="fcn_Traj2_U.vr_actual">
+<h4 class="function">
+Traj2_U.vr_actual
+</h4>
+<span class="description">
+Input data for &lt;Root&gt;/EncoderR
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T vr_actual;
+  ...
+} Traj2_U;</code>
+</div>
+</div>
+<div id="fcn_Traj2_U.vl_actual">
+<h4 class="function">
+Traj2_U.vl_actual
+</h4>
+<span class="description">
+Input data for &lt;Root&gt;/EncoderL
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T vl_actual;
+  ...
+} Traj2_U;</code>
+</div>
+</div>
+</section>
+<section id="sec_outports">
+<h3>
+3.2 Outports
+</h3>
+Outputs are variables that are generated in the code based on storage class specifications for model root-level output ports.<div id="fcn_Traj2_Y.dirr">
+<h4 class="function">
+Traj2_Y.dirr
+</h4>
+<span class="description">
+Output data for &lt;Root&gt;/dirr
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  boolean_T dirr;
+  ...
+} Traj2_Y;</code>
+</div>
+</div>
+<div id="fcn_Traj2_Y.dirl">
+<h4 class="function">
+Traj2_Y.dirl
+</h4>
+<span class="description">
+Output data for &lt;Root&gt;/dirl
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  boolean_T dirl;
+  ...
+} Traj2_Y;</code>
+</div>
+</div>
+<div id="fcn_Traj2_Y.pwmr">
+<h4 class="function">
+Traj2_Y.pwmr
+</h4>
+<span class="description">
+Output data for &lt;Root&gt;/pwmr
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T pwmr;
+  ...
+} Traj2_Y;</code>
+</div>
+</div>
+<div id="fcn_Traj2_Y.pwml">
+<h4 class="function">
+Traj2_Y.pwml
+</h4>
+<span class="description">
+Output data for &lt;Root&gt;/pwml
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T pwml;
+  ...
+} Traj2_Y;</code>
+</div>
+</div>
+</section>
+<section id="sec_interface_parameters">
+<h3>
+3.3 Parameters
+</h3>
+Parameters are variables in the generated code that represent model parameters and model parameter arguments. The variable is generated based on a storage class specification and flagged to be tunable or not tunable while the model code executes in the target environment.<div id="fcn_Traj2_P.K">
+<h4 class="function">
+Traj2_P.K
+</h4>
+<span class="description">
+Parameters for K
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T K[2][3];
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.L">
+<h4 class="function">
+Traj2_P.L
+</h4>
+<span class="description">
+Parameters for L
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T L;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.P">
+<h4 class="function">
+Traj2_P.P
+</h4>
+<span class="description">
+Parameters for P
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T P[1012][][ 2];
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Ts_ref">
+<h4 class="function">
+Traj2_P.Ts_ref
+</h4>
+<span class="description">
+Parameters for Ts_ref
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Ts_ref;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.theta0">
+<h4 class="function">
+Traj2_P.theta0
+</h4>
+<span class="description">
+Parameters for theta0
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T theta0;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.theta_ref_unwrapped">
+<h4 class="function">
+Traj2_P.theta_ref_unwrapped
+</h4>
+<span class="description">
+Parameters for theta_ref_unwrapped
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T theta_ref_unwrapped[1012][][ 1];
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.vd_ref">
+<h4 class="function">
+Traj2_P.vd_ref
+</h4>
+<span class="description">
+Parameters for vd_ref
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T vd_ref[1012][][ 1];
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.wd_ref">
+<h4 class="function">
+Traj2_P.wd_ref
+</h4>
+<span class="description">
+Parameters for wd_ref
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T wd_ref[1012][][ 1];
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.x0">
+<h4 class="function">
+Traj2_P.x0
+</h4>
+<span class="description">
+Parameters for x0
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T x0;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.y0">
+<h4 class="function">
+Traj2_P.y0
+</h4>
+<span class="description">
+Parameters for y0
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T y0;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_D">
+<h4 class="function">
+Traj2_P.PIDController_D
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_D;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_D">
+<h4 class="function">
+Traj2_P.PIDController1_D
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_D;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_I">
+<h4 class="function">
+Traj2_P.PIDController_I
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_I;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_I">
+<h4 class="function">
+Traj2_P.PIDController1_I
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_I;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_InitialConditionF">
+<h4 class="function">
+Traj2_P.PIDController_InitialConditionF
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_InitialConditionF;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_InitialCondition">
+<h4 class="function">
+Traj2_P.PIDController1_InitialCondition
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_InitialCondition;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_InitialConditio_g">
+<h4 class="function">
+Traj2_P.PIDController_InitialConditio_g
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_InitialConditio_g;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_InitialConditi_c">
+<h4 class="function">
+Traj2_P.PIDController1_InitialConditi_c
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_InitialConditi_c;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_LowerSaturationLi">
+<h4 class="function">
+Traj2_P.PIDController_LowerSaturationLi
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_LowerSaturationLi;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_LowerSaturationL">
+<h4 class="function">
+Traj2_P.PIDController1_LowerSaturationL
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_LowerSaturationL;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_N">
+<h4 class="function">
+Traj2_P.PIDController_N
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_N;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_N">
+<h4 class="function">
+Traj2_P.PIDController1_N
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_N;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_P">
+<h4 class="function">
+Traj2_P.PIDController_P
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_P;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_P">
+<h4 class="function">
+Traj2_P.PIDController1_P
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_P;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PWM_Period">
+<h4 class="function">
+Traj2_P.PWM_Period
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PWM
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PWM_Period;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PWM1_Period">
+<h4 class="function">
+Traj2_P.PWM1_Period
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PWM1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PWM1_Period;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController_UpperSaturationLi">
+<h4 class="function">
+Traj2_P.PIDController_UpperSaturationLi
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController_UpperSaturationLi;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.PIDController1_UpperSaturationL">
+<h4 class="function">
+Traj2_P.PIDController1_UpperSaturationL
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/PID Controller1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T PIDController1_UpperSaturationL;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Constant_Value">
+<h4 class="function">
+Traj2_P.Constant_Value
+</h4>
+<span class="description">
+Parameters for &lt;S1&gt;/Constant
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Constant_Value;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Constant_Value_o">
+<h4 class="function">
+Traj2_P.Constant_Value_o
+</h4>
+<span class="description">
+Parameters for &lt;S2&gt;/Constant
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Constant_Value_o;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Constant1_Value">
+<h4 class="function">
+Traj2_P.Constant1_Value
+</h4>
+<span class="description">
+Parameters for &lt;S35&gt;/Constant1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Constant1_Value;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Constant1_Value_g">
+<h4 class="function">
+Traj2_P.Constant1_Value_g
+</h4>
+<span class="description">
+Parameters for &lt;S89&gt;/Constant1
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Constant1_Value_g;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Constant6_Value">
+<h4 class="function">
+Traj2_P.Constant6_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/Constant6
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Constant6_Value;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Constant5_Value">
+<h4 class="function">
+Traj2_P.Constant5_Value
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/Constant5
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Constant5_Value;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Gain_Gain">
+<h4 class="function">
+Traj2_P.Gain_Gain
+</h4>
+<span class="description">
+Parameters for &lt;Root&gt;/Gain
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T Gain_Gain;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.ZeroGain_Gain">
+<h4 class="function">
+Traj2_P.ZeroGain_Gain
+</h4>
+<span class="description">
+Parameters for &lt;S35&gt;/ZeroGain
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T ZeroGain_Gain;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.ZeroGain_Gain_n">
+<h4 class="function">
+Traj2_P.ZeroGain_Gain_n
+</h4>
+<span class="description">
+Parameters for &lt;S89&gt;/ZeroGain
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  real_T ZeroGain_Gain_n;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Memory_InitialCondition">
+<h4 class="function">
+Traj2_P.Memory_InitialCondition
+</h4>
+<span class="description">
+Parameters for &lt;S35&gt;/Memory
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  boolean_T Memory_InitialCondition;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+<div id="fcn_Traj2_P.Memory_InitialCondition_f">
+<h4 class="function">
+Traj2_P.Memory_InitialCondition_f
+</h4>
+<span class="description">
+Parameters for &lt;S89&gt;/Memory
+</span>
+<div class="programlisting">
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'Traj2.h'})" class="include">Traj2.h</a>"</span>
+struct {
+  ...
+  boolean_T Memory_InitialCondition_f;
+  ...
+} Traj2_P;</code>
+</div>
+</div>
+</section>
+<section id="sec_data_stores">
+<h3>
+3.4 Internal data
+</h3>
+Internal data are variables in the generated code that represent signal data, blocks that have internal states, and data stores. The variable is generated based on a storage class specification and flagged to be measured or not measured while the model code executes in the target environment.<p>
+No global data stores or data stores with non-auto storage classes in the model.
+</p>
+</section>
+
+</td>
+
+</tr>
+
+</table>
+
+<script>function postParentWindowMessage(message) {window.parent.postMessage(message, "*");}</script>
+</body>
+
+</html>

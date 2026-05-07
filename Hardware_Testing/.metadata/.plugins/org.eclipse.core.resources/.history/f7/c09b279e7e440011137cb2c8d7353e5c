@@ -1,0 +1,590 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : SteadyWin GIM6010-48 RS485 Motor Control
+  *                   Protocol: SteadyWin GIM Driver Protocol Spec rev2.2
+  *                   MCU:      STM32H750VBT6 @ 480MHz
+  *                   UART:     USART1, 921600 baud, RS485 hardware DE
+  *                   LED:      PE3 heartbeat / tx indicator
+  ******************************************************************************
+  *
+  * RS485 Frame Structure (SteadyWin GIM Protocol):
+  *
+  *   [ HEADER: 4 bytes ] [ PAYLOAD: 8 bytes ]
+  *
+  *   Header:
+  *     Byte 0 : Motor ID
+  *     Byte 1 : Frame Type  (0x00 = normal, 0x01 = ACK)
+  *     Byte 2 : Payload Len (always 0x08)
+  *     Byte 3 : CRC = Byte0 XOR Byte1 XOR Byte2
+  *
+  *   Payload (8 bytes):
+  *     Byte 0 : COMMAND
+  *     Byte 1-7: Command-specific data (LSB first)
+  *
+  * Command Table:
+  *   0x81  Reset Configuration
+  *   0x82  Refresh Configuration
+  *   0x83  Modify Configuration
+  *   0x84  Retrieve Configuration
+  *   0x91  Start Motor
+  *   0x92  Stop Motor
+  *   0x93  Torque Control
+  *   0x94  Speed Control
+  *   0x95  Position Control
+  *   0x97  Stop Control
+  *   0xA1  Modify Parameter
+  *   0xA2  Retrieve Parameter
+  *   0xB1  Get Version
+  *   0xB2  Get Fault
+  *   0xB3  Acknowledge Fault
+  *   0xB4  Retrieve Indicator
+  *
+  * Fault Codes (from Get Fault response Byte1):
+  *   0x00  No Fault
+  *   0x01  FoC Frequency Too High
+  *   0x02  Over Voltage
+  *   0x04  Under Voltage
+  *   0x08  Over Temperature
+  *   0x10  Start Failure
+  *   0x40  Over Current
+  *   0x80  Software Exception
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include <string.h>   /* memcpy, memset */
+#include <math.h>     /* M_PI for degree->radian helpers */
+
+/* Private defines -----------------------------------------------------------*/
+#define MOTOR_ID            1       /* Default motor ID on RS485 bus            */
+#define RS485_TIMEOUT_MS    50      /* HAL_UART_Transmit timeout                */
+#define RS485_RX_TIMEOUT_MS 20      /* HAL_UART_Receive  timeout                */
+#define PAYLOAD_LEN         8       /* SteadyWin protocol payload is always 8B  */
+#define FRAME_LEN           (4 + PAYLOAD_LEN)  /* header(4) + payload(8) = 12   */
+
+/* Fault code bit masks */
+#define FAULT_NONE          0x00
+#define FAULT_FOC_FREQ      0x01
+#define FAULT_OVER_VOLTAGE  0x02
+#define FAULT_UNDER_VOLTAGE 0x04
+#define FAULT_OVER_TEMP     0x08
+#define FAULT_START_FAIL    0x10
+#define FAULT_OVER_CURRENT  0x40
+#define FAULT_SW_EXCEPTION  0x80
+
+/* Result codes from motor responses */
+#define RESULT_OK           0x00
+#define RESULT_FAIL         0x01
+#define RESULT_UNKNOWN_CMD  0x02
+#define RESULT_UNKNOWN_ID   0x03
+#define RESULT_READ_ONLY    0x04
+#define RESULT_UNKNOWN_REG  0x05
+#define RESULT_STR_FORMAT   0x06
+#define RESULT_DATA_FORMAT  0x07
+#define RESULT_WRITE_ONLY   0x0B
+
+/* Private variables ---------------------------------------------------------*/
+UART_HandleTypeDef huart1;
+
+/* Receive buffer for motor responses (12 bytes = header + payload) */
+static uint8_t rx_buf[FRAME_LEN];
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MPU_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART1_UART_Init(void);
+
+/* ============================================================================
+ * LOW-LEVEL RS485 FRAMING
+ * ============================================================================ */
+
+/**
+  * @brief  Build and transmit a 12-byte SteadyWin RS485 frame.
+  *
+  *         Frame layout:
+  *           [0] motor_id
+  *           [1] 0x00  (normal frame type)
+  *           [2] 0x08  (payload length, always 8)
+  *           [3] CRC   ([0] XOR [1] XOR [2])
+  *           [4..11]   payload (8 bytes, caller-provided)
+  *
+  * @param  motor_id  Target motor ID on the RS485 bus
+  * @param  payload   8-byte command payload (COMMAND byte + 7 data bytes)
+  */
+static void RS485_Send(uint8_t motor_id, const uint8_t *payload)
+{
+    uint8_t frame[FRAME_LEN];
+
+    /* Header */
+    frame[0] = motor_id;
+    frame[1] = 0x00;                          /* normal frame */
+    frame[2] = PAYLOAD_LEN;                   /* always 8     */
+    frame[3] = frame[0] ^ frame[1] ^ frame[2]; /* XOR CRC     */
+
+    /* Payload */
+    memcpy(&frame[4], payload, PAYLOAD_LEN);
+
+    HAL_UART_Transmit(&huart1, frame, FRAME_LEN, RS485_TIMEOUT_MS);
+}
+
+/**
+  * @brief  Transmit a command and receive the 12-byte response.
+  *
+  * @param  motor_id  Target motor ID
+  * @param  payload   8-byte command payload to send
+  * @param  response  Buffer of at least 12 bytes for the response frame,
+  *                   or NULL to skip receive.
+  * @retval HAL_OK on success, HAL_TIMEOUT / HAL_ERROR otherwise
+  */
+static HAL_StatusTypeDef RS485_SendReceive(uint8_t motor_id,
+                                           const uint8_t *payload,
+                                           uint8_t *response)
+{
+    RS485_Send(motor_id, payload);
+
+    if (response == NULL)
+        return HAL_OK;
+
+    /* Small propagation delay before listening */
+    HAL_Delay(2);
+
+    return HAL_UART_Receive(&huart1, response, FRAME_LEN, RS485_RX_TIMEOUT_MS);
+}
+
+/* ============================================================================
+ * MOTOR CONTROL COMMANDS
+ * ============================================================================ */
+
+/**
+  * @brief  Send Start Motor command (0x91).
+  *         Motor enters running state and will accept control commands.
+  * @param  id  Motor ID
+  */
+void Motor_Start(uint8_t id)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    memset(payload, 0x00, sizeof(payload));
+    payload[0] = 0x91;  /* Start Motor command */
+
+    RS485_Send(id, payload);
+    HAL_Delay(50);      /* Allow motor to transition to running state */
+}
+
+/**
+  * @brief  Send Stop Motor command (0x92).
+  *         Motor exits running state; de-energises windings.
+  * @param  id  Motor ID
+  */
+void Motor_Stop(uint8_t id)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    memset(payload, 0x00, sizeof(payload));
+    payload[0] = 0x92;  /* Stop Motor command */
+
+    RS485_Send(id, payload);
+}
+
+/**
+  * @brief  Send Stop Control command (0x97).
+  *         Immediately stops any ongoing control command (torque/speed/position).
+  *         Motor stays in running state; just the current motion profile is aborted.
+  * @param  id  Motor ID
+  */
+void Motor_StopControl(uint8_t id)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    memset(payload, 0x00, sizeof(payload));
+    payload[0] = 0x97;  /* Stop Control command */
+
+    RS485_Send(id, payload);
+}
+
+/**
+  * @brief  Send Acknowledge Fault command (0xB3).
+  *
+  *         IMPORTANT: The motor driver will refuse ALL commands while a fault
+  *         is latched. This must be sent to clear the fault before any motor
+  *         control is possible. Call this at startup and after any detected fault.
+  *
+  * @param  id  Motor ID
+  */
+void Motor_AckFault(uint8_t id)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    memset(payload, 0x00, sizeof(payload));
+    payload[0] = 0xB3;  /* Acknowledge Fault command */
+
+    RS485_Send(id, payload);
+    HAL_Delay(20);
+}
+
+/**
+  * @brief  Query the motor fault status (0xB2).
+  *
+  *         Reads back the FaultNo byte from the motor response.
+  *         FaultNo = 0x00 means no fault. Multiple faults can be ORed together.
+  *
+  * @param  id  Motor ID
+  * @retval Fault byte (see FAULT_xxx defines), or 0xFF on comms error
+  */
+uint8_t Motor_GetFault(uint8_t id)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    memset(payload, 0x00, sizeof(payload));
+    payload[0] = 0xB2;  /* Get Fault command */
+
+    HAL_StatusTypeDef status = RS485_SendReceive(id, payload, rx_buf);
+
+    if (status != HAL_OK)
+        return 0xFF;  /* Comms error sentinel */
+
+    /* Response payload starts at rx_buf[4]:
+     *   rx_buf[4] = 0xB2 (echo of command)
+     *   rx_buf[5] = RES  (result code)
+     *   rx_buf[6] = FaultNo  <-- what we want */
+    return rx_buf[6];
+}
+
+/**
+  * @brief  Position Control command (0x95).
+  *
+  *         Moves the motor output shaft to the specified position.
+  *
+  *         Protocol payload layout:
+  *           Byte0        : 0x95 (command)
+  *           Byte1..Byte4 : target position as IEEE 754 float, LSB first, in RAD
+  *           Byte5..Byte7 : duration as 24-bit unsigned int, LSB first, in ms
+  *
+  * @param  id           Motor ID
+  * @param  position_rad Target position in radians
+  * @param  duration_ms  Time to reach target in milliseconds (0 = immediate/max speed)
+  */
+void Motor_SetPosition(uint8_t id, float position_rad, uint32_t duration_ms)
+{
+    /* Visual indicator: PE3 on while transmitting */
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+
+    uint8_t payload[PAYLOAD_LEN];
+    payload[0] = 0x95;  /* Position Control command */
+
+    /* Pack IEEE 754 float, LSB first */
+    uint8_t *fp = (uint8_t *)&position_rad;
+    payload[1] = fp[0];
+    payload[2] = fp[1];
+    payload[3] = fp[2];
+    payload[4] = fp[3];
+
+    /* Pack 24-bit duration, LSB first */
+    payload[5] = (uint8_t)((duration_ms >>  0) & 0xFF);
+    payload[6] = (uint8_t)((duration_ms >>  8) & 0xFF);
+    payload[7] = (uint8_t)((duration_ms >> 16) & 0xFF);
+
+    RS485_Send(id, payload);
+
+    /* Keep LED on briefly so the blink is visible */
+    HAL_Delay(50);
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+}
+
+/**
+  * @brief  Speed Control command (0x94).
+  *
+  *         Drives the motor output shaft at the specified speed.
+  *
+  *         Protocol payload layout:
+  *           Byte0        : 0x94 (command)
+  *           Byte1..Byte4 : target speed as IEEE 754 float, LSB first, in RPM
+  *           Byte5..Byte7 : duration as 24-bit unsigned int, LSB first, in ms
+  *
+  * @param  id          Motor ID
+  * @param  speed_rpm   Target speed in RPM (negative = reverse)
+  * @param  duration_ms Duration of speed control in ms (0 = run indefinitely)
+  */
+void Motor_SetSpeed(uint8_t id, float speed_rpm, uint32_t duration_ms)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    payload[0] = 0x94;  /* Speed Control command */
+
+    uint8_t *fp = (uint8_t *)&speed_rpm;
+    payload[1] = fp[0];
+    payload[2] = fp[1];
+    payload[3] = fp[2];
+    payload[4] = fp[3];
+
+    payload[5] = (uint8_t)((duration_ms >>  0) & 0xFF);
+    payload[6] = (uint8_t)((duration_ms >>  8) & 0xFF);
+    payload[7] = (uint8_t)((duration_ms >> 16) & 0xFF);
+
+    RS485_Send(id, payload);
+}
+
+/**
+  * @brief  Torque Control command (0x93).
+  *
+  *         Applies the specified torque to the motor output shaft.
+  *
+  *         Protocol payload layout:
+  *           Byte0        : 0x93 (command)
+  *           Byte1..Byte4 : target torque as IEEE 754 float, LSB first, in N.m
+  *           Byte5..Byte7 : duration as 24-bit unsigned int, LSB first, in ms
+  *
+  * @param  id          Motor ID
+  * @param  torque_nm   Target torque in N.m (negative = reverse)
+  * @param  duration_ms Duration of torque control in ms
+  */
+void Motor_SetTorque(uint8_t id, float torque_nm, uint32_t duration_ms)
+{
+    uint8_t payload[PAYLOAD_LEN];
+    payload[0] = 0x93;  /* Torque Control command */
+
+    uint8_t *fp = (uint8_t *)&torque_nm;
+    payload[1] = fp[0];
+    payload[2] = fp[1];
+    payload[3] = fp[2];
+    payload[4] = fp[3];
+
+    payload[5] = (uint8_t)((duration_ms >>  0) & 0xFF);
+    payload[6] = (uint8_t)((duration_ms >>  8) & 0xFF);
+    payload[7] = (uint8_t)((duration_ms >> 16) & 0xFF);
+
+    RS485_Send(id, payload);
+}
+
+/* ============================================================================
+ * HELPER UTILITIES
+ * ============================================================================ */
+
+/**
+  * @brief  Convert degrees to radians.
+  * @param  deg  Angle in degrees
+  * @retval Angle in radians
+  */
+static inline float Deg2Rad(float deg)
+{
+    return deg * (float)M_PI / 180.0f;
+}
+
+/**
+  * @brief  Initialise motor: clear faults then start.
+  *
+  *         Call once after power-on before issuing any control commands.
+  *         The fault acknowledge step is mandatory — the driver will reject
+  *         all commands if a fault is latched (including power-on faults).
+  *
+  * @param  id  Motor ID
+  */
+void Motor_Init(uint8_t id)
+{
+    Motor_AckFault(id);   /* Clear any latched fault (incl. power-on faults) */
+    HAL_Delay(100);
+    Motor_Start(id);      /* Enable the motor drive stage                     */
+    HAL_Delay(100);
+}
+
+/* ============================================================================
+ * MAIN
+ * ============================================================================ */
+
+int main(void)
+{
+    /* MPU Configuration (must be first for STM32H7 cache safety) */
+    MPU_Config();
+
+    /* HAL, clocks, peripherals */
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_USART1_UART_Init();  /* 921600 baud, RS485 hardware DE on USART1 */
+
+    /* Allow motor driver board to complete its power-on self-test */
+    HAL_Delay(500);
+
+    /* Initialise motor: ack fault + start */
+    Motor_Init(MOTOR_ID);
+
+    /* -----------------------------------------------------------------------
+     * Optional: check fault after init and trap in Error_Handler if not clear
+     * ----------------------------------------------------------------------- */
+    uint8_t fault = Motor_GetFault(MOTOR_ID);
+    if (fault != FAULT_NONE && fault != 0xFF)
+    {
+        /* Fault still active — investigate with Motor Wizard or check wiring */
+        Error_Handler();
+    }
+
+    /* -----------------------------------------------------------------------
+     * Main control loop: oscillate between +90° and 0° every 2 seconds
+     * ----------------------------------------------------------------------- */
+    while (1)
+    {
+        /* Move to +90 degrees, allow 2000 ms to complete the motion */
+        Motor_SetPosition(MOTOR_ID, Deg2Rad(90.0f), 2000);
+        HAL_Delay(3000);    /* Wait for motion to finish + settling time */
+
+        /* Return to 0 degrees */
+        Motor_SetPosition(MOTOR_ID, Deg2Rad(0.0f), 2000);
+        HAL_Delay(3000);
+    }
+}
+
+/* ============================================================================
+ * PERIPHERAL INITIALISATION
+ * ============================================================================ */
+
+/**
+  * @brief  USART1 Initialisation — RS485 Hardware Driver Enable mode.
+  *
+  *         CRITICAL SETTINGS for SteadyWin GIM protocol:
+  *           Baud rate : 921600  (NOT 115200 — motor will not respond otherwise)
+  *           Data bits : 8
+  *           Stop bits : 1
+  *           Parity    : None
+  *
+  *         HAL_RS485Ex_Init enables the USART DE signal (hardware-controlled
+  *         RS485 direction switching via the MAX485 DE pin). This avoids any
+  *         manual GPIO toggling and ensures the DE pin de-asserts correctly
+  *         after the last stop bit, preventing bus collisions.
+  */
+static void MX_USART1_UART_Init(void)
+{
+    huart1.Instance                    = USART1;
+    huart1.Init.BaudRate               = 921600;            /* REQUIRED by GIM spec */
+    huart1.Init.WordLength             = UART_WORDLENGTH_8B;
+    huart1.Init.StopBits               = UART_STOPBITS_1;
+    huart1.Init.Parity                 = UART_PARITY_NONE;
+    huart1.Init.Mode                   = UART_MODE_TX_RX;
+    huart1.Init.HwFlowCtl              = UART_HWCONTROL_NONE;
+    huart1.Init.OverSampling           = UART_OVERSAMPLING_16;
+    huart1.Init.OneBitSampling         = UART_ONE_BIT_SAMPLE_DISABLE;
+    huart1.Init.ClockPrescaler         = UART_PRESCALER_DIV1;
+    huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+
+    /* RS485 hardware DE: polarity high, no deassertion/assertion delay.
+     * The STM32H7 USART peripheral drives DE automatically on each TX byte,
+     * so no manual GPIO toggling is needed. */
+    if (HAL_RS485Ex_Init(&huart1, UART_DE_POLARITY_HIGH, 0, 0) != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+    HAL_UARTEx_DisableFifoMode(&huart1);
+}
+
+/**
+  * @brief  GPIO Initialisation.
+  *         PE3 — output, active-high LED (TX indicator / heartbeat).
+  */
+static void MX_GPIO_Init(void)
+{
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    /* PE3 default LOW (LED off) */
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+
+    GPIO_InitStruct.Pin   = GPIO_PIN_3;
+    GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull  = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+}
+
+/**
+  * @brief  System Clock Configuration — STM32H750 @ 480 MHz.
+  *
+  *         PLL source : HSE
+  *         PLLM=5, PLLN=192, PLLP=2 → VCO = HSE/5 * 192 = 960 MHz (with 25MHz HSE)
+  *         SYSCLK = VCO / PLLP = 480 MHz
+  *         AHB    = 240 MHz  (DIV2)
+  *         APBx   = 120 MHz  (DIV2)
+  *
+  *         Adjust PLLM/PLLN if your HSE frequency differs from 25 MHz.
+  */
+void SystemClock_Config(void)
+{
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+    /* Step up to VOS0 for 480 MHz operation */
+    HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY);
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
+
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
+    while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
+
+    RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState            = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM            = 5;
+    RCC_OscInitStruct.PLL.PLLN            = 192;
+    RCC_OscInitStruct.PLL.PLLP            = 2;
+    RCC_OscInitStruct.PLL.PLLQ            = 2;
+    RCC_OscInitStruct.PLL.PLLR            = 2;
+    RCC_OscInitStruct.PLL.PLLRGE         = RCC_PLL1VCIRANGE_2;
+    RCC_OscInitStruct.PLL.PLLVCOSEL      = RCC_PLL1VCOWIDE;
+    RCC_OscInitStruct.PLL.PLLFRACN       = 0;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) { Error_Handler(); }
+
+    RCC_ClkInitStruct.ClockType      = RCC_CLOCKTYPE_HCLK   | RCC_CLOCKTYPE_SYSCLK
+                                     | RCC_CLOCKTYPE_PCLK1  | RCC_CLOCKTYPE_PCLK2
+                                     | RCC_CLOCKTYPE_D3PCLK1 | RCC_CLOCKTYPE_D1PCLK1;
+    RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
+    RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
+    RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) { Error_Handler(); }
+
+    HAL_RCC_EnableCSS();
+}
+
+/**
+  * @brief  MPU Configuration — required for STM32H7 cache coherency.
+  *         Marks the full 4GB address space as no-access, then relies on
+  *         the default privileged background region for valid memory.
+  */
+void MPU_Config(void)
+{
+    MPU_Region_InitTypeDef MPU_InitStruct = {0};
+
+    HAL_MPU_Disable();
+
+    MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
+    MPU_InitStruct.Number           = MPU_REGION_NUMBER0;
+    MPU_InitStruct.BaseAddress      = 0x00000000UL;
+    MPU_InitStruct.Size             = MPU_REGION_SIZE_4GB;
+    MPU_InitStruct.SubRegionDisable = 0x87;
+    MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;
+    MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
+    MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_DISABLE;
+    MPU_InitStruct.IsShareable      = MPU_ACCESS_SHAREABLE;
+    MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;
+    MPU_InitStruct.IsBufferable     = MPU_ACCESS_NOT_BUFFERABLE;
+    HAL_MPU_ConfigRegion(&MPU_InitStruct);
+
+    HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+}
+
+/**
+  * @brief  Error Handler — disables interrupts and halts.
+  *         In production, replace the infinite loop with a watchdog reset
+  *         or a safe-state routine (e.g., stop all motors, set brake).
+  */
+void Error_Handler(void)
+{
+    __disable_irq();
+    while (1) {}
+}

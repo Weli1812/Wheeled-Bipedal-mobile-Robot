@@ -1,0 +1,13 @@
+idf_component_register(
+    SRCS
+        "lqr_traj2_esp32.c"
+        "../Traj2_grt_rtw/Traj2.c"
+        "../Traj2_grt_rtw/Traj2_data.c"
+        "../Traj2_grt_rtw/rtGetNaN.c"
+        "../Traj2_grt_rtw/rt_nonfinite.c"
+        "../codegen/lib/robot_controller/robot_controller.c"
+    INCLUDE_DIRS
+        "."
+        "../Traj2_grt_rtw"
+        "../codegen/lib/robot_controller"
+)
