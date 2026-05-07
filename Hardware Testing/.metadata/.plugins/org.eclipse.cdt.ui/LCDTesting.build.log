@@ -1,0 +1,6 @@
+20:19:51 **** Incremental Build of configuration Debug for project LCDTesting ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+
+20:19:52 Build Finished. 0 errors, 0 warnings. (took 506ms)
+

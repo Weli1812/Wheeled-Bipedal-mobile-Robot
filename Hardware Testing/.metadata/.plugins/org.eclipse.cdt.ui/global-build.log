@@ -1,0 +1,116 @@
+11:59:09 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        1744 B       128 KB      1.33%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22256 B       128 KB     16.98%
+
+11:59:23 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+13:23:24 **** Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+13:23:44 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -MF CMakeFiles\STM32H750VBT6-MAX485UARTCommunication.dir\Core\Src\main.c.obj.d -o CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c: In function 'MX_USART1_UART_Init':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:109:29: error: 'GPIO_AF8_USART1' undeclared (first use in this function); did you mean 'GPIO_AF4_USART1'?
+  109 | #define USART1_DE_AF        GPIO_AF8_USART1   /* PA12=AF8; change if using PB0 (AF4) */
+      |                             ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:488:33: note: in expansion of macro 'USART1_DE_AF'
+  488 |     GPIO_InitStruct.Alternate = USART1_DE_AF;
+      |                                 ^~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:109:29: note: each undeclared identifier is reported only once for each function it appears in
+  109 | #define USART1_DE_AF        GPIO_AF8_USART1   /* PA12=AF8; change if using PB0 (AF4) */
+      |                             ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:488:33: note: in expansion of macro 'USART1_DE_AF'
+  488 |     GPIO_InitStruct.Alternate = USART1_DE_AF;
+      |                                 ^~~~~~~~~~~~
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+13:33:47 **** Incremental Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+13:34:10 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -MF CMakeFiles\STM32H750VBT6-MAX485UARTCommunication.dir\Core\Src\main.c.obj.d -o CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c: In function 'MX_USART1_UART_Init':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:109:29: error: 'GPIO_AF8_USART1' undeclared (first use in this function); did you mean 'GPIO_AF4_USART1'?
+  109 | #define USART1_DE_AF        GPIO_AF8_USART1   /* PA12=AF8; change if using PB0 (AF4) */
+      |                             ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:488:33: note: in expansion of macro 'USART1_DE_AF'
+  488 |     GPIO_InitStruct.Alternate = USART1_DE_AF;
+      |                                 ^~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:109:29: note: each undeclared identifier is reported only once for each function it appears in
+  109 | #define USART1_DE_AF        GPIO_AF8_USART1   /* PA12=AF8; change if using PB0 (AF4) */
+      |                             ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:488:33: note: in expansion of macro 'USART1_DE_AF'
+  488 |     GPIO_InitStruct.Alternate = USART1_DE_AF;
+      |                                 ^~~~~~~~~~~~
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+13:53:43 **** Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+13:53:43 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -MF CMakeFiles\STM32H750VBT6-MAX485UARTCommunication.dir\Core\Src\main.c.obj.d -o CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c: In function 'MX_USART1_UART_Init':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:109:29: error: 'GPIO_AF8_USART1' undeclared (first use in this function); did you mean 'GPIO_AF4_USART1'?
+  109 | #define USART1_DE_AF        GPIO_AF8_USART1   /* PA12=AF8; change if using PB0 (AF4) */
+      |                             ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:488:33: note: in expansion of macro 'USART1_DE_AF'
+  488 |     GPIO_InitStruct.Alternate = USART1_DE_AF;
+      |                                 ^~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:109:29: note: each undeclared identifier is reported only once for each function it appears in
+  109 | #define USART1_DE_AF        GPIO_AF8_USART1   /* PA12=AF8; change if using PB0 (AF4) */
+      |                             ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:488:33: note: in expansion of macro 'USART1_DE_AF'
+  488 |     GPIO_InitStruct.Alternate = USART1_DE_AF;
+      |                                 ^~~~~~~~~~~~
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+14:20:17 **** Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+14:20:35 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        1736 B       128 KB      1.32%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22068 B       128 KB     16.84%
+
+14:25:27 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
