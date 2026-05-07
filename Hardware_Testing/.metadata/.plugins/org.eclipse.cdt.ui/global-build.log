@@ -1,0 +1,3 @@
+18:17:49 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
