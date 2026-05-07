@@ -9,6 +9,7 @@ This folder integrates:
 - `lqr_traj2_esp32.c` updates `Traj2` reference arrays (`P`, `theta_ref_unwrapped`, `vd_ref`, `wd_ref`) at startup from external path data.
 - It calls `robot_controller()` every control step to produce high-level `v_cmd` and `w_cmd` for monitoring/debug.
 - It calls `Traj2_step()` every control step to produce wheel PWM and direction outputs.
+- The provided `currentPose = [x, y, theta]` is injected into Traj2 states every step, so localization can be sourced externally.
 
 ## API usage
 

@@ -1,0 +1,121 @@
+% ==========================================
+% Live ESP32 Bluetooth Trajectory Tracker
+% ==========================================
+clc; clear; close all;
+
+%% 1. LOAD THE REFERENCE TRAJECTORY
+if isfile('xd.mat') && isfile('yd.mat')
+    load('xd.mat', 'xd');
+    load('yd.mat', 'yd');
+else
+    error('Could not find xd.mat or yd.mat in the current directory!');
+end
+
+%% 2. SET UP BLUETOOTH SERIAL CONNECTION
+bt_port = "COM6"; 
+baud_rate = 115200;
+try
+    % Increased Timeout slightly for stability
+    s = serialport(bt_port, baud_rate, "Timeout", 5); 
+    configureTerminator(s, "LF"); 
+    disp('Successfully connected to the ESP32!');
+catch
+    error('Could not open Bluetooth port. Check if the robot is on, paired, and the COM number is correct.');
+end
+
+%% 3. SET UP THE LIVE PLOTS
+figure('Name', 'Live Robot Tracker', 'Color', 'w', 'NumberTitle', 'off', 'Position', [100, 100, 1000, 400]);
+
+% --- PLOT 1: X/Y Trajectory (Left Side) ---
+subplot(1, 2, 1);
+plot(xd, yd, 'r--', 'LineWidth', 2); 
+hold on; grid on; axis equal; 
+xlabel('X Position [m]', 'FontWeight', 'bold');
+ylabel('Y Position [m]', 'FontWeight', 'bold');
+title('2D Trajectory Tracking');
+% Create an animated line to draw the robot's actual trail
+robot_path = animatedline('Color', 'b', 'LineWidth', 1.5);
+% Create a blue dot to represent the robot's current exact location
+current_pos = plot(xd(1), yd(1), 'bo', 'MarkerSize', 8, 'MarkerFaceColor', 'b');
+% Create a black line to show the direction the robot is facing (Yaw)
+heading_line = plot([xd(1), xd(1)], [yd(1), yd(1)], 'k-', 'LineWidth', 2);
+legend('Target Trajectory', 'Actual Path', 'Current Location', 'Heading', 'Location', 'best');
+
+% --- PLOT 2: Live Yaw Angle (Right Side) ---
+subplot(1, 2, 2);
+hold on; grid on;
+xlabel('Time [seconds]', 'FontWeight', 'bold');
+ylabel('Yaw Angle [Degrees]', 'FontWeight', 'bold');
+title('Live Yaw Angle');
+ylim([-180 180]); % Lock Y-axis to standard angle wrapping
+yaw_graph = animatedline('Color', 'm', 'LineWidth', 2);
+
+%% 4. READ AND PLOT LOOP
+disp('Listening for telemetry... Press Ctrl+C in the Command Window to stop.');
+flush(s);
+
+start_time = tic; % Start a timer to plot Yaw against Time
+
+while true
+    try
+        % --- ANTI-FREEZE BUFFER CHECK ---
+        % If MATLAB is falling behind and the buffer gets too large,
+        % flush the old data so we stay in real-time and prevent crashing.
+        if s.NumBytesAvailable > 1024 
+            flush(s);
+            disp('Lag detected! Skipped delayed packets to maintain real-time.');
+            continue; % Skip to the next clean read
+        end
+        
+        % 1. Read the incoming text line
+        data_str = readline(s);
+        
+        % 2. Split the comma-separated string
+        % Format: X, Y, Theta, Roll, Pitch, Yaw
+        data = str2double(split(data_str, ','));
+        
+        % 3. Check if packet is complete
+        if length(data) == 6 && ~any(isnan(data))
+            x_curr = data(1); % X_state[0]
+            y_curr = data(2); % X_state[1]
+            yaw_curr = data(6); % Extract the Yaw angle (in degrees)
+            
+            t_curr = toc(start_time); % Get current time in seconds
+            
+            % 4. Update the 2D Trajectory Graph
+            addpoints(robot_path, x_curr, y_curr); 
+            current_pos.XData = x_curr;            
+            current_pos.YData = y_curr;
+            
+            % Calculate heading line endpoint
+            arrow_length = 0.3; 
+            hx = x_curr + arrow_length * cosd(yaw_curr);
+            hy = y_curr + arrow_length * sind(yaw_curr);
+            
+            % Move the heading line
+            heading_line.XData = [x_curr, hx];
+            heading_line.YData = [y_curr, hy];
+            
+            % Update the Trajectory title to show live numbers
+            subplot(1, 2, 1);
+            title(sprintf('Live Tracking | X: %.2fm | Y: %.2fm', x_curr, y_curr));
+            
+            % 5. Update the Yaw Graph
+            addpoints(yaw_graph, t_curr, yaw_curr);
+            subplot(1, 2, 2);
+            title(sprintf('Yaw Angle: %.1f°', yaw_curr));
+            
+            % Auto-scroll the X-axis of the Yaw plot
+            if t_curr > 10
+                xlim([t_curr - 10, t_curr]);
+            else
+                xlim([0, 10]);
+            end
+            
+            % 6. Refresh the screen
+            drawnow limitrate; 
+        end
+    catch
+        % Ignore corrupted packets
+    end
+end

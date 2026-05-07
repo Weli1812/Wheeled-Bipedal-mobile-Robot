@@ -28,35 +28,35 @@ goalThetaTol = deg2rad(8);    % [rad]
 resolution = 10;
 map = binaryOccupancyMap(10, 10, resolution);
 
-% Obstacle 1: lower-left vertical block
-[X1, Y1] = meshgrid(1.0:0.1:2.0, 1.0:0.1:3.8);
-setOccupancy(map, [X1(:) Y1(:)], 1);
-
-% Obstacle 2: upper-left block
-[X2, Y2] = meshgrid(1.5:0.1:3.2, 5.2:0.1:7.8);
-setOccupancy(map, [X2(:) Y2(:)], 1);
-
-% Obstacle 3: center-lower block
-[X3, Y3] = meshgrid(4.0:0.1:5.8, 2.0:0.1:4.2);
-setOccupancy(map, [X3(:) Y3(:)], 1);
-
-% Obstacle 4: center-upper block
-[X4, Y4] = meshgrid(4.8:0.1:6.4, 5.3:0.1:7.2);
-setOccupancy(map, [X4(:) Y4(:)], 1);
-
-% Obstacle 5: right-lower block
-[X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
-setOccupancy(map, [X5(:) Y5(:)], 1);
+% % Obstacle 1: lower-left vertical block
+% [X1, Y1] = meshgrid(1.0:0.1:2.0, 1.0:0.1:3.8);
+% setOccupancy(map, [X1(:) Y1(:)], 1);
 % 
-% % Obstacle 6: right-upper block
-% [X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
-% setOccupancy(map, [X6(:) Y6(:)], 1);
+% % Obstacle 2: upper-left block
+% [X2, Y2] = meshgrid(1.5:0.1:3.2, 5.2:0.1:7.8);
+% setOccupancy(map, [X2(:) Y2(:)], 1);
 % 
-% % Obstacle 7: narrow corridor maker
-% [X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
-% setOccupancy(map, [X7(:) Y7(:)], 1);
+% % Obstacle 3: center-lower block
+% [X3, Y3] = meshgrid(4.0:0.1:5.8, 2.0:0.1:4.2);
+% setOccupancy(map, [X3(:) Y3(:)], 1);
 % 
-% inflate(map, 0.2);
+% % Obstacle 4: center-upper block
+% [X4, Y4] = meshgrid(4.8:0.1:6.4, 5.3:0.1:7.2);
+% setOccupancy(map, [X4(:) Y4(:)], 1);
+% 
+% % Obstacle 5: right-lower block
+% [X5, Y5] = meshgrid(7.0:0.1:8.8, 1.2:0.1:3.2);
+% setOccupancy(map, [X5(:) Y5(:)], 1);
+% % 
+% % % Obstacle 6: right-upper block
+% % [X6, Y6] = meshgrid(7.2:0.1:8.9, 6.2:0.1:8.8);
+% % setOccupancy(map, [X6(:) Y6(:)], 1);
+% % 
+% % % Obstacle 7: narrow corridor maker
+% % [X7, Y7] = meshgrid(3.0:0.1:3.8, 3.8:0.1:5.8);
+% % setOccupancy(map, [X7(:) Y7(:)], 1);
+% % 
+% % inflate(map, 0.2);
 
 startXY = [9, 1];
 goalXY  = [2, 9];
@@ -450,9 +450,12 @@ out = sim('Traj2', 'StopTime', num2str(T_end));
 %% =========================
 % 13) Read outputs
 % ==========================
-x     = out.x_out(:);
-y     = out.y_out(:);
-theta = out.theta_out(:);
+xd     = out.x_out(:);
+yd     = out.y_out(:);
+thetad = out.theta_out(:);
+
+vd     = out.x_out1(:);
+wd     = out.y_out1(:);
 
 %% =========================
 % 14) Animate robot motion only
