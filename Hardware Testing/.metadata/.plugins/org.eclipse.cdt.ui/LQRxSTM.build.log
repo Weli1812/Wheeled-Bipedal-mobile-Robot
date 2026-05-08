@@ -1,56 +1,22 @@
-19:39:37 **** Incremental Build of configuration Debug for project LQRxSTM ****
+15:16:38 **** Incremental Build of configuration Debug for project LQRxSTM ****
 cmake --build "build\\Debug" 
-CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
-  project() should be called prior to this enable_language() call.
-This warning is for project developers.  Use -Wno-dev to suppress it.
-
-Build type: Debug
--- Configuring done (1.0s)
--- Generating done (0.3s)
--- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/build/Debug
-[0/1] Re-running CMake...
-[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:147:18: warning: 'rtIsNaNF' defined but not used [-Wunused-function]
-  147 | static boolean_T rtIsNaNF(real32_T value)
-      |                  ^~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:135:18: warning: 'rtIsInfF' defined but not used [-Wunused-function]
-  135 | static boolean_T rtIsInfF(real32_T value)
-      |                  ^~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:123:17: warning: 'rtGetNaNF' defined but not used [-Wunused-function]
-  123 | static real32_T rtGetNaNF(void)
-      |                 ^~~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:117:15: warning: 'rtGetNaN' defined but not used [-Wunused-function]
-  117 | static real_T rtGetNaN(void)
-      |               ^~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:111:17: warning: 'rtGetMinusInfF' defined but not used [-Wunused-function]
-  111 | static real32_T rtGetMinusInfF(void)
-      |                 ^~~~~~~~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:105:15: warning: 'rtGetMinusInf' defined but not used [-Wunused-function]
-  105 | static real_T rtGetMinusInf(void)
-      |               ^~~~~~~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:99:17: warning: 'rtGetInfF' defined but not used [-Wunused-function]
-   99 | static real32_T rtGetInfF(void)
-      |                 ^~~~~~~~~
-C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:93:15: warning: 'rtGetInf' defined but not used [-Wunused-function]
-   93 | static real_T rtGetInf(void)
-      |               ^~~~~~~~
-[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj
+[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
 [3/3] Linking C executable LQRxSTM.elf
 D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
 Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
 
-         DTCMRAM:        8496 B       128 KB      6.48%
+             RAM:       20712 B       512 KB      3.95%
 
-             RAM:           0 B       512 KB      0.00%
+          RAM_D2:       42000 B       288 KB     14.24%
 
-          RAM_D2:           0 B       288 KB      0.00%
-
-          RAM_D3:           0 B        64 KB      0.00%
+          RAM_D3:       57600 B        64 KB     87.89%
 
          ITCMRAM:           0 B        64 KB      0.00%
 
-           FLASH:       47496 B       128 KB     36.24%
+           FLASH:       33440 B       128 KB     25.51%
 
 
-19:39:48 Build Finished. 0 errors, 9 warnings. (took 11s.326ms)
+15:16:47 Build Finished. 0 errors, 1 warnings. (took 9s.682ms)
 

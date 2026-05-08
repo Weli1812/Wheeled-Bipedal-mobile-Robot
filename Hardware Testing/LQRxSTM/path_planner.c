@@ -2,6 +2,47 @@
 #include <math.h>
 #include <string.h>
 
+// ESP32-specific UART communication
+#include <Arduino.h>
+
+// This is the data structure for Slave 1 (Lidar/Ultrasonics)
+// It matches the structure in the STM32 main.c
+typedef struct {
+    float P[100][2];      // 100 [x,y] coordinates
+    float S_path[100];    // Arc lengths
+    float v_d;            // Target linear
+    float w_d;            // Target angular
+} __attribute__((packed)) ESP32_Slave1_Data;
+
+ESP32_Slave1_Data path_packet;
+
+// This is the data structure for Slave 2 (Encoders/IMU/Kalman)
+// It matches the structure in the STM32 main.c
+typedef struct {
+    float x;
+    float y;
+    float theta;
+    float v;
+    float w;
+} __attribute__((packed)) ESP32_Slave2_Data;
+
+ESP32_Slave2_Data state_packet;
+
+void setup_uart() {
+    // Communication with STM32 (Master)
+    // RX: GPIO16, TX: GPIO17
+    Serial2.begin(921600, SERIAL_8N1, 16, 17); 
+}
+
+void send_path_to_master() {
+    Serial2.write((uint8_t*)&path_packet, sizeof(path_packet));
+}
+
+void send_state_to_master() {
+    // This function would be called from the part of the code that has the robot's state
+    Serial2.write((uint8_t*)&state_packet, sizeof(state_packet));
+}
+
 
 #define GRID_RES_M   0.2f
 #define MAX_PATH_LENGTH 2000
