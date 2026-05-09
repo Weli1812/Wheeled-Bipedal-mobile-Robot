@@ -1204,7 +1204,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .debug_line    0x00000000      0xf53 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
- .debug_str     0x00000000   0x153634 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+ .debug_str     0x00000000   0x15360c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .debug_frame   0x00000000      0x1e0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .ARM.attributes
@@ -1388,7 +1388,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .debug_line    0x00000000     0x11ec CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
- .debug_str     0x00000000   0x1538b4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+ .debug_str     0x00000000   0x15388c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .debug_frame   0x00000000      0x3a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .ARM.attributes
@@ -1671,7 +1671,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .debug_line    0x00000000      0xc8d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
- .debug_str     0x00000000   0x15328f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+ .debug_str     0x00000000   0x153267 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .debug_frame   0x00000000      0x194 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .ARM.attributes
@@ -1839,7 +1839,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .debug_line    0x00000000     0x2a6d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
- .debug_str     0x00000000   0x153d8a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+ .debug_str     0x00000000   0x153d62 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .debug_frame   0x00000000      0x290 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .ARM.attributes
@@ -1989,7 +1989,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .debug_line    0x00000000     0x1424 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
- .debug_str     0x00000000   0x153717 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+ .debug_str     0x00000000   0x1536ef CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .debug_frame   0x00000000      0x15c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .ARM.attributes
@@ -2163,7 +2163,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .debug_line    0x00000000     0x1757 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
- .debug_str     0x00000000   0x153984 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+ .debug_str     0x00000000   0x15395c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .debug_frame   0x00000000      0x310 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .ARM.attributes
@@ -2329,7 +2329,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .debug_line    0x00000000      0xd32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
- .debug_str     0x00000000   0x1535ce CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+ .debug_str     0x00000000   0x1535a6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .debug_frame   0x00000000      0x214 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .ARM.attributes
@@ -3023,7 +3023,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .debug_line    0x00000000     0x3e3d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
- .debug_str     0x00000000   0x15469f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+ .debug_str     0x00000000   0x154677 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .debug_frame   0x00000000      0xbf0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .ARM.attributes
@@ -3167,7 +3167,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .debug_line    0x00000000      0xc7d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
- .debug_str     0x00000000   0x153a4c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+ .debug_str     0x00000000   0x153a24 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .debug_frame   0x00000000       0xe8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .ARM.attributes
@@ -3317,7 +3317,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .debug_line    0x00000000      0xfa3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
- .debug_str     0x00000000   0x153461 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+ .debug_str     0x00000000   0x153439 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .debug_frame   0x00000000      0x154 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .ARM.attributes
@@ -3447,7 +3447,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .debug_line    0x00000000      0xb0d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
- .debug_str     0x00000000   0x1530e1 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+ .debug_str     0x00000000   0x1530b9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .ARM.attributes
                 0x00000000       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
@@ -3576,7 +3576,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .debug_line    0x00000000      0xb10 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
- .debug_str     0x00000000   0x1530e4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+ .debug_str     0x00000000   0x1530bc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .ARM.attributes
                 0x00000000       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
@@ -4159,7 +4159,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .debug_macro   0x00000000      0x1df CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .debug_line    0x00000000      0x521 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
- .debug_str     0x00000000     0x720b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
+ .debug_str     0x00000000     0x71e3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .debug_frame   0x00000000       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .ARM.attributes
@@ -4290,7 +4290,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .debug_macro   0x00000000       0xce CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .debug_line    0x00000000      0x845 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
- .debug_str     0x00000000     0x9506 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
+ .debug_str     0x00000000     0x94de CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .debug_frame   0x00000000      0x288 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .ARM.attributes
@@ -5150,22 +5150,22 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
  .debug_line    0x0000fa22       0x7a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
  .debug_line    0x0000fa9c      0x202 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_str      0x00000000   0x157b02
- .debug_str     0x00000000   0x157b02 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                             0x1541aa (size before relaxing)
- .debug_str     0x00157b02   0x1531f7 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_str     0x00157b02   0x153d8a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_str     0x00157b02   0x153fb0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_str     0x00157b02   0x1539eb CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_str     0x00157b02   0x153ecc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_str     0x00157b02   0x153607 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_str     0x00157b02   0x153ac8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_str     0x00157b02   0x154575 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_str     0x00157b02   0x15452c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_str     0x00157b02   0x153aec CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_str     0x00157b02   0x153650 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
- .debug_str     0x00157b02      0x136 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
- .debug_str     0x00157b02      0x232 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+.debug_str      0x00000000   0x157ada
+ .debug_str     0x00000000   0x157ada CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                             0x154182 (size before relaxing)
+ .debug_str     0x00157ada   0x1531cf CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_str     0x00157ada   0x153d62 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_str     0x00157ada   0x153f88 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_str     0x00157ada   0x1539c3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_str     0x00157ada   0x153ea4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_str     0x00157ada   0x1535df CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_str     0x00157ada   0x153aa0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_str     0x00157ada   0x15454d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_str     0x00157ada   0x154504 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_str     0x00157ada   0x153ac4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_str     0x00157ada   0x153628 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+ .debug_str     0x00157ada      0x136 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+ .debug_str     0x00157ada      0x232 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
 .comment        0x00000000       0x43
  .comment       0x00000000       0x43 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj

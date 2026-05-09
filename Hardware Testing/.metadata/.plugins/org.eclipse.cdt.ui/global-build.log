@@ -1057,3 +1057,62 @@ Memory region         Used Size  Region Size  %age Used
 
            FLASH:       33440 B       128 KB     25.51%
 
+22:13:36 **** Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+[2/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[4/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[5/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[6/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[7/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[8/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[9/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[10/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[11/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[12/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[13/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[14/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[15/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[16/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[17/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[18/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[19/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[20/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[21/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+[22/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+[23/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -MF CMakeFiles\STM32H750VBT6-MAX485UARTCommunication.dir\Core\Src\main.c.obj.d -o CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c: In function 'main':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:405:1: error: invalid use of void expression
+  405 | +    MPU_Config();
+      | ^
+[24/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+[25/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
+[26/28] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
+[27/28] Building ASM object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:15:18 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        1736 B       128 KB      1.32%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22068 B       128 KB     16.84%
+
+22:15:45 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.

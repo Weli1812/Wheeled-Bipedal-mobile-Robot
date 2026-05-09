@@ -402,7 +402,7 @@ void Motor_Init(uint8_t id)
 
 int main(void)
 {
-    MPU_Config();
++    MPU_Config();
     HAL_Init();
     SystemClock_Config();
     MX_GPIO_Init();
