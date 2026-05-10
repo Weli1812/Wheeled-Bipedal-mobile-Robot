@@ -1116,3 +1116,136 @@ Memory region         Used Size  Region Size  %age Used
 22:15:45 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
 cmake --build "build\\Debug" 
 ninja: no work to do.
+22:53:59 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:62:16: warning: 'rx_buf' defined but not used [-Wunused-variable]
+   62 | static uint8_t rx_buf[64];
+      |                ^~~~~~
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        1736 B       128 KB      1.32%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22124 B       128 KB     16.88%
+
+22:58:19 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:08:19 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:62:16: warning: 'rx_buf' defined but not used [-Wunused-variable]
+   62 | static uint8_t rx_buf[64];
+      |                ^~~~~~
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        1744 B       128 KB      1.33%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22868 B       128 KB     17.45%
+
+23:11:15 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:15:13 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:23:19 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        1744 B       128 KB      1.33%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       25024 B       128 KB     19.09%
+
+23:27:08 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:62:16: warning: 'rx_buf' defined but not used [-Wunused-variable]
+   62 | static uint8_t rx_buf[64];
+      |                ^~~~~~
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        1736 B       128 KB      1.32%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22124 B       128 KB     16.88%
+
+23:27:54 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:47:44 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-MAX485UARTCommunication/Core/Src/main.c:63:16: warning: 'rx_buf' defined but not used [-Wunused-variable]
+   63 | static uint8_t rx_buf[64];
+      |                ^~~~~~
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        1744 B       128 KB      1.33%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22848 B       128 KB     17.43%
+
+23:49:08 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:49:12 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:51:19 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+23:54:46 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+00:00:50 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+[2/2] Linking C executable STM32H750VBT6-MAX485UARTCommunication.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-MAX485UARTCommunication.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        1744 B       128 KB      1.33%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       22880 B       128 KB     17.46%
+
+00:01:26 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
