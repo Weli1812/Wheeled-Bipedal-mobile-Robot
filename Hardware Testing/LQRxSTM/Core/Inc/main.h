@@ -65,6 +65,12 @@ void MX_USART2_UART_Init(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RS_TX_Pin GPIO_PIN_10
+#define RS_TX_GPIO_Port GPIOB
+#define RS_RX_Pin GPIO_PIN_11
+#define RS_RX_GPIO_Port GPIOB
+#define RS_DE_Pin GPIO_PIN_12
+#define RS_DE_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 

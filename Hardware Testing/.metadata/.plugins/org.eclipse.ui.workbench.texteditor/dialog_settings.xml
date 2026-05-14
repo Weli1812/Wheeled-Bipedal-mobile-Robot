@@ -3,6 +3,8 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="simulink_step"/>
+		<item value="data_ready"/>
 		<item value="glob"/>
 	</list>
 </section>
