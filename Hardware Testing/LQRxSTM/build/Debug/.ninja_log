@@ -65,3 +65,4 @@
 1464	3584	8005368296753991	CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj	aaf7e205150b817e
 2327	3690	8005368297899347	CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj	554ad5703e99ffda
 2245	3807	8005368299192335	CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj	3537457f28d174bf
+31	2671	8005375938413696	CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj	e5f82681371a53a
