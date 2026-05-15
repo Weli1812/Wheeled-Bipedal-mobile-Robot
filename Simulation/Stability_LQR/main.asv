@@ -887,68 +887,28 @@ dt_anim  = 0.02;    % Animation timestep (s)
 maxDriveFrames = 700;     % 700 = clear but still slightly fast
 pause_drive    = 0.015;   % bigger = slower, smaller = faster
 
-% ── Find when robot is stopped AND stable before starting jump ────────────
+% ── Find when robot has stopped, so jump starts immediately after stopping ──
+stopSpeedTol = 0.02;     % m/s
+cmdStopTol   = 0.005;    % m/s
 
-% Speed condition
-stopSpeedTol = 0.02;      % actual speed must be near zero [m/s]
-cmdStopTol   = 0.005;     % desired speed must be near zero [m/s]
+% Avoid detecting the initial zero-speed period
+minJumpSearchTime = 0.30 * sim_t(end);
 
-% Tilt stability condition
-phiStableTol     = deg2rad(0.20);  % max allowed tilt angle before jump
-phiRateStableTol = 0.004;          % max allowed tilt rate [rad/s]
+jump_idx = find(sim_t > minJumpSearchTime & ...
+                abs(v) < stopSpeedTol & ...
+                abs(vd_cmd) < cmdStopTol, ...
+                1, 'first');
 
-% Robot must remain stable for this duration before jumping
-stableCheckTime = 2.0;    % seconds
-
-% Avoid detecting the initial zero-speed period at the beginning
-minJumpSearchTime = 0.50 * sim_t(end);
-
-% Estimate phi_dot from phi signal
-dt_phi = diff(sim_t);
-dt_phi(dt_phi <= 0) = eps;
-
-phi_dot_est = [0; diff(phi) ./ dt_phi];
-
-% Stability mask
-stableMask = sim_t > minJumpSearchTime & ...
-             abs(v) < stopSpeedTol & ...
-             abs(vd_cmd) < cmdStopTol & ...
-             abs(phi) < phiStableTol & ...
-             abs(phi_dot_est) < phiRateStableTol;
-
-% Search for first time where robot has been stable for stableCheckTime
-jump_idx = [];
-
-for i = 1:length(sim_t)
-
-    if ~stableMask(i)
-        continue;
-    end
-
-    j = find(sim_t >= sim_t(i) + stableCheckTime, 1, 'first');
-
-    if isempty(j)
-        break;
-    end
-
-    if all(stableMask(i:j))
-        jump_idx = j;   % jump after confirming stability
-        break;
-    end
-end
-
-% Safety fallback
 if isempty(jump_idx)
-    warning('[ANIM] Could not confirm stability early. Jump will start at final simulation time.');
     jump_idx = length(sim_t);
 end
 
-fprintf('[ANIM] Robot stable. Jump will start at t = %.2f s instead of %.2f s.\n', ...
+fprintf('[ANIM] Jump will start at t = %.2f s instead of %.2f s.\n', ...
         sim_t(jump_idx), sim_t(end));
 
 % ── Trajectory data already assembled above in x, y, phi, sim_t ──────────
-goal_x2D = x(jump_idx);
-goal_y2D = y(jump_idx);
+goal_x2D = x(end);
+goal_y2D = y(end);
 
 % Map-space bounding box for the top-down drive view
 x_pad = 0.5;
@@ -1044,7 +1004,7 @@ legend(ax_w, 'Actual', 'Desired', 'Location', 'best');
 % ════════════════════════════════════════════════════════════════════════════
 %  PHASE A — DRIVE
 % ════════════════════════════════════════════════════════════════════════════
-num_pts = jump_idx;
+num_pts = length(sim_t);
 
 % More frames = smoother animation
 skip_factor = max(1, floor(num_pts / maxDriveFrames));
@@ -1090,13 +1050,13 @@ for k = 1:skip_factor:num_pts
 end
 
 % Flush final data point into signal plots
-addpoints(phi_line, sim_t(jump_idx), phi(jump_idx));
+addpoints(phi_line, sim_t(end), phi(end));
 
-addpoints(v_line,  sim_t(jump_idx), v(jump_idx));
-addpoints(vd_line, sim_t(jump_idx), vd_cmd(jump_idx));
+addpoints(v_line,  sim_t(end), v(end));
+addpoints(vd_line, sim_t(end), vd_cmd(end));
 
-addpoints(w_line,  sim_t(jump_idx), omega(jump_idx));
-addpoints(wd_line, sim_t(jump_idx), wd_cmd(jump_idx));
+addpoints(w_line,  sim_t(end), omega(end));
+addpoints(wd_line, sim_t(end), wd_cmd(end));
 
 drawnow;
 
