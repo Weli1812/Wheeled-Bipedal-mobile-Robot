@@ -1249,3 +1249,131 @@ Memory region         Used Size  Region Size  %age Used
 00:01:26 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
 cmake --build "build\\Debug" 
 ninja: no work to do.
+11:27:05 **** Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/build/Debug
+[0/1] Re-running CMake...
+[1/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+[2/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[4/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[5/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[6/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj
+[7/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[8/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:547:6: warning: 'MPU_Config' defined but not used [-Wunused-function]
+  547 | void MPU_Config(void)
+      |      ^~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:448:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  448 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:91:32: warning: 'planner_output' defined but not used [-Wunused-variable]
+   91 | static SimulinkReferenceArrays planner_output;
+      |                                ^~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:90:13: warning: 'path_nodes' defined but not used [-Wunused-variable]
+   90 | static Pose path_nodes[MAX_PATH_LENGTH];
+      |             ^~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:89:16: warning: 'inflated_map' defined but not used [-Wunused-variable]
+   89 | static uint8_t inflated_map[MAP_WIDTH * MAP_HEIGHT];
+      |                ^~~~~~~~~~~~
+[9/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[10/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[11/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[12/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[13/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[14/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[15/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[16/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[17/32] Building ASM object CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj
+[18/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj
+[19/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj
+[20/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[21/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:147:18: warning: 'rtIsNaNF' defined but not used [-Wunused-function]
+  147 | static boolean_T rtIsNaNF(real32_T value)
+      |                  ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:135:18: warning: 'rtIsInfF' defined but not used [-Wunused-function]
+  135 | static boolean_T rtIsInfF(real32_T value)
+      |                  ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:123:17: warning: 'rtGetNaNF' defined but not used [-Wunused-function]
+  123 | static real32_T rtGetNaNF(void)
+      |                 ^~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:117:15: warning: 'rtGetNaN' defined but not used [-Wunused-function]
+  117 | static real_T rtGetNaN(void)
+      |               ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:111:17: warning: 'rtGetMinusInfF' defined but not used [-Wunused-function]
+  111 | static real32_T rtGetMinusInfF(void)
+      |                 ^~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:105:15: warning: 'rtGetMinusInf' defined but not used [-Wunused-function]
+  105 | static real_T rtGetMinusInf(void)
+      |               ^~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:99:17: warning: 'rtGetInfF' defined but not used [-Wunused-function]
+   99 | static real32_T rtGetInfF(void)
+      |                 ^~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:93:15: warning: 'rtGetInf' defined but not used [-Wunused-function]
+   93 | static real_T rtGetInf(void)
+      |               ^~~~~~~~
+[22/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj
+[23/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[24/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[25/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj
+[26/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+[27/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[28/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[29/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[30/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+[31/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[32/32] Linking C executable LQRxSTM.elf
+FAILED: LQRxSTM.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=LQRxSTM.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage -Wl,--gc-sections CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj -o LQRxSTM.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj: in function `Reset_Handler':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/startup_stm32h750xx.s:99:(.text.Reset_Handler+0x32): undefined reference to `main'
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: (main): Unknown destination type (ARM/Thumb) in CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/startup_stm32h750xx.s:99:(.text.Reset_Handler+0x32): dangerous relocation: unsupported relocation
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:           0 B       128 KB      0.00%
+
+             RAM:        1896 B       512 KB      0.36%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:        2520 B       128 KB      1.92%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+11:27:35 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/1] Linking C executable LQRxSTM.elf
+FAILED: LQRxSTM.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=LQRxSTM.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage -Wl,--gc-sections CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj -o LQRxSTM.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj: in function `Reset_Handler':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/startup_stm32h750xx.s:99:(.text.Reset_Handler+0x32): undefined reference to `main'
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: (main): Unknown destination type (ARM/Thumb) in CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/startup_stm32h750xx.s:99:(.text.Reset_Handler+0x32): dangerous relocation: unsupported relocation
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:        1896 B       512 KB      0.36%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:        2520 B       128 KB      1.92%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.

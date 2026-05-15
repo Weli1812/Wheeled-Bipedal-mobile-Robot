@@ -128,6 +128,134 @@ void BuildMapFromSensorData(const Sensor_Data* sensors) {
   * @brief  The application entry point.
   * @retval int
   */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+  int path_len = 0;
+  /* USER CODE END 1 */
+
+  /* MPU Configuration--------------------------------------------------------*/
+  MPU_Config();
+
+  /* Enable I-Cache---------------------------------------------------------*/
+  SCB_EnableICache();
+
+  /* Enable D-Cache---------------------------------------------------------*/
+  SCB_EnableDCache();
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_TIM1_Init();
+  MX_TIM8_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  /* USER CODE BEGIN 2 */
+  // Initialize the Simulink Model
+  LQRxSTM_initialize();
+
+  // Initialize kinematics for the planner
+  InitKinematics(0.9f, 0.2f); // min_turning_radius_m, speed_m_s
+
+  // Start PWM signals
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
+
+  // Start UART DMA transfers
+  HAL_UART_Receive_DMA(&huart1, (uint8_t*)&sensor_data, sizeof(Sensor_Data));
+  HAL_UART_Receive_DMA(&huart2, (uint8_t*)&localization_data, sizeof(Localization_Data));
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+	  // Wait for both sensor and localization data to be ready
+	  if (sensor_data_ready && localization_data_ready) {
+		  // Reset flags
+		  sensor_data_ready = 0;
+		  localization_data_ready = 0;
+
+		  // --- 1. Build the map from new sensor data ---
+		  BuildMapFromSensorData(&sensor_data);
+		  InflateMap(map, inflated_map, 3); // 3 cells inflation radius
+
+		  // --- 2. Define start and goal, then plan path ---
+		  // Start pose is the current robot pose from localization
+          Pose start_pose = {localization_data.x, localization_data.y, localization_data.theta};
+          // Goal pose would come from a higher-level mission planner
+          Pose goal_pose  = {90.0f, 90.0f, 1.57f}; // Example goal
+
+          path_len = PlanKinematicPath(inflated_map, start_pose, goal_pose, path_nodes);
+
+          if (path_len > 0) {
+              // Path found, smooth and generate trajectory
+              SmoothPath(path_nodes, path_len, 0.5f, 0.1f, 0.00001f, inflated_map);
+              BuildSpatialReference(path_nodes, path_len, &planner_output);
+
+              // --- 3. Feed the new path to the LQR controller ---
+              int copy_len = (planner_output.length < 2000) ? planner_output.length : 2000;
+
+              memcpy(rtU.S_path, planner_output.S_path, copy_len * sizeof(float));
+              memcpy(rtU.vd_path, planner_output.vd_path, copy_len * sizeof(float));
+              memcpy(rtU.wd_path, planner_output.wd_path, copy_len * sizeof(float));
+			  memcpy(rtU.theta_ref_unwrapped, planner_output.theta_ref, copy_len * sizeof(float));
+
+              for (int i = 0; i < copy_len; i++) {
+                  rtU.P_b[i * 2]     = planner_output.P_x[i];
+                  rtU.P_b[i * 2 + 1] = planner_output.P_y[i];
+              }
+          }
+
+		  // --- 4. Run Controller Step ---
+		  // Map localization data to the controller inputs
+		  rtU.x_robot = localization_data.x;
+		  rtU.y_robot = localization_data.y;
+		  rtU.theta = localization_data.theta;
+		  rtU.v = localization_data.v;
+		  rtU.omega = localization_data.w;
+		  rtU.phi = 0.0;
+		  rtU.phi_dot = 0.0;
+		  rtU.s = 0.0;
+
+		  // Run one step of the control logic
+		  LQRxSTM_step();
+
+		  // Update PWM outputs
+		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, rtY.RPWM_R);
+		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, rtY.LPWM_R);
+		  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, rtY.RPWM_L);
+		  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, rtY.LPWM_L);
+
+		  // Re-enable DMA for next data packets
+		  HAL_UART_Receive_DMA(&huart1, (uint8_t*)&sensor_data, sizeof(Sensor_Data));
+		  HAL_UART_Receive_DMA(&huart2, (uint8_t*)&localization_data, sizeof(Localization_Data));
+	  }
+	  HAL_Delay(10); // Loop delay
+  }
+  /* USER CODE END 3 */
+}
 
 /**
   * @brief System Clock Configuration
