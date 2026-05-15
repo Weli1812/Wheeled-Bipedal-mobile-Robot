@@ -1,0 +1,99 @@
+#ifndef PATH_PLANNER_H
+#define PATH_PLANNER_H
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <math.h>
+
+// Constants adapted for the LQRxSTM project
+#define MAP_WIDTH  50
+#define MAP_HEIGHT 50
+#define THETA_BINS 8
+#define MAX_PATH_LENGTH 10
+#define MAX_NODES 1500
+
+// Type definitions
+typedef struct { float x; float y; float theta; } Pose;
+typedef struct { float x; float y; float theta; float t; } TrajectoryPoint;
+
+// Structure to hold the final reference arrays for the Simulink controller
+typedef struct {
+    float S_path[MAX_PATH_LENGTH];
+    float vd_path[MAX_PATH_LENGTH];
+    float wd_path[MAX_PATH_LENGTH];
+    float P_x[MAX_PATH_LENGTH];
+    float P_y[MAX_PATH_LENGTH];
+    float theta_ref[MAX_PATH_LENGTH];
+    int length;
+} SimulinkReferenceArrays;
+
+
+// Function Prototypes from original path_planner.c
+
+/**
+ * @brief Initializes the kinematic parameters for the path planner.
+ * @param min_turning_radius_m Minimum turning radius of the robot in meters.
+ * @param speed_m_s The constant speed the robot will follow on the path in m/s.
+ */
+void InitKinematics(float min_turning_radius_m, float speed_m_s);
+
+/**
+ * @brief Inflates obstacles in the map to create a safety margin for the robot.
+ * @param original_map Pointer to the original occupancy grid.
+ * @param inflated_map Pointer to the output inflated map.
+ * @param inflation_cells The radius in grid cells to inflate obstacles by.
+ */
+void InflateMap(const uint8_t* original_map, uint8_t* inflated_map, int inflation_cells);
+
+/**
+ * @brief Plans a kinematically feasible path using an A*-based algorithm with Dubins/Reeds-Shepp paths.
+ * @param map Pointer to the inflated occupancy grid.
+ * @param start The starting pose of the robot.
+ * @param goal The desired goal pose of the robot.
+ * @param path_out Pointer to an array of Poses to store the resulting path.
+ * @return The number of nodes in the generated path, or 0 if no path is found.
+ */
+int PlanKinematicPath(const uint8_t* map, Pose start, Pose goal, Pose* path_out);
+
+/**
+ * @brief Smooths a given path using a gradient descent-based optimization.
+ * @param path The original path nodes to be smoothed.
+ * @param length The number of nodes in the path.
+ * @param data_weight Weight for path deviation from the original.
+ * @param smooth_weight Weight for path smoothness.
+ * @param tolerance Optimization tolerance.
+ * @param map Pointer to the inflated map for collision checking.
+ */
+void SmoothPath(Pose* path, int length, float data_weight, float smooth_weight, float tolerance, const uint8_t* map);
+
+/**
+ * @brief Converts a path of poses into spatially-indexed reference arrays for the controller.
+ * @param path The smoothed path of poses.
+ * @param path_len The number of nodes in the path.
+ * @param output Pointer to the SimulinkReferenceArrays structure to be filled.
+ */
+void BuildSpatialReference(const Pose* path, int path_len, SimulinkReferenceArrays* output);
+
+/**
+ * @brief Generates a time-based trajectory from a smoothed path.
+ * @param smooth_path The smoothed path of poses.
+ * @param path_length The number of nodes in the path.
+ * @param grid_velocity The desired velocity on the path.
+ * @param dt The time step for the trajectory points.
+ * @param traj_out The output array of trajectory points.
+ * @param max_traj_length The maximum size of the output array.
+ * @return The number of points in the generated trajectory.
+ */
+int GenerateConstantVelocityTrajectory(Pose* smooth_path, int path_length, float grid_velocity, float dt, TrajectoryPoint* traj_out, int max_traj_length);
+
+/**
+ * @brief Filters a trajectory to respect acceleration/jerk limits (anti-snap).
+ * @param traj The trajectory to filter.
+ * @param length The number of points in the trajectory.
+ * @param max_window The window size for filtering.
+ * @param dt The time step of the trajectory.
+ */
+void FilterTrajectory(TrajectoryPoint* traj, int length, int max_window, float dt);
+
+
+#endif // PATH_PLANNER_H

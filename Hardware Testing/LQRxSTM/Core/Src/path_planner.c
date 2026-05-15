@@ -9,7 +9,7 @@ extern UART_HandleTypeDef huart2;
 // It matches the structure in the STM32 main.c
 typedef struct {
     float P[100][2];      // 100 [x,y] coordinates
-    float S_path[100];    // Arc lengths
+    float S_path[95];    // Arc lengths
     float v_d;            // Target linear
     float w_d;            // Target angular
 } __attribute__((packed)) ESP32_Slave1_Data;

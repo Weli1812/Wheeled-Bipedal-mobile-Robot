@@ -9,7 +9,7 @@
 #define MAP_WIDTH  50
 #define MAP_HEIGHT 50
 #define THETA_BINS 8
-#define MAX_PATH_LENGTH 200
+#define MAX_PATH_LENGTH 250
 #define MAX_NODES 1500
 
 // Type definitions

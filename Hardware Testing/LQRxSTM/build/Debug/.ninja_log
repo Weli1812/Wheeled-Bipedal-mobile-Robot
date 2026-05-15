@@ -66,3 +66,11 @@
 2327	3690	8005368297899347	CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj	554ad5703e99ffda
 2245	3807	8005368299192335	CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj	3537457f28d174bf
 31	2671	8005375938413696	CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj	e5f82681371a53a
+10	1865	8005378864562264	CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj	e5f82681371a53a
+337	2316	8005378867519896	CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj	682adf0fb470acb5
+12	1825	8005380756250601	CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj	e5f82681371a53a
+338	2023	8005380758214640	CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj	682adf0fb470acb5
+13	2456	8005380971323279	CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj	e5f82681371a53a
+311	2763	8005380976751309	CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj	682adf0fb470acb5
+10	2335	8005381158119823	CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj	e5f82681371a53a
+318	2630	8005381161794733	CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj	682adf0fb470acb5
