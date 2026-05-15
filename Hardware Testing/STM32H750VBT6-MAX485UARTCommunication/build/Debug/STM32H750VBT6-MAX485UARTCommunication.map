@@ -332,19 +332,6 @@ Discarded input sections
  .text          0x00000000        0x0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .data          0x00000000        0x0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .bss           0x00000000        0x0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .bss.rx_buf    0x00000000        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.RS485_SendReceive
-                0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_Stop
-                0x00000000       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_StopControl
-                0x00000000       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_GetFault
-                0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_SetSpeed
-                0x00000000       0x5e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_SetTorque
-                0x00000000       0x5e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .group         0x00000000        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
  .group         0x00000000        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
  .group         0x00000000        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
@@ -1204,7 +1191,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .debug_line    0x00000000      0xf53 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
- .debug_str     0x00000000   0x153634 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+ .debug_str     0x00000000   0x15360c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .debug_frame   0x00000000      0x1e0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
  .ARM.attributes
@@ -1388,7 +1375,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .debug_line    0x00000000     0x11ec CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
- .debug_str     0x00000000   0x1538b4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+ .debug_str     0x00000000   0x15388c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .debug_frame   0x00000000      0x3a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
  .ARM.attributes
@@ -1671,7 +1658,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .debug_line    0x00000000      0xc8d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
- .debug_str     0x00000000   0x15328f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+ .debug_str     0x00000000   0x153267 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .debug_frame   0x00000000      0x194 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
  .ARM.attributes
@@ -1839,7 +1826,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .debug_line    0x00000000     0x2a6d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
- .debug_str     0x00000000   0x153d8a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+ .debug_str     0x00000000   0x153d62 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .debug_frame   0x00000000      0x290 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
  .ARM.attributes
@@ -1989,7 +1976,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .debug_line    0x00000000     0x1424 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
- .debug_str     0x00000000   0x153717 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+ .debug_str     0x00000000   0x1536ef CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .debug_frame   0x00000000      0x15c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
  .ARM.attributes
@@ -2163,7 +2150,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .debug_line    0x00000000     0x1757 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
- .debug_str     0x00000000   0x153984 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+ .debug_str     0x00000000   0x15395c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .debug_frame   0x00000000      0x310 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
  .ARM.attributes
@@ -2329,7 +2316,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .debug_line    0x00000000      0xd32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
- .debug_str     0x00000000   0x1535ce CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+ .debug_str     0x00000000   0x1535a6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .debug_frame   0x00000000      0x214 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
  .ARM.attributes
@@ -3023,7 +3010,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .debug_line    0x00000000     0x3e3d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
- .debug_str     0x00000000   0x15469f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+ .debug_str     0x00000000   0x154677 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .debug_frame   0x00000000      0xbf0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
  .ARM.attributes
@@ -3167,7 +3154,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .debug_line    0x00000000      0xc7d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
- .debug_str     0x00000000   0x153a4c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+ .debug_str     0x00000000   0x153a24 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .debug_frame   0x00000000       0xe8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
  .ARM.attributes
@@ -3317,7 +3304,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .debug_line    0x00000000      0xfa3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
- .debug_str     0x00000000   0x153461 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+ .debug_str     0x00000000   0x153439 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .debug_frame   0x00000000      0x154 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
  .ARM.attributes
@@ -3447,7 +3434,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .debug_line    0x00000000      0xb0d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
- .debug_str     0x00000000   0x1530e1 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+ .debug_str     0x00000000   0x1530b9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
  .ARM.attributes
                 0x00000000       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
@@ -3576,7 +3563,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .debug_macro   0x00000000      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .debug_line    0x00000000      0xb10 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
- .debug_str     0x00000000   0x1530e4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+ .debug_str     0x00000000   0x1530bc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
  .ARM.attributes
                 0x00000000       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
@@ -3655,8 +3642,6 @@ Discarded input sections
                 0x00000000       0x14 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
  .text.HAL_UART_MspDeInit
                 0x00000000       0x14 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .text.HAL_UART_Receive
-                0x00000000      0x190 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
  .text.HAL_UART_Transmit_IT
                 0x00000000      0x128 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
  .text.HAL_UART_Receive_IT
@@ -4159,7 +4144,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .debug_macro   0x00000000      0x1df CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .debug_line    0x00000000      0x521 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
- .debug_str     0x00000000     0x720b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
+ .debug_str     0x00000000     0x71e3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .debug_frame   0x00000000       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/sysmem.c.obj
  .ARM.attributes
@@ -4290,7 +4275,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .debug_macro   0x00000000       0xce CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .debug_line    0x00000000      0x845 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
- .debug_str     0x00000000     0x9506 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
+ .debug_str     0x00000000     0x94de CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .comment       0x00000000       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .debug_frame   0x00000000      0x288 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/syscalls.c.obj
  .ARM.attributes
@@ -4404,7 +4389,7 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
                 0x08000000                g_pfnVectors
                 0x08000298                        . = ALIGN (0x4)
 
-.text           0x08000298     0x5354
+.text           0x08000298     0x5680
                 0x08000298                        . = ALIGN (0x4)
  *(.text)
  .text          0x08000298       0x40 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
@@ -4421,422 +4406,424 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
  .text.__libc_init_array
                 0x08000614       0x48 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libc_nano.a(libc_a-init.o)
                 0x08000614                __libc_init_array
- .text.RS485_Send
-                0x0800065c       0x54 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_AckFault
-                0x080006b0       0x38 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x080006b0                Motor_AckFault
- .text.Motor_Start
-                0x080006e8       0x38 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x080006e8                Motor_Start
- .text.Motor_SetPosition
-                0x08000720       0x7c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x08000720                Motor_SetPosition
- .text.Deg2Rad  0x0800079c       0x38 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .text.Motor_Init
-                0x080007d4       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x080007d4                Motor_Init
- .text.main     0x08000810       0x78 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x08000810                main
+ .text.CRC16_Modbus
+                0x0800065c       0x7c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x0800065c                CRC16_Modbus
+ .text.RS485_SendCmd
+                0x080006d8      0x188 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .text.Motor_ClearFault
+                0x08000860       0x24 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000860                Motor_ClearFault
+ .text.Motor_SetSpeed
+                0x08000884       0x94 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000884                Motor_SetSpeed
+ .text.Motor_ReadRPM
+                0x08000918       0xd8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000918                Motor_ReadRPM
+ .text.main     0x080009f0       0xac CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x080009f0                main
  .text.MX_USART1_UART_Init
-                0x08000888      0x1a8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000a9c      0x130 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .text.MX_GPIO_Init
-                0x08000a30       0x68 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000bcc       0x68 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .text.SystemClock_Config
-                0x08000a98      0x160 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x08000a98                SystemClock_Config
+                0x08000c34      0x160 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000c34                SystemClock_Config
  .text.MPU_Config
-                0x08000bf8       0x58 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000d94       0x58 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .text.Error_Handler
-                0x08000c50       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                0x08000c50                Error_Handler
+                0x08000dec       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x08000dec                Error_Handler
  .text.NMI_Handler
-                0x08000c80        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000c80                NMI_Handler
+                0x08000e1c        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e1c                NMI_Handler
  .text.HardFault_Handler
-                0x08000c8c        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000c8c                HardFault_Handler
+                0x08000e28        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e28                HardFault_Handler
  .text.MemManage_Handler
-                0x08000c94        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000c94                MemManage_Handler
+                0x08000e30        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e30                MemManage_Handler
  .text.BusFault_Handler
-                0x08000c9c        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000c9c                BusFault_Handler
+                0x08000e38        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e38                BusFault_Handler
  .text.UsageFault_Handler
-                0x08000ca4        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000ca4                UsageFault_Handler
+                0x08000e40        0x8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e40                UsageFault_Handler
  .text.SVC_Handler
-                0x08000cac        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000cac                SVC_Handler
+                0x08000e48        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e48                SVC_Handler
  .text.DebugMon_Handler
-                0x08000cba        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000cba                DebugMon_Handler
+                0x08000e56        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e56                DebugMon_Handler
  .text.PendSV_Handler
-                0x08000cc8        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000cc8                PendSV_Handler
+                0x08000e64        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e64                PendSV_Handler
  .text.SysTick_Handler
-                0x08000cd6        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
-                0x08000cd6                SysTick_Handler
- *fill*         0x08000ce2        0x2 
+                0x08000e72        0xc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x08000e72                SysTick_Handler
+ *fill*         0x08000e7e        0x2 
  .text.HAL_MspInit
-                0x08000ce4       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
-                0x08000ce4                HAL_MspInit
+                0x08000e80       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+                0x08000e80                HAL_MspInit
  .text.HAL_UART_MspInit
-                0x08000d18       0xd4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
-                0x08000d18                HAL_UART_MspInit
+                0x08000eb4       0xd4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+                0x08000eb4                HAL_UART_MspInit
  .text.__NVIC_SetPriorityGrouping
-                0x08000dec       0x48 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08000f88       0x48 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
  .text.__NVIC_GetPriorityGrouping
-                0x08000e34       0x1c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08000fd0       0x1c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
  .text.__NVIC_SetPriority
-                0x08000e50       0x54 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08000fec       0x54 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
  .text.NVIC_EncodePriority
-                0x08000ea4       0x66 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- *fill*         0x08000f0a        0x2 
+                0x08001040       0x66 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ *fill*         0x080010a6        0x2 
  .text.SysTick_Config
-                0x08000f0c       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x080010a8       0x44 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
  .text.HAL_NVIC_SetPriorityGrouping
-                0x08000f50       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
-                0x08000f50                HAL_NVIC_SetPriorityGrouping
+                0x080010ec       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x080010ec                HAL_NVIC_SetPriorityGrouping
  .text.HAL_NVIC_SetPriority
-                0x08000f66       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
-                0x08000f66                HAL_NVIC_SetPriority
+                0x08001102       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08001102                HAL_NVIC_SetPriority
  .text.HAL_SYSTICK_Config
-                0x08000f9a       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
-                0x08000f9a                HAL_SYSTICK_Config
- *fill*         0x08000fb2        0x2 
+                0x08001136       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08001136                HAL_SYSTICK_Config
+ *fill*         0x0800114e        0x2 
  .text.HAL_MPU_Disable
-                0x08000fb4       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
-                0x08000fb4                HAL_MPU_Disable
+                0x08001150       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08001150                HAL_MPU_Disable
  .text.HAL_MPU_Enable
-                0x08000fe4       0x40 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
-                0x08000fe4                HAL_MPU_Enable
+                0x08001180       0x40 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x08001180                HAL_MPU_Enable
  .text.HAL_MPU_ConfigRegion
-                0x08001024       0x80 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
-                0x08001024                HAL_MPU_ConfigRegion
+                0x080011c0       0x80 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x080011c0                HAL_MPU_ConfigRegion
  .text.HAL_RCC_OscConfig
-                0x080010a4      0x8b4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x080010a4                HAL_RCC_OscConfig
+                0x08001240      0x8b4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08001240                HAL_RCC_OscConfig
  .text.HAL_RCC_ClockConfig
-                0x08001958      0x36c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08001958                HAL_RCC_ClockConfig
+                0x08001af4      0x36c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08001af4                HAL_RCC_ClockConfig
  .text.HAL_RCC_EnableCSS
-                0x08001cc4       0x20 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08001cc4                HAL_RCC_EnableCSS
+                0x08001e60       0x20 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08001e60                HAL_RCC_EnableCSS
  .text.HAL_RCC_GetSysClockFreq
-                0x08001ce4      0x2f4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08001ce4                HAL_RCC_GetSysClockFreq
+                0x08001e80      0x2f4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08001e80                HAL_RCC_GetSysClockFreq
  .text.HAL_RCC_GetHCLKFreq
-                0x08001fd8       0x60 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08001fd8                HAL_RCC_GetHCLKFreq
+                0x08002174       0x60 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08002174                HAL_RCC_GetHCLKFreq
  .text.HAL_RCC_GetPCLK1Freq
-                0x08002038       0x2c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08002038                HAL_RCC_GetPCLK1Freq
+                0x080021d4       0x2c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x080021d4                HAL_RCC_GetPCLK1Freq
  .text.HAL_RCC_GetPCLK2Freq
-                0x08002064       0x2c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08002064                HAL_RCC_GetPCLK2Freq
+                0x08002200       0x2c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08002200                HAL_RCC_GetPCLK2Freq
  .text.HAL_RCC_NMI_IRQHandler
-                0x08002090       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x08002090                HAL_RCC_NMI_IRQHandler
+                0x0800222c       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x0800222c                HAL_RCC_NMI_IRQHandler
  .text.HAL_RCC_CSSCallback
-                0x080020b8        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
-                0x080020b8                HAL_RCC_CSSCallback
- *fill*         0x080020c6        0x2 
+                0x08002254        0xe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x08002254                HAL_RCC_CSSCallback
+ *fill*         0x08002262        0x2 
  .text.HAL_RCCEx_PeriphCLKConfig
-                0x080020c8     0x1414 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
-                0x080020c8                HAL_RCCEx_PeriphCLKConfig
+                0x08002264     0x1414 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x08002264                HAL_RCCEx_PeriphCLKConfig
  .text.HAL_RCCEx_GetD3PCLK1Freq
-                0x080034dc       0x2c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
-                0x080034dc                HAL_RCCEx_GetD3PCLK1Freq
+                0x08003678       0x2c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x08003678                HAL_RCCEx_GetD3PCLK1Freq
  .text.HAL_RCCEx_GetPLL2ClockFreq
-                0x08003508      0x2a8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
-                0x08003508                HAL_RCCEx_GetPLL2ClockFreq
+                0x080036a4      0x2a8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x080036a4                HAL_RCCEx_GetPLL2ClockFreq
  .text.HAL_RCCEx_GetPLL3ClockFreq
-                0x080037b0      0x2a8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
-                0x080037b0                HAL_RCCEx_GetPLL3ClockFreq
+                0x0800394c      0x2a8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x0800394c                HAL_RCCEx_GetPLL3ClockFreq
  .text.RCCEx_PLL2_Config
-                0x08003a58      0x164 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x08003bf4      0x164 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
  .text.RCCEx_PLL3_Config
-                0x08003bbc      0x164 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x08003d58      0x164 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
  .text.HAL_GPIO_Init
-                0x08003d20      0x360 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
-                0x08003d20                HAL_GPIO_Init
+                0x08003ebc      0x360 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+                0x08003ebc                HAL_GPIO_Init
  .text.HAL_GPIO_WritePin
-                0x08004080       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
-                0x08004080                HAL_GPIO_WritePin
+                0x0800421c       0x32 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+                0x0800421c                HAL_GPIO_WritePin
  .text.HAL_GPIO_TogglePin
-                0x080040b2       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
-                0x080040b2                HAL_GPIO_TogglePin
- *fill*         0x080040e6        0x2 
+                0x0800424e       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+                0x0800424e                HAL_GPIO_TogglePin
+ *fill*         0x08004282        0x2 
  .text.HAL_PWREx_ConfigSupply
-                0x080040e8       0x74 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
-                0x080040e8                HAL_PWREx_ConfigSupply
+                0x08004284       0x74 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+                0x08004284                HAL_PWREx_ConfigSupply
  .text.HAL_Init
-                0x0800415c       0x78 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x0800415c                HAL_Init
+                0x080042f8       0x78 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x080042f8                HAL_Init
  .text.HAL_InitTick
-                0x080041d4       0x6c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x080041d4                HAL_InitTick
+                0x08004370       0x6c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x08004370                HAL_InitTick
  .text.HAL_IncTick
-                0x08004240       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x08004240                HAL_IncTick
+                0x080043dc       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x080043dc                HAL_IncTick
  .text.HAL_GetTick
-                0x08004268       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x08004268                HAL_GetTick
+                0x08004404       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x08004404                HAL_GetTick
  .text.HAL_Delay
-                0x08004280       0x48 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x08004280                HAL_Delay
+                0x0800441c       0x48 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x0800441c                HAL_Delay
  .text.HAL_GetREVID
-                0x080042c8       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x080042c8                HAL_GetREVID
+                0x08004464       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x08004464                HAL_GetREVID
  .text.HAL_UART_Transmit
-                0x080042e0      0x11c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
-                0x080042e0                HAL_UART_Transmit
+                0x0800447c      0x11c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x0800447c                HAL_UART_Transmit
+ .text.HAL_UART_Receive
+                0x08004598      0x190 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x08004598                HAL_UART_Receive
  .text.UART_SetConfig
-                0x080043fc      0xad0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
-                0x080043fc                UART_SetConfig
+                0x08004728      0xad0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x08004728                UART_SetConfig
  .text.UART_AdvFeatureConfig
-                0x08004ecc      0x144 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
-                0x08004ecc                UART_AdvFeatureConfig
+                0x080051f8      0x144 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x080051f8                UART_AdvFeatureConfig
  .text.UART_CheckIdleState
-                0x08005010      0x154 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
-                0x08005010                UART_CheckIdleState
+                0x0800533c      0x154 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x0800533c                UART_CheckIdleState
  .text.UART_WaitOnFlagUntilTimeout
-                0x08005164       0xda CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
-                0x08005164                UART_WaitOnFlagUntilTimeout
- *fill*         0x0800523e        0x2 
+                0x08005490       0xda CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x08005490                UART_WaitOnFlagUntilTimeout
+ *fill*         0x0800556a        0x2 
  .text.UART_EndRxTransfer
-                0x08005240       0xcc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x0800556c       0xcc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
  .text.HAL_RS485Ex_Init
-                0x0800530c       0xd4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
-                0x0800530c                HAL_RS485Ex_Init
+                0x08005638       0xd4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+                0x08005638                HAL_RS485Ex_Init
  .text.HAL_UARTEx_DisableFifoMode
-                0x080053e0       0x72 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
-                0x080053e0                HAL_UARTEx_DisableFifoMode
- *fill*         0x08005452        0x2 
+                0x0800570c       0x72 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+                0x0800570c                HAL_UARTEx_DisableFifoMode
+ *fill*         0x0800577e        0x2 
  .text.SystemInit
-                0x08005454      0x110 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
-                0x08005454                SystemInit
+                0x08005780      0x110 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+                0x08005780                SystemInit
  .text.Reset_Handler
-                0x08005564       0x50 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
-                0x08005564                Reset_Handler
+                0x08005890       0x50 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+                0x08005890                Reset_Handler
  .text.Default_Handler
-                0x080055b4        0x2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
-                0x080055b4                RTC_Alarm_IRQHandler
-                0x080055b4                HASH_RNG_IRQHandler
-                0x080055b4                EXTI2_IRQHandler
-                0x080055b4                TIM8_CC_IRQHandler
-                0x080055b4                HRTIM1_Master_IRQHandler
-                0x080055b4                UART8_IRQHandler
-                0x080055b4                SPI4_IRQHandler
-                0x080055b4                TIM1_CC_IRQHandler
-                0x080055b4                BDMA_Channel6_IRQHandler
-                0x080055b4                DMA2_Stream5_IRQHandler
-                0x080055b4                HRTIM1_FLT_IRQHandler
-                0x080055b4                JPEG_IRQHandler
-                0x080055b4                DMA1_Stream5_IRQHandler
-                0x080055b4                BDMA_Channel1_IRQHandler
-                0x080055b4                HRTIM1_TIMD_IRQHandler
-                0x080055b4                TAMP_STAMP_IRQHandler
-                0x080055b4                EXTI3_IRQHandler
-                0x080055b4                LPTIM4_IRQHandler
-                0x080055b4                TIM8_TRG_COM_TIM14_IRQHandler
-                0x080055b4                LPTIM2_IRQHandler
-                0x080055b4                DFSDM1_FLT1_IRQHandler
-                0x080055b4                DMAMUX2_OVR_IRQHandler
-                0x080055b4                TIM8_UP_TIM13_IRQHandler
-                0x080055b4                I2C3_ER_IRQHandler
-                0x080055b4                DFSDM1_FLT2_IRQHandler
-                0x080055b4                MDMA_IRQHandler
-                0x080055b4                LPTIM3_IRQHandler
-                0x080055b4                HSEM1_IRQHandler
-                0x080055b4                EXTI0_IRQHandler
-                0x080055b4                I2C2_EV_IRQHandler
-                0x080055b4                DMA1_Stream2_IRQHandler
-                0x080055b4                FPU_IRQHandler
-                0x080055b4                OTG_HS_WKUP_IRQHandler
-                0x080055b4                FDCAN1_IT1_IRQHandler
-                0x080055b4                LTDC_ER_IRQHandler
-                0x080055b4                DMA2_Stream2_IRQHandler
-                0x080055b4                HRTIM1_TIME_IRQHandler
-                0x080055b4                SPI1_IRQHandler
-                0x080055b4                TIM6_DAC_IRQHandler
-                0x080055b4                DCMI_IRQHandler
-                0x080055b4                HRTIM1_TIMC_IRQHandler
-                0x080055b4                DMA2_Stream3_IRQHandler
-                0x080055b4                SAI2_IRQHandler
-                0x080055b4                DFSDM1_FLT3_IRQHandler
-                0x080055b4                USART6_IRQHandler
-                0x080055b4                TIM17_IRQHandler
-                0x080055b4                USART3_IRQHandler
-                0x080055b4                BDMA_Channel7_IRQHandler
-                0x080055b4                CRYP_IRQHandler
-                0x080055b4                LPTIM5_IRQHandler
-                0x080055b4                UART5_IRQHandler
-                0x080055b4                ADC3_IRQHandler
-                0x080055b4                DMA2_Stream0_IRQHandler
-                0x080055b4                TIM4_IRQHandler
-                0x080055b4                BDMA_Channel2_IRQHandler
-                0x080055b4                QUADSPI_IRQHandler
-                0x080055b4                I2C1_EV_IRQHandler
-                0x080055b4                DMA1_Stream6_IRQHandler
-                0x080055b4                DMAMUX1_OVR_IRQHandler
-                0x080055b4                DMA1_Stream1_IRQHandler
-                0x080055b4                TIM16_IRQHandler
-                0x080055b4                UART4_IRQHandler
-                0x080055b4                BDMA_Channel5_IRQHandler
-                0x080055b4                TIM3_IRQHandler
-                0x080055b4                RCC_IRQHandler
-                0x080055b4                TIM8_BRK_TIM12_IRQHandler
-                0x080055b4                TIM1_TRG_COM_IRQHandler
-                0x080055b4                Default_Handler
-                0x080055b4                ECC_IRQHandler
-                0x080055b4                CEC_IRQHandler
-                0x080055b4                EXTI15_10_IRQHandler
-                0x080055b4                BDMA_Channel0_IRQHandler
-                0x080055b4                ADC_IRQHandler
-                0x080055b4                DMA1_Stream7_IRQHandler
-                0x080055b4                HRTIM1_TIMA_IRQHandler
-                0x080055b4                SPI5_IRQHandler
-                0x080055b4                TIM7_IRQHandler
-                0x080055b4                SDMMC1_IRQHandler
-                0x080055b4                TIM5_IRQHandler
-                0x080055b4                DMA2_Stream7_IRQHandler
-                0x080055b4                TIM15_IRQHandler
-                0x080055b4                PVD_AVD_IRQHandler
-                0x080055b4                I2C3_EV_IRQHandler
-                0x080055b4                EXTI9_5_IRQHandler
-                0x080055b4                RTC_WKUP_IRQHandler
-                0x080055b4                LTDC_IRQHandler
-                0x080055b4                SAI3_IRQHandler
-                0x080055b4                ETH_WKUP_IRQHandler
-                0x080055b4                SPDIF_RX_IRQHandler
-                0x080055b4                SPI2_IRQHandler
-                0x080055b4                OTG_HS_EP1_IN_IRQHandler
-                0x080055b4                DMA1_Stream0_IRQHandler
-                0x080055b4                CRS_IRQHandler
-                0x080055b4                EXTI4_IRQHandler
-                0x080055b4                HRTIM1_TIMB_IRQHandler
-                0x080055b4                FDCAN2_IT1_IRQHandler
-                0x080055b4                ETH_IRQHandler
-                0x080055b4                TIM1_UP_IRQHandler
-                0x080055b4                BDMA_Channel4_IRQHandler
-                0x080055b4                OTG_HS_EP1_OUT_IRQHandler
-                0x080055b4                WWDG_IRQHandler
-                0x080055b4                SPI6_IRQHandler
-                0x080055b4                MDIOS_IRQHandler
-                0x080055b4                I2C4_EV_IRQHandler
-                0x080055b4                FDCAN2_IT0_IRQHandler
-                0x080055b4                LPUART1_IRQHandler
-                0x080055b4                FDCAN1_IT0_IRQHandler
-                0x080055b4                TIM2_IRQHandler
-                0x080055b4                OTG_FS_WKUP_IRQHandler
-                0x080055b4                OTG_HS_IRQHandler
-                0x080055b4                DMA2D_IRQHandler
-                0x080055b4                TIM1_BRK_IRQHandler
-                0x080055b4                EXTI1_IRQHandler
-                0x080055b4                SDMMC2_IRQHandler
-                0x080055b4                OTG_FS_EP1_OUT_IRQHandler
-                0x080055b4                BDMA_Channel3_IRQHandler
-                0x080055b4                UART7_IRQHandler
-                0x080055b4                MDIOS_WKUP_IRQHandler
-                0x080055b4                USART2_IRQHandler
-                0x080055b4                DFSDM1_FLT0_IRQHandler
-                0x080055b4                SAI4_IRQHandler
-                0x080055b4                I2C2_ER_IRQHandler
-                0x080055b4                DMA2_Stream1_IRQHandler
-                0x080055b4                FLASH_IRQHandler
-                0x080055b4                DMA2_Stream4_IRQHandler
-                0x080055b4                USART1_IRQHandler
-                0x080055b4                OTG_FS_IRQHandler
-                0x080055b4                SPI3_IRQHandler
-                0x080055b4                WAKEUP_PIN_IRQHandler
-                0x080055b4                DMA1_Stream4_IRQHandler
-                0x080055b4                OTG_FS_EP1_IN_IRQHandler
-                0x080055b4                I2C1_ER_IRQHandler
-                0x080055b4                FMC_IRQHandler
-                0x080055b4                FDCAN_CAL_IRQHandler
-                0x080055b4                SWPMI1_IRQHandler
-                0x080055b4                COMP1_IRQHandler
-                0x080055b4                LPTIM1_IRQHandler
-                0x080055b4                I2C4_ER_IRQHandler
-                0x080055b4                DMA2_Stream6_IRQHandler
-                0x080055b4                SAI1_IRQHandler
-                0x080055b4                DMA1_Stream3_IRQHandler
- .text.memcpy   0x080055b6       0x1c D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
-                0x080055b6                memcpy
+                0x080058e0        0x2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+                0x080058e0                RTC_Alarm_IRQHandler
+                0x080058e0                HASH_RNG_IRQHandler
+                0x080058e0                EXTI2_IRQHandler
+                0x080058e0                TIM8_CC_IRQHandler
+                0x080058e0                HRTIM1_Master_IRQHandler
+                0x080058e0                UART8_IRQHandler
+                0x080058e0                SPI4_IRQHandler
+                0x080058e0                TIM1_CC_IRQHandler
+                0x080058e0                BDMA_Channel6_IRQHandler
+                0x080058e0                DMA2_Stream5_IRQHandler
+                0x080058e0                HRTIM1_FLT_IRQHandler
+                0x080058e0                JPEG_IRQHandler
+                0x080058e0                DMA1_Stream5_IRQHandler
+                0x080058e0                BDMA_Channel1_IRQHandler
+                0x080058e0                HRTIM1_TIMD_IRQHandler
+                0x080058e0                TAMP_STAMP_IRQHandler
+                0x080058e0                EXTI3_IRQHandler
+                0x080058e0                LPTIM4_IRQHandler
+                0x080058e0                TIM8_TRG_COM_TIM14_IRQHandler
+                0x080058e0                LPTIM2_IRQHandler
+                0x080058e0                DFSDM1_FLT1_IRQHandler
+                0x080058e0                DMAMUX2_OVR_IRQHandler
+                0x080058e0                TIM8_UP_TIM13_IRQHandler
+                0x080058e0                I2C3_ER_IRQHandler
+                0x080058e0                DFSDM1_FLT2_IRQHandler
+                0x080058e0                MDMA_IRQHandler
+                0x080058e0                LPTIM3_IRQHandler
+                0x080058e0                HSEM1_IRQHandler
+                0x080058e0                EXTI0_IRQHandler
+                0x080058e0                I2C2_EV_IRQHandler
+                0x080058e0                DMA1_Stream2_IRQHandler
+                0x080058e0                FPU_IRQHandler
+                0x080058e0                OTG_HS_WKUP_IRQHandler
+                0x080058e0                FDCAN1_IT1_IRQHandler
+                0x080058e0                LTDC_ER_IRQHandler
+                0x080058e0                DMA2_Stream2_IRQHandler
+                0x080058e0                HRTIM1_TIME_IRQHandler
+                0x080058e0                SPI1_IRQHandler
+                0x080058e0                TIM6_DAC_IRQHandler
+                0x080058e0                DCMI_IRQHandler
+                0x080058e0                HRTIM1_TIMC_IRQHandler
+                0x080058e0                DMA2_Stream3_IRQHandler
+                0x080058e0                SAI2_IRQHandler
+                0x080058e0                DFSDM1_FLT3_IRQHandler
+                0x080058e0                USART6_IRQHandler
+                0x080058e0                TIM17_IRQHandler
+                0x080058e0                USART3_IRQHandler
+                0x080058e0                BDMA_Channel7_IRQHandler
+                0x080058e0                CRYP_IRQHandler
+                0x080058e0                LPTIM5_IRQHandler
+                0x080058e0                UART5_IRQHandler
+                0x080058e0                ADC3_IRQHandler
+                0x080058e0                DMA2_Stream0_IRQHandler
+                0x080058e0                TIM4_IRQHandler
+                0x080058e0                BDMA_Channel2_IRQHandler
+                0x080058e0                QUADSPI_IRQHandler
+                0x080058e0                I2C1_EV_IRQHandler
+                0x080058e0                DMA1_Stream6_IRQHandler
+                0x080058e0                DMAMUX1_OVR_IRQHandler
+                0x080058e0                DMA1_Stream1_IRQHandler
+                0x080058e0                TIM16_IRQHandler
+                0x080058e0                UART4_IRQHandler
+                0x080058e0                BDMA_Channel5_IRQHandler
+                0x080058e0                TIM3_IRQHandler
+                0x080058e0                RCC_IRQHandler
+                0x080058e0                TIM8_BRK_TIM12_IRQHandler
+                0x080058e0                TIM1_TRG_COM_IRQHandler
+                0x080058e0                Default_Handler
+                0x080058e0                ECC_IRQHandler
+                0x080058e0                CEC_IRQHandler
+                0x080058e0                EXTI15_10_IRQHandler
+                0x080058e0                BDMA_Channel0_IRQHandler
+                0x080058e0                ADC_IRQHandler
+                0x080058e0                DMA1_Stream7_IRQHandler
+                0x080058e0                HRTIM1_TIMA_IRQHandler
+                0x080058e0                SPI5_IRQHandler
+                0x080058e0                TIM7_IRQHandler
+                0x080058e0                SDMMC1_IRQHandler
+                0x080058e0                TIM5_IRQHandler
+                0x080058e0                DMA2_Stream7_IRQHandler
+                0x080058e0                TIM15_IRQHandler
+                0x080058e0                PVD_AVD_IRQHandler
+                0x080058e0                I2C3_EV_IRQHandler
+                0x080058e0                EXTI9_5_IRQHandler
+                0x080058e0                RTC_WKUP_IRQHandler
+                0x080058e0                LTDC_IRQHandler
+                0x080058e0                SAI3_IRQHandler
+                0x080058e0                ETH_WKUP_IRQHandler
+                0x080058e0                SPDIF_RX_IRQHandler
+                0x080058e0                SPI2_IRQHandler
+                0x080058e0                OTG_HS_EP1_IN_IRQHandler
+                0x080058e0                DMA1_Stream0_IRQHandler
+                0x080058e0                CRS_IRQHandler
+                0x080058e0                EXTI4_IRQHandler
+                0x080058e0                HRTIM1_TIMB_IRQHandler
+                0x080058e0                FDCAN2_IT1_IRQHandler
+                0x080058e0                ETH_IRQHandler
+                0x080058e0                TIM1_UP_IRQHandler
+                0x080058e0                BDMA_Channel4_IRQHandler
+                0x080058e0                OTG_HS_EP1_OUT_IRQHandler
+                0x080058e0                WWDG_IRQHandler
+                0x080058e0                SPI6_IRQHandler
+                0x080058e0                MDIOS_IRQHandler
+                0x080058e0                I2C4_EV_IRQHandler
+                0x080058e0                FDCAN2_IT0_IRQHandler
+                0x080058e0                LPUART1_IRQHandler
+                0x080058e0                FDCAN1_IT0_IRQHandler
+                0x080058e0                TIM2_IRQHandler
+                0x080058e0                OTG_FS_WKUP_IRQHandler
+                0x080058e0                OTG_HS_IRQHandler
+                0x080058e0                DMA2D_IRQHandler
+                0x080058e0                TIM1_BRK_IRQHandler
+                0x080058e0                EXTI1_IRQHandler
+                0x080058e0                SDMMC2_IRQHandler
+                0x080058e0                OTG_FS_EP1_OUT_IRQHandler
+                0x080058e0                BDMA_Channel3_IRQHandler
+                0x080058e0                UART7_IRQHandler
+                0x080058e0                MDIOS_WKUP_IRQHandler
+                0x080058e0                USART2_IRQHandler
+                0x080058e0                DFSDM1_FLT0_IRQHandler
+                0x080058e0                SAI4_IRQHandler
+                0x080058e0                I2C2_ER_IRQHandler
+                0x080058e0                DMA2_Stream1_IRQHandler
+                0x080058e0                FLASH_IRQHandler
+                0x080058e0                DMA2_Stream4_IRQHandler
+                0x080058e0                USART1_IRQHandler
+                0x080058e0                OTG_FS_IRQHandler
+                0x080058e0                SPI3_IRQHandler
+                0x080058e0                WAKEUP_PIN_IRQHandler
+                0x080058e0                DMA1_Stream4_IRQHandler
+                0x080058e0                OTG_FS_EP1_IN_IRQHandler
+                0x080058e0                I2C1_ER_IRQHandler
+                0x080058e0                FMC_IRQHandler
+                0x080058e0                FDCAN_CAL_IRQHandler
+                0x080058e0                SWPMI1_IRQHandler
+                0x080058e0                COMP1_IRQHandler
+                0x080058e0                LPTIM1_IRQHandler
+                0x080058e0                I2C4_ER_IRQHandler
+                0x080058e0                DMA2_Stream6_IRQHandler
+                0x080058e0                SAI1_IRQHandler
+                0x080058e0                DMA1_Stream3_IRQHandler
+ .text.memcpy   0x080058e2       0x1c D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+                0x080058e2                memcpy
  *(.glue_7)
- .glue_7        0x080055d2        0x0 linker stubs
+ .glue_7        0x080058fe        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080055d2        0x0 linker stubs
+ .glue_7t       0x080058fe        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x080055d2        0x2 
- .eh_frame      0x080055d4        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
+ *fill*         0x080058fe        0x2 
+ .eh_frame      0x08005900        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
  *(.init)
- .init          0x080055d4        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crti.o
-                0x080055d4                _init
- .init          0x080055d8        0x8 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtn.o
+ .init          0x08005900        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crti.o
+                0x08005900                _init
+ .init          0x08005904        0x8 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtn.o
  *(.fini)
- .fini          0x080055e0        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crti.o
-                0x080055e0                _fini
- .fini          0x080055e4        0x8 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtn.o
-                0x080055ec                        . = ALIGN (0x4)
-                0x080055ec                        _etext = .
+ .fini          0x0800590c        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crti.o
+                0x0800590c                _fini
+ .fini          0x08005910        0x8 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtn.o
+                0x08005918                        . = ALIGN (0x4)
+                0x08005918                        _etext = .
 
-.vfp11_veneer   0x080055ec        0x0
- .vfp11_veneer  0x080055ec        0x0 linker stubs
+.vfp11_veneer   0x08005918        0x0
+ .vfp11_veneer  0x08005918        0x0 linker stubs
 
-.v4_bx          0x080055ec        0x0
- .v4_bx         0x080055ec        0x0 linker stubs
+.v4_bx          0x08005918        0x0
+ .v4_bx         0x08005918        0x0 linker stubs
 
-.iplt           0x080055ec        0x0
- .iplt          0x080055ec        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
+.iplt           0x08005918        0x0
+ .iplt          0x08005918        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
 
-.rodata         0x080055ec       0x28
-                0x080055ec                        . = ALIGN (0x4)
+.rodata         0x08005918       0x28
+                0x08005918                        . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
  .rodata.UARTPrescTable
-                0x080055ec       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
-                0x080055ec                UARTPrescTable
+                0x08005918       0x18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x08005918                UARTPrescTable
  .rodata.D1CorePrescTable
-                0x08005604       0x10 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
-                0x08005604                D1CorePrescTable
-                0x08005614                        . = ALIGN (0x4)
+                0x08005930       0x10 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+                0x08005930                D1CorePrescTable
+                0x08005940                        . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x08005614        0x8
-                0x08005614                        __exidx_start = .
+.ARM            0x08005940        0x8
+                0x08005940                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x08005614        0x8 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a(_udivmoddi4.o)
-                0x0800561c                        __exidx_end = .
+ .ARM.exidx     0x08005940        0x8 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a(_udivmoddi4.o)
+                0x08005948                        __exidx_end = .
 
-.rel.dyn        0x0800561c        0x0
- .rel.iplt      0x0800561c        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
+.rel.dyn        0x08005948        0x0
+ .rel.iplt      0x08005948        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
 
-.preinit_array  0x0800561c        0x0
-                0x0800561c                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x08005948        0x0
+                0x08005948                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0800561c                        PROVIDE (__preinit_array_end = .)
+                0x08005948                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0800561c        0x4
-                0x0800561c                        PROVIDE (__init_array_start = .)
+.init_array     0x08005948        0x4
+                0x08005948                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0800561c        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
-                0x08005620                        PROVIDE (__init_array_end = .)
+ .init_array    0x08005948        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
+                0x0800594c                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x08005620        0x4
+.fini_array     0x0800594c        0x4
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x08005620        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
+ .fini_array    0x0800594c        0x4 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x08005624                        _sidata = LOADADDR (.data)
+                0x08005950                        _sidata = LOADADDR (.data)
 
-.data           0x20000000       0x10 load address 0x08005624
+.data           0x20000000       0x10 load address 0x08005950
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -4857,11 +4844,11 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
                 0x20000010                        . = ALIGN (0x4)
                 0x20000010                        _edata = .
 
-.igot.plt       0x20000010        0x0 load address 0x08005634
+.igot.plt       0x20000010        0x0 load address 0x08005960
  .igot.plt      0x20000010        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
                 0x20000010                        . = ALIGN (0x4)
 
-.bss            0x20000010       0xb4 load address 0x08005634
+.bss            0x20000010       0xbc load address 0x08005960
                 0x20000010                        _sbss = .
                 0x20000010                        __bss_start__ = _sbss
  *(.bss)
@@ -4869,24 +4856,30 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
  *(.bss*)
  .bss.huart1    0x2000002c       0x94 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
                 0x2000002c                huart1
- .bss.uwTick    0x200000c0        0x4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x200000c0                uwTick
+ .bss.packet_seq
+                0x200000c0        0x1 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ *fill*         0x200000c1        0x3 
+ .bss.current_rpm
+                0x200000c4        0x4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x200000c4                current_rpm
+ .bss.uwTick    0x200000c8        0x4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x200000c8                uwTick
  *(COMMON)
-                0x200000c4                        . = ALIGN (0x4)
-                0x200000c4                        _ebss = .
-                0x200000c4                        __bss_end__ = _ebss
+                0x200000cc                        . = ALIGN (0x4)
+                0x200000cc                        _ebss = .
+                0x200000cc                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x200000c4      0x604 load address 0x08005634
-                0x200000c8                        . = ALIGN (0x8)
- *fill*         0x200000c4        0x4 
+                0x200000cc      0x604 load address 0x08005960
+                0x200000d0                        . = ALIGN (0x8)
+ *fill*         0x200000cc        0x4 
                 [!provide]                        PROVIDE (end = .)
-                0x200000c8                        PROVIDE (_end = .)
-                0x200002c8                        . = (. + _Min_Heap_Size)
- *fill*         0x200000c8      0x200 
-                0x200006c8                        . = (. + _Min_Stack_Size)
- *fill*         0x200002c8      0x400 
-                0x200006c8                        . = ALIGN (0x8)
+                0x200000d0                        PROVIDE (_end = .)
+                0x200002d0                        . = (. + _Min_Heap_Size)
+ *fill*         0x200000d0      0x200 
+                0x200006d0                        . = (. + _Min_Stack_Size)
+ *fill*         0x200002d0      0x400 
+                0x200006d0                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -4946,226 +4939,226 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
 LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libm.a
 LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a
 
-.debug_frame    0x00000000     0x286c
+.debug_frame    0x00000000     0x2778
  .debug_frame   0x00000000       0x20 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libc_nano.a(libc_a-memset.o)
  .debug_frame   0x00000020       0x2c D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libc_nano.a(libc_a-init.o)
- .debug_frame   0x0000004c      0x290 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_frame   0x000002dc       0xfc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_frame   0x000003d8       0x80 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_frame   0x00000458      0x4b8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_frame   0x00000910      0x1e4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_frame   0x00000af4      0x3d4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_frame   0x00000ec8      0x130 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_frame   0x00000ff8      0x500 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_frame   0x000014f8      0x5e8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_frame   0x00001ae0      0xa18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_frame   0x000024f8      0x29c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_frame   0x00002794       0x50 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
- .debug_frame   0x000027e4       0x2c D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x00002810       0x34 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a(_udivmoddi4.o)
- .debug_frame   0x00002844       0x28 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_frame   0x0000004c      0x19c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_frame   0x000001e8       0xfc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_frame   0x000002e4       0x80 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_frame   0x00000364      0x4b8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_frame   0x0000081c      0x1e4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_frame   0x00000a00      0x3d4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_frame   0x00000dd4      0x130 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_frame   0x00000f04      0x500 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_frame   0x00001404      0x5e8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_frame   0x000019ec      0xa18 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_frame   0x00002404      0x29c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_frame   0x000026a0       0x50 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+ .debug_frame   0x000026f0       0x2c D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x0000271c       0x34 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00002750       0x28 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_info     0x00000000     0xf5c4
- .debug_info    0x00000000     0x1878 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_info    0x00001878      0x12f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_info    0x000019a7     0x1054 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_info    0x000029fb     0x10b2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_info    0x00003aad      0xe5b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_info    0x00004908     0x1216 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_info    0x00005b1e      0xc4b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_info    0x00006769     0x1008 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_info    0x00007771     0x1541 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_info    0x00008cb2     0x4b13 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_info    0x0000d7c5      0xfbf CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_info    0x0000e784      0xcef CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
- .debug_info    0x0000f473       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
- .debug_info    0x0000f4a3      0x121 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+.debug_info     0x00000000     0xf4b0
+ .debug_info    0x00000000     0x1764 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_info    0x00001764      0x12f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_info    0x00001893     0x1054 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_info    0x000028e7     0x10b2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_info    0x00003999      0xe5b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_info    0x000047f4     0x1216 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_info    0x00005a0a      0xc4b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_info    0x00006655     0x1008 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_info    0x0000765d     0x1541 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_info    0x00008b9e     0x4b13 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_info    0x0000d6b1      0xfbf CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_info    0x0000e670      0xcef CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+ .debug_info    0x0000f35f       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+ .debug_info    0x0000f38f      0x121 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_abbrev   0x00000000     0x1ddf
- .debug_abbrev  0x00000000      0x381 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_abbrev  0x00000381       0x75 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_abbrev  0x000003f6      0x205 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_abbrev  0x000005fb      0x339 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_abbrev  0x00000934      0x2c8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_abbrev  0x00000bfc      0x269 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_abbrev  0x00000e65      0x1fe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_abbrev  0x00001063      0x2a7 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_abbrev  0x0000130a      0x295 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_abbrev  0x0000159f      0x33d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_abbrev  0x000018dc      0x2d2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_abbrev  0x00001bae      0x14c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
- .debug_abbrev  0x00001cfa       0x24 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
- .debug_abbrev  0x00001d1e       0xc1 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+.debug_abbrev   0x00000000     0x1d9c
+ .debug_abbrev  0x00000000      0x33e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_abbrev  0x0000033e       0x75 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_abbrev  0x000003b3      0x205 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_abbrev  0x000005b8      0x339 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_abbrev  0x000008f1      0x2c8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_abbrev  0x00000bb9      0x269 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_abbrev  0x00000e22      0x1fe CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_abbrev  0x00001020      0x2a7 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_abbrev  0x000012c7      0x295 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_abbrev  0x0000155c      0x33d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_abbrev  0x00001899      0x2d2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_abbrev  0x00001b6b      0x14c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+ .debug_abbrev  0x00001cb7       0x24 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+ .debug_abbrev  0x00001cdb       0xc1 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_aranges  0x00000000      0xa90
+.debug_aranges  0x00000000      0xa58
  .debug_aranges
-                0x00000000       0xa8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x00000000       0x70 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .debug_aranges
-                0x000000a8       0x60 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x00000070       0x60 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
  .debug_aranges
-                0x00000108       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+                0x000000d0       0x30 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
  .debug_aranges
-                0x00000138      0x130 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x00000100      0x130 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
  .debug_aranges
-                0x00000268       0x88 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x00000230       0x88 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
  .debug_aranges
-                0x000002f0       0xf8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x000002b8       0xf8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
  .debug_aranges
-                0x000003e8       0x58 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+                0x000003b0       0x58 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
  .debug_aranges
-                0x00000440      0x158 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+                0x00000408      0x158 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
  .debug_aranges
-                0x00000598      0x198 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x00000560      0x198 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
  .debug_aranges
-                0x00000730      0x248 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x000006f8      0x248 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
  .debug_aranges
-                0x00000978       0xa8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+                0x00000940       0xa8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
  .debug_aranges
-                0x00000a20       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+                0x000009e8       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
  .debug_aranges
-                0x00000a48       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+                0x00000a10       0x28 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
  .debug_aranges
-                0x00000a70       0x20 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+                0x00000a38       0x20 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
 .debug_rnglists
-                0x00000000      0x819
+                0x00000000      0x7f3
  .debug_rnglists
-                0x00000000       0x7b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                0x00000000       0x55 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
  .debug_rnglists
-                0x0000007b       0x43 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+                0x00000055       0x43 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
  .debug_rnglists
-                0x000000be       0x20 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+                0x00000098       0x20 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
  .debug_rnglists
-                0x000000de       0xe0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+                0x000000b8       0xe0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
  .debug_rnglists
-                0x000001be       0x68 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+                0x00000198       0x68 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
  .debug_rnglists
-                0x00000226       0xc0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+                0x00000200       0xc0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
  .debug_rnglists
-                0x000002e6       0x3f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+                0x000002c0       0x3f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
  .debug_rnglists
-                0x00000325      0x103 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+                0x000002ff      0x103 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
  .debug_rnglists
-                0x00000428      0x131 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x00000402      0x131 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
  .debug_rnglists
-                0x00000559      0x1fa CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+                0x00000533      0x1fa CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
  .debug_rnglists
-                0x00000753       0x7f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+                0x0000072d       0x7f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
  .debug_rnglists
-                0x000007d2       0x1b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+                0x000007ac       0x1b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
  .debug_rnglists
-                0x000007ed       0x19 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+                0x000007c7       0x19 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
  .debug_rnglists
-                0x00000806       0x13 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+                0x000007e0       0x13 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_macro    0x00000000    0x35b22
- .debug_macro   0x00000000      0x366 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00000366      0xaf0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00000e56      0x232 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00001088       0x2e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000010b6       0x3b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000010f1       0x22 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00001113       0x8e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000011a1       0x51 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000011f2      0x103 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000012f5       0x6a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0000135f      0x1df CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0000153e       0x1c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0000155a       0x22 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0000157c       0xfb CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00001677     0x1305 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0000297c      0x11f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00002a9b       0x27 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00002ac2    0x25eee CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000289b0       0x6d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00028a1d     0x3d79 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002c796      0x190 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002c926       0x74 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002c99a       0x29 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002c9c3       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002c9ff       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002ca33      0x364 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002cd97       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002cdad       0x4a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002cdf7       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002ce2b       0x10 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002ce3b       0x58 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002ce93      0x1de CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002d071      0x19b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002d20c       0x5d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002d269     0x240e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0002f677     0x102c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000306a3      0x154 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000307f7      0x114 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0003090b      0x3b6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00030cc1       0xac CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00030d6d      0x72d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0003149a      0x228 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000316c2       0x66 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00031728      0x3bb CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00031ae3      0x3e4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00031ec7      0x275 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0003213c      0x3ca CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00032506      0x3de CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000328e4       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00032920       0x4a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0003296a      0x22c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00032b96       0x67 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00032bfd       0xa5 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00032ca2      0x1c4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00032e66      0x25e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000330c4       0x35 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x000330f9      0x693 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x0003378c       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00033832      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00033dd2       0x1c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00033dee       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00033e04       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00033e40       0x20 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_macro   0x00033e60      0x29e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_macro   0x000340fe      0x294 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_macro   0x00034392      0x285 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_macro   0x00034617      0x2a9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_macro   0x000348c0      0x2a3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_macro   0x00034b63      0x28c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_macro   0x00034def      0x2be CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_macro   0x000350ad      0x2af CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_macro   0x0003535c      0x2b0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_macro   0x0003560c      0x291 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_macro   0x0003589d      0x285 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+.debug_macro    0x00000000    0x35ada
+ .debug_macro   0x00000000      0x31e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0000031e      0xaf0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00000e0e      0x232 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00001040       0x2e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0000106e       0x3b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000010a9       0x22 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000010cb       0x8e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00001159       0x51 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000011aa      0x103 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000012ad       0x6a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00001317      0x1df CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000014f6       0x1c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00001512       0x22 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00001534       0xfb CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0000162f     0x1305 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00002934      0x11f CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00002a53       0x27 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00002a7a    0x25eee CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00028968       0x6d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000289d5     0x3d79 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002c74e      0x190 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002c8de       0x74 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002c952       0x29 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002c97b       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002c9b7       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002c9eb      0x364 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002cd4f       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002cd65       0x4a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002cdaf       0x34 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002cde3       0x10 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002cdf3       0x58 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002ce4b      0x1de CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002d029      0x19b CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002d1c4       0x5d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002d221     0x240e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0002f62f     0x102c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0003065b      0x154 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000307af      0x114 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000308c3      0x3b6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00030c79       0xac CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00030d25      0x72d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00031452      0x228 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0003167a       0x66 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000316e0      0x3bb CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00031a9b      0x3e4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00031e7f      0x275 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000320f4      0x3ca CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000324be      0x3de CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0003289c       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000328d8       0x4a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00032922      0x22c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00032b4e       0x67 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00032bb5       0xa5 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00032c5a      0x1c4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00032e1e      0x25e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x0003307c       0x35 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000330b1      0x693 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00033744       0xa6 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x000337ea      0x5a0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00033d8a       0x1c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00033da6       0x16 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00033dbc       0x3c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00033df8       0x20 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_macro   0x00033e18      0x29e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_macro   0x000340b6      0x294 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_macro   0x0003434a      0x285 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_macro   0x000345cf      0x2a9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_macro   0x00034878      0x2a3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_macro   0x00034b1b      0x28c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_macro   0x00034da7      0x2be CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_macro   0x00035065      0x2af CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_macro   0x00035314      0x2b0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_macro   0x000355c4      0x291 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_macro   0x00035855      0x285 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
 
-.debug_line     0x00000000     0xfc9e
- .debug_line    0x00000000      0xee5 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
- .debug_line    0x00000ee5      0xbc9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_line    0x00001aae      0xb7c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_line    0x0000262a     0x10d9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_line    0x00003703     0x1796 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_line    0x00004e99     0x201e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_line    0x00006eb7      0xf75 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_line    0x00007e2c     0x1273 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_line    0x0000909f     0x10f2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_line    0x0000a191     0x3b37 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_line    0x0000dcc8     0x1085 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_line    0x0000ed4d      0xcd5 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
- .debug_line    0x0000fa22       0x7a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
- .debug_line    0x0000fa9c      0x202 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+.debug_line     0x00000000     0xfc42
+ .debug_line    0x00000000      0xe89 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+ .debug_line    0x00000e89      0xbc9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_line    0x00001a52      0xb7c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_line    0x000025ce     0x10d9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_line    0x000036a7     0x1796 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_line    0x00004e3d     0x201e CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_line    0x00006e5b      0xf75 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_line    0x00007dd0     0x1273 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_line    0x00009043     0x10f2 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_line    0x0000a135     0x3b37 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_line    0x0000dc6c     0x1085 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_line    0x0000ecf1      0xcd5 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+ .debug_line    0x0000f9c6       0x7a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+ .debug_line    0x0000fa40      0x202 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
-.debug_str      0x00000000   0x157b02
- .debug_str     0x00000000   0x157b02 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
-                             0x1541aa (size before relaxing)
- .debug_str     0x00157b02   0x1531f7 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
- .debug_str     0x00157b02   0x153d8a CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
- .debug_str     0x00157b02   0x153fb0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
- .debug_str     0x00157b02   0x1539eb CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
- .debug_str     0x00157b02   0x153ecc CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
- .debug_str     0x00157b02   0x153607 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
- .debug_str     0x00157b02   0x153ac8 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
- .debug_str     0x00157b02   0x154575 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
- .debug_str     0x00157b02   0x15452c CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
- .debug_str     0x00157b02   0x153aec CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
- .debug_str     0x00157b02   0x153650 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
- .debug_str     0x00157b02      0x136 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
- .debug_str     0x00157b02      0x232 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
+.debug_str      0x00000000   0x1579c9
+ .debug_str     0x00000000   0x1579c9 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj
+                             0x154088 (size before relaxing)
+ .debug_str     0x001579c9   0x1531cf CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+ .debug_str     0x001579c9   0x153d62 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+ .debug_str     0x001579c9   0x153f88 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+ .debug_str     0x001579c9   0x1539c3 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+ .debug_str     0x001579c9   0x153ea4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+ .debug_str     0x001579c9   0x1535df CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+ .debug_str     0x001579c9   0x153aa0 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+ .debug_str     0x001579c9   0x15454d CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+ .debug_str     0x001579c9   0x154504 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+ .debug_str     0x001579c9   0x153ac4 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+ .debug_str     0x001579c9   0x153628 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+ .debug_str     0x001579c9      0x136 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/startup_stm32h750xx.s.obj
+ .debug_str     0x001579c9      0x232 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard\libg_nano.a(libc_a-memcpy-stub.o)
 
 .comment        0x00000000       0x43
  .comment       0x00000000       0x43 CMakeFiles/STM32H750VBT6-MAX485UARTCommunication.dir/Core/Src/main.c.obj

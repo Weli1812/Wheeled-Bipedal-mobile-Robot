@@ -6,6 +6,10 @@ add_library(stm32cubemx INTERFACE)
 # Enable CMake support for ASM and C languages
 enable_language(C ASM)
 
+# Add optimization flags
+target_compile_options(stm32cubemx INTERFACE -Os -ffunction-sections -fdata-sections)
+target_link_options(stm32cubemx INTERFACE -Wl,--gc-sections)
+
 target_compile_definitions(stm32cubemx INTERFACE 
 	USE_HAL_DRIVER 
 	STM32H750xx
@@ -51,6 +55,7 @@ target_sources(stm32cubemx INTERFACE
     ../../startup_stm32h750xx.s
     "../../Core/Src/LQRxSTM.c"
     "../../Core/Src/LQRxSTM_data.c"
+    "../../Core/Src/path_planner.c"
 )
 
 target_link_directories(stm32cubemx INTERFACE

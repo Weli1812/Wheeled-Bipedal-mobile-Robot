@@ -1,0 +1,6 @@
+00:01:26 **** Incremental Build of configuration Debug for project STM32H750VBT6-MAX485UARTCommunication ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+
+00:01:28 Build Finished. 0 errors, 0 warnings. (took 1s.990ms)
+

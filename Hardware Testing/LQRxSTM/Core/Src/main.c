@@ -22,32 +22,36 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "LQRxSTM.h"
+#include "path_planner.h"
+#include <string.h> // For memcpy
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-// Data structure for Slave 1 (Lidar/Ultrasonics)
-typedef struct {
-    float P[100][2];
-    float S_path[100];
-    float v_d;
-    float w_d;
-} ESP32_Slave1_Data;
 
-// Data structure for Slave 2 (Encoders/IMU/Kalman)
+// Data from Slave 1 (Lidar/Ultrasonics) - represents obstacle points
+typedef struct {
+    float obstacles[100][2]; // 100 [x,y] coordinates of detected obstacles
+    int   obstacle_count;
+} Sensor_Data;
+
+// Data from Slave 2 (Encoders/IMU/Kalman)
 typedef struct {
     float x;
     float y;
     float theta;
     float v;
     float w;
-} ESP32_Slave2_Data;
+} Localization_Data;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+// Define map dimensions and other constants for the path planner
+// #define MAP_WIDTH 100 // Now defined in path_planner.h
+// #define MAP_HEIGHT 100 // Now defined in path_planner.h
+// #define MAX_NODES 5000 // Now defined in path_planner.h
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,6 +66,7 @@ TIM_HandleTypeDef htim8;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart3;
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart2_rx;
 
@@ -72,24 +77,50 @@ uint8_t usart1_rx_buffer[RX_BUFFER_SIZE];
 uint8_t usart2_rx_buffer[RX_BUFFER_SIZE];
 
 // Instances of the data structures
-ESP32_Slave1_Data slave1_data;
-ESP32_Slave2_Data slave2_data;
+Sensor_Data       sensor_data;
+Localization_Data localization_data;
 
 // Flags for data readiness
-volatile uint8_t slave1_data_ready = 0;
-volatile uint8_t slave2_data_ready = 0;
+volatile uint8_t sensor_data_ready = 0;
+volatile uint8_t localization_data_ready = 0;
+
+// Path planner related variables
+static uint8_t map[MAP_WIDTH * MAP_HEIGHT];
+static uint8_t inflated_map[MAP_WIDTH * MAP_HEIGHT];
+static Pose path_nodes[MAX_PATH_LENGTH];
+static SimulinkReferenceArrays planner_output;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
- void MPU_Config(void);
- 
+static void MPU_Config(void);
+static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+void BuildMapFromSensorData(const Sensor_Data* sensors);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+// This function populates the occupancy grid 'map' based on sensor readings.
+void BuildMapFromSensorData(const Sensor_Data* sensors) {
+    // 1. Clear the old map
+    for (int i = 0; i < MAP_WIDTH * MAP_HEIGHT; i++) {
+        map[i] = 0;
+    }
+
+    // 2. Populate with new obstacles
+    // Note: This assumes sensor data coordinates are already in the grid frame.
+    // You may need to transform sensor data from the robot's frame to the world frame.
+    for (int i = 0; i < sensors->obstacle_count; i++) {
+        int ix = (int)roundf(sensors->obstacles[i][0]);
+        int iy = (int)roundf(sensors->obstacles[i][1]);
+
+        if (ix >= 0 && ix < MAP_WIDTH && iy >= 0 && iy < MAP_HEIGHT) {
+            map[iy * MAP_WIDTH + ix] = 1; // Mark as obstacle
+        }
+    }
+}
 
 /* USER CODE END 0 */
 
@@ -97,6 +128,134 @@ void SystemClock_Config(void);
   * @brief  The application entry point.
   * @retval int
   */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+  int path_len = 0;
+  /* USER CODE END 1 */
+
+  /* MPU Configuration--------------------------------------------------------*/
+  MPU_Config();
+
+  /* Enable I-Cache---------------------------------------------------------*/
+  SCB_EnableICache();
+
+  /* Enable D-Cache---------------------------------------------------------*/
+  SCB_EnableDCache();
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_TIM1_Init();
+  MX_TIM8_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  /* USER CODE BEGIN 2 */
+  // Initialize the Simulink Model
+  LQRxSTM_initialize();
+
+  // Initialize kinematics for the planner
+  InitKinematics(0.9f, 0.2f); // min_turning_radius_m, speed_m_s
+
+  // Start PWM signals
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
+
+  // Start UART DMA transfers
+  HAL_UART_Receive_DMA(&huart1, (uint8_t*)&sensor_data, sizeof(Sensor_Data));
+  HAL_UART_Receive_DMA(&huart2, (uint8_t*)&localization_data, sizeof(Localization_Data));
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+	  // Wait for both sensor and localization data to be ready
+	  if (sensor_data_ready && localization_data_ready) {
+		  // Reset flags
+		  sensor_data_ready = 0;
+		  localization_data_ready = 0;
+
+		  // --- 1. Build the map from new sensor data ---
+		  BuildMapFromSensorData(&sensor_data);
+		  InflateMap(map, inflated_map, 3); // 3 cells inflation radius
+
+		  // --- 2. Define start and goal, then plan path ---
+		  // Start pose is the current robot pose from localization
+          Pose start_pose = {localization_data.x, localization_data.y, localization_data.theta};
+          // Goal pose would come from a higher-level mission planner
+          Pose goal_pose  = {90.0f, 90.0f, 1.57f}; // Example goal
+
+          path_len = PlanKinematicPath(inflated_map, start_pose, goal_pose, path_nodes);
+
+          if (path_len > 0) {
+              // Path found, smooth and generate trajectory
+              SmoothPath(path_nodes, path_len, 0.5f, 0.1f, 0.00001f, inflated_map);
+              BuildSpatialReference(path_nodes, path_len, &planner_output);
+
+              // --- 3. Feed the new path to the LQR controller ---
+              int copy_len = (planner_output.length < 2000) ? planner_output.length : 2000;
+
+              memcpy(rtU.S_path, planner_output.S_path, copy_len * sizeof(float));
+              memcpy(rtU.vd_path, planner_output.vd_path, copy_len * sizeof(float));
+              memcpy(rtU.wd_path, planner_output.wd_path, copy_len * sizeof(float));
+			  memcpy(rtU.theta_ref_unwrapped, planner_output.theta_ref, copy_len * sizeof(float));
+
+              for (int i = 0; i < copy_len; i++) {
+                  rtU.P_b[i * 2]     = planner_output.P_x[i];
+                  rtU.P_b[i * 2 + 1] = planner_output.P_y[i];
+              }
+          }
+
+		  // --- 4. Run Controller Step ---
+		  // Map localization data to the controller inputs
+		  rtU.x_robot = localization_data.x;
+		  rtU.y_robot = localization_data.y;
+		  rtU.theta = localization_data.theta;
+		  rtU.v = localization_data.v;
+		  rtU.omega = localization_data.w;
+		  rtU.phi = 0.0;
+		  rtU.phi_dot = 0.0;
+		  rtU.s = 0.0;
+
+		  // Run one step of the control logic
+		  LQRxSTM_step();
+
+		  // Update PWM outputs
+		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, rtY.RPWM_R);
+		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, rtY.LPWM_R);
+		  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, rtY.RPWM_L);
+		  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, rtY.LPWM_L);
+
+		  // Re-enable DMA for next data packets
+		  HAL_UART_Receive_DMA(&huart1, (uint8_t*)&sensor_data, sizeof(Sensor_Data));
+		  HAL_UART_Receive_DMA(&huart2, (uint8_t*)&localization_data, sizeof(Localization_Data));
+	  }
+	  HAL_Delay(10); // Loop delay
+  }
+  /* USER CODE END 3 */
+}
 
 /**
   * @brief System Clock Configuration
@@ -187,7 +346,7 @@ void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 65535;
+  htim1.Init.Period = 1000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -261,7 +420,7 @@ void MX_TIM8_Init(void)
   htim8.Instance = TIM8;
   htim8.Init.Prescaler = 0;
   htim8.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim8.Init.Period = 65535;
+  htim8.Init.Period = 1000;
   htim8.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim8.Init.RepetitionCounter = 0;
   htim8.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -410,6 +569,54 @@ void MX_USART2_UART_Init(void)
 }
 
 /**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart3.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_RS485Ex_Init(&huart3, UART_DE_POLARITY_HIGH, 0, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart3, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart3, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+
+  /* USER CODE END USART3_Init 2 */
+
+}
+
+/**
   * Enable DMA controller clock
   */
 void MX_DMA_Init(void)
@@ -442,6 +649,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
@@ -453,11 +661,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)
     {
-        slave1_data_ready = 1;
+        sensor_data_ready = 1;
     }
     else if (huart->Instance == USART2)
     {
-        slave2_data_ready = 1;
+        localization_data_ready = 1;
     }
 }
 /* USER CODE END 4 */
@@ -543,113 +751,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/*SimulinkGeneratedCode*/
-
-int main(void)
-{
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
-
-  /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
-
-  /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_TIM1_Init();
-  MX_TIM8_Init();
-  MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
-  /* USER CODE BEGIN 2 */
-  // Initialize the Simulink Model
-  LQRxSTM_initialize();
-
-  // Start PWM signals
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
-
-  // Start UART DMA transfers
-  HAL_UART_Receive_DMA(&huart1, (uint8_t*)&slave1_data, sizeof(ESP32_Slave1_Data));
-  HAL_UART_Receive_DMA(&huart2, (uint8_t*)&slave2_data, sizeof(ESP32_Slave2_Data));
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-	  if (slave1_data_ready && slave2_data_ready) {
-		  // Reset flags
-		  slave1_data_ready = 0;
-		  slave2_data_ready = 0;
-
-		  // Map data from slave 1
-		  for (int i = 0; i < 100; i++) {
-			  for (int j = 0; j < 2; j++) {
-				rtU.P_b[i * 2 + j] = slave1_data.P[i][j];
-			  }
-			  rtU.S_path[i] = slave1_data.S_path[i];
-		  }
-		  // Assuming v_d and w_d are single values, but the model expects arrays.
-		  // We will take the first value.
-		  rtU.vd_path[0] = slave1_data.v_d;
-		  rtU.wd_path[0] = slave1_data.w_d;
-
-		  // Map data from slave 2
-		  rtU.x_robot = slave2_data.x;
-		  rtU.y_robot = slave2_data.y;
-		  rtU.theta = slave2_data.theta;
-		  rtU.v = slave2_data.v;
-		  rtU.omega = slave2_data.w;
-		  // These inputs are not in the slave data, default to 0
-		  rtU.phi = 0.0;
-		  rtU.phi_dot = 0.0;
-		  rtU.s = 0.0;
-		  rtU.theta_ref_unwrapped[0] = 0.0;
-
-
-		  // Run the control logic
-		  LQRxSTM_step();
-
-		  // Update PWM outputs
-		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, rtY.RPWM_R);
-		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, rtY.LPWM_R);
-		  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, rtY.RPWM_L);
-		  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, rtY.LPWM_L);
-
-		  // Re-enable DMA
-		  HAL_UART_Receive_DMA(&huart1, (uint8_t*)&slave1_data, sizeof(ESP32_Slave1_Data));
-		  HAL_UART_Receive_DMA(&huart2, (uint8_t*)&slave2_data, sizeof(ESP32_Slave2_Data));
-	  }
-	  HAL_Delay(10); // Approximate 100Hz
-  }
-  /* USER CODE END 3 */
-}
