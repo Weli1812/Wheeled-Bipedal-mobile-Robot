@@ -1,0 +1,510 @@
+#include "path_planner.h"
+#include <math.h>
+#include <string.h>
+#include "main.h"
+
+extern UART_HandleTypeDef huart2;
+
+// This is the data structure for Slave 1 (Lidar/Ultrasonics)
+// It matches the structure in the STM32 main.c
+typedef struct {
+    float P[100][2];      // 100 [x,y] coordinates
+    float S_path[95];    // Arc lengths
+    float v_d;            // Target linear
+    float w_d;            // Target angular
+} __attribute__((packed)) ESP32_Slave1_Data;
+
+ESP32_Slave1_Data path_packet;
+
+// This is the data structure for Slave 2 (Encoders/IMU/Kalman)
+// It matches the structure in the STM32 main.c
+typedef struct {
+    float x;
+    float y;
+    float theta;
+    float v;
+    float w;
+} __attribute__((packed)) ESP32_Slave2_Data;
+
+ESP32_Slave2_Data state_packet;
+
+void setup_uart() {
+    // Communication with STM32 (Master)
+    // Is initialized in main.c by MX_USART2_UART_Init();
+}
+
+void send_path_to_master() {
+    HAL_UART_Transmit(&huart2, (uint8_t*)&path_packet, sizeof(path_packet), HAL_MAX_DELAY);
+}
+
+void send_state_to_master() {
+    HAL_UART_Transmit(&huart2, (uint8_t*)&state_packet, sizeof(state_packet), HAL_MAX_DELAY);
+}
+
+
+#define GRID_RES_M   0.2f
+#define DS_SPATIAL   0.02f   
+#define THETA_BINS_C 36
+#define THETA_BIN_WIDTH (6.2831853f / THETA_BINS_C)   /* 2π / 36 */
+
+typedef struct {
+    Pose  pose;
+    float g_cost;
+    float f_cost;
+    int   parent_idx;
+    bool  is_open;
+} Node;
+
+static Node node_pool[MAX_NODES] __attribute__((section(".ram_d2")));
+static bool closed_list[MAP_WIDTH][MAP_HEIGHT][THETA_BINS_C] __attribute__((section(".ram_d3")));
+
+/* --- Kinematics (unchanged — already matched MATLAB) --- */
+const float step_distance_m     = 0.4f;
+const float step_distance_grids = 2.0f;  /* 0.4 m / 0.2 m */
+const float primitive_costs[3]  = {1.05f, 1.0f, 1.05f};
+
+float steer_angles[3] = {0.0f, 0.0f, 0.0f};
+
+static float robot_velocity_m_s = 0.2f;
+static float min_turn_rad_m     = 0.9f;
+static float max_yaw_rate_rad_s = 0.0f;
+
+/* ------------------------------------------------------------------ */
+void InitKinematics(float min_turning_radius_m, float speed_m_s)
+{
+    robot_velocity_m_s = speed_m_s;
+    min_turn_rad_m     = min_turning_radius_m;
+
+    float max_steer = step_distance_m / min_turn_rad_m;
+    steer_angles[0] = -max_steer;
+    steer_angles[1] =  0.0f;
+    steer_angles[2] =  max_steer;
+
+    max_yaw_rate_rad_s = robot_velocity_m_s / min_turn_rad_m;
+}
+
+/* ------------------------------------------------------------------ */
+static inline float NormalizeAngle(float angle)
+{
+    while (angle <  0.0f)        angle += 6.2831853f;
+    while (angle >= 6.2831853f)  angle -= 6.2831853f;
+    return angle;
+}
+
+/* FIX 2: use THETA_BINS_C (36) and matching bin width */
+static inline int GetThetaBin(float angle)
+{
+    int bin = (int)(NormalizeAngle(angle) / THETA_BIN_WIDTH);
+    if (bin >= THETA_BINS_C) bin = 0;
+    return bin;
+}
+
+static inline bool IsValid(const uint8_t *map, float x, float y)
+{
+    int ix = (int)roundf(x);
+    int iy = (int)roundf(y);
+    if (ix < 0 || ix >= MAP_WIDTH  || iy < 0 || iy >= MAP_HEIGHT) return false;
+    if (map[iy * MAP_WIDTH + ix] == 1) return false;
+    return true;
+}
+
+/* ------------------------------------------------------------------ */
+/* FIX 6: turn_penalty coefficient                                     *
+ * MATLAB: turn_penalty = min_turn_rad [m] × (|diff_start|+|diff_end|)*
+ *         dist is also in metres → units cancel cleanly.              *
+ * C works in grid units: dist_grids = dist_m / GRID_RES_M            *
+ * So turn_penalty_grids = (min_turn_rad_m / GRID_RES_M) × angles     *
+ *                       = 4.5 grids × angles                         *
+ * That IS correct as-is — the original code already divided by        *
+ * GRID_RES_M. The real problem was THETA_BINS (fix 2) and h_weight   *
+ * (fix 3). Coefficient left at turning_radius_grids.                 */
+static inline float CalculateHeuristic(Pose current, Pose goal)
+{
+    float dx   = goal.x - current.x;
+    float dy   = goal.y - current.y;
+    float dist = sqrtf(dx*dx + dy*dy);
+
+    if (dist < 0.5f) return 0.0f;   /* ~0.1 m in grid units */
+
+    float angle_to_goal = atan2f(dy, dx);
+
+    float diff_start = current.theta - angle_to_goal;
+    while (diff_start >  3.14159f) diff_start -= 6.28318f;
+    while (diff_start < -3.14159f) diff_start += 6.28318f;
+
+    float diff_end = goal.theta - angle_to_goal;
+    while (diff_end >  3.14159f) diff_end -= 6.28318f;
+    while (diff_end < -3.14159f) diff_end += 6.28318f;
+
+    float turning_radius_grids = min_turn_rad_m / GRID_RES_M;   /* 4.5 */
+    float turn_penalty = turning_radius_grids * (fabsf(diff_start) + fabsf(diff_end));
+
+    return dist + turn_penalty;
+}
+
+/* ------------------------------------------------------------------ */
+void InflateMap(const uint8_t *original_map, uint8_t *inflated_map, int inflation_cells)
+{
+    for (int i = 0; i < MAP_WIDTH * MAP_HEIGHT; i++) inflated_map[i] = 0;
+
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            if (original_map[y * MAP_WIDTH + x] == 1) {
+                for (int dy = -inflation_cells; dy <= inflation_cells; dy++) {
+                    for (int dx = -inflation_cells; dx <= inflation_cells; dx++) {
+                        if (dx*dx + dy*dy <= inflation_cells*inflation_cells) {
+                            int nx = x + dx, ny = y + dy;
+                            if (nx >= 0 && nx < MAP_WIDTH && ny >= 0 && ny < MAP_HEIGHT)
+                                inflated_map[ny * MAP_WIDTH + nx] = 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ------------------------------------------------------------------ */
+int PlanKinematicPath(const uint8_t *map, Pose start, Pose goal, Pose *path_out)
+{
+    /* FIX 2: closed list now sized for THETA_BINS_C = 36 */
+    for (int x = 0; x < MAP_WIDTH;  x++)
+    for (int y = 0; y < MAP_HEIGHT; y++)
+    for (int t = 0; t < THETA_BINS_C; t++)
+        closed_list[x][y][t] = false;
+
+    int  active_nodes = 0;
+    bool path_found   = false;
+    int  best_node_idx = -1;
+
+    /* FIX 3: heuristic multiplied by h_weight = 2.0 (matches MATLAB) */
+    const float h_weight = 2.0f;
+
+    node_pool[0] = (Node){
+        start, 0.0f,
+        h_weight * CalculateHeuristic(start, goal),
+        -1, true
+    };
+    active_nodes = 1;
+
+    while (active_nodes < MAX_NODES - 5) {
+
+        /* Pick open node with lowest f_cost */
+        int   current_idx = -1;
+        float min_f       = 999999.0f;
+        for (int i = 0; i < active_nodes; i++) {
+            if (node_pool[i].is_open && node_pool[i].f_cost < min_f) {
+                min_f = node_pool[i].f_cost;
+                current_idx = i;
+            }
+        }
+        if (current_idx == -1) break;
+
+        Node *current = &node_pool[current_idx];
+        current->is_open = false;
+
+        float dx = goal.x - current->pose.x;
+        float dy = goal.y - current->pose.y;
+        float dist = sqrtf(dx*dx + dy*dy);
+
+        float diff_theta = current->pose.theta - goal.theta;
+        while (diff_theta >  3.14159f) diff_theta -= 6.28318f;
+        while (diff_theta < -3.14159f) diff_theta += 6.28318f;
+
+        /*
+         * FIX 4: goal tolerance matched to MATLAB
+         * MATLAB:  dist < 0.8 m,  |diff_theta| < 0.8 rad
+         * C grids: 0.8 m / 0.2 m/grid = 4.0 grids
+         */
+        if (dist < 4.0f && fabsf(diff_theta) < 0.8f) {
+            best_node_idx = current_idx;
+            path_found = true;
+            break;
+        }
+
+        int cx      = (int)roundf(current->pose.x);
+        int cy      = (int)roundf(current->pose.y);
+        int c_theta = GetThetaBin(current->pose.theta);
+        closed_list[cx][cy][c_theta] = true;
+
+        for (int i = 0; i < 3; i++) {
+            Pose next_pose;
+            next_pose.theta = NormalizeAngle(current->pose.theta + steer_angles[i]);
+            next_pose.x     = current->pose.x + step_distance_grids * cosf(next_pose.theta);
+            next_pose.y     = current->pose.y + step_distance_grids * sinf(next_pose.theta);
+
+            if (!IsValid(map, next_pose.x, next_pose.y)) continue;
+
+            /*
+             * FIX 5: midpoint collision check (matches MATLAB)
+             * MATLAB checks: mid_x = curr + (step/2)*cos, mid_y = curr + (step/2)*sin
+             */
+            float mid_x = current->pose.x + (step_distance_grids * 0.5f) * cosf(next_pose.theta);
+            float mid_y = current->pose.y + (step_distance_grids * 0.5f) * sinf(next_pose.theta);
+            if (!IsValid(map, mid_x, mid_y)) continue;
+
+            int nx      = (int)roundf(next_pose.x);
+            int ny      = (int)roundf(next_pose.y);
+            int n_theta = GetThetaBin(next_pose.theta);
+            if (closed_list[nx][ny][n_theta]) continue;
+
+            float tentative_g = current->g_cost + primitive_costs[i];
+            int   new_idx     = active_nodes;
+            node_pool[new_idx] = (Node){
+                next_pose,
+                tentative_g,
+                tentative_g + h_weight * CalculateHeuristic(next_pose, goal),
+                current_idx, true
+            };
+            active_nodes++;
+        }
+    }
+
+    if (!path_found) return 0;
+
+    /* Trace back */
+    int current_trace = best_node_idx;
+    int path_length   = 0;
+    while (current_trace != -1 && path_length < MAX_PATH_LENGTH - 2) {
+        path_out[path_length++] = node_pool[current_trace].pose;
+        current_trace = node_pool[current_trace].parent_idx;
+    }
+    /* Reverse */
+    for (int i = 0; i < path_length / 2; i++) {
+        Pose tmp               = path_out[i];
+        path_out[i]            = path_out[path_length - 1 - i];
+        path_out[path_length - 1 - i] = tmp;
+    }
+    return path_length;
+}
+
+/* ------------------------------------------------------------------ */
+/*
+ * FIX 7: SmoothPath boundary
+ * MATLAB smooths from i=2 to len-1 (all interior points).
+ * Original C skipped the last 5 points (`i < length - 5`).
+ * Fixed to `i < length - 1` (all interior, like MATLAB).
+ */
+void SmoothPath(Pose *path, int length, float data_weight, float smooth_weight,
+                float tolerance, const uint8_t *map)
+{
+    if (length <= 4) return;
+
+    Pose original_path[MAX_PATH_LENGTH];
+    for (int i = 0; i < length; i++) original_path[i] = path[i];
+
+    float change = tolerance;
+    int   iters  = 0;
+    while (change >= tolerance && iters < 1000) {
+        change = 0.0f;
+        /* FIX 7: was `i < length - 5`; now all interior points */
+        for (int i = 1; i < length - 1; i++) {
+            float aux_x = path[i].x;
+            float aux_y = path[i].y;
+            float new_x = path[i].x
+                        + data_weight   * (original_path[i].x - path[i].x)
+                        + smooth_weight * (path[i-1].x + path[i+1].x - 2.0f * path[i].x);
+            float new_y = path[i].y
+                        + data_weight   * (original_path[i].y - path[i].y)
+                        + smooth_weight * (path[i-1].y + path[i+1].y - 2.0f * path[i].y);
+
+            if (IsValid(map, new_x, new_y)) {
+                path[i].x = new_x;
+                path[i].y = new_y;
+                change += fabsf(aux_x - path[i].x) + fabsf(aux_y - path[i].y);
+            }
+        }
+        iters++;
+    }
+
+    for (int i = 0; i < length - 1; i++) {
+        path[i].theta = atan2f(path[i+1].y - path[i].y,
+                               path[i+1].x - path[i].x);
+    }
+    path[length-1].theta = path[length-2].theta;
+}
+
+/* ------------------------------------------------------------------ */
+/*
+ * Simple Gaussian-kernel smoother.
+ * Approximates MATLAB smoothdata(x, 'gaussian', window).
+ * Half-kernel weights computed from exp(-0.5*(k/sigma)^2).
+ */
+static void GaussianSmooth(float *data, int len, int window)
+{
+    if (len < 2 || window < 2) return;
+
+    float buf[MAX_PATH_LENGTH];
+    int   half  = window / 2;
+    float sigma = half / 2.5f;   /* empirical match to MATLAB's sigma */
+
+    float kernel[MAX_PATH_LENGTH];
+    float ksum = 0.0f;
+    for (int k = -half; k <= half; k++) {
+        kernel[k + half] = expf(-0.5f * (k / sigma) * (k / sigma));
+        ksum += kernel[k + half];
+    }
+    /* Normalise */
+    for (int k = 0; k <= 2 * half; k++) kernel[k] /= ksum;
+
+    for (int i = 0; i < len; i++) {
+        float acc = 0.0f;
+        for (int k = -half; k <= half; k++) {
+            int idx = i + k;
+            if (idx < 0)   idx = 0;
+            if (idx >= len) idx = len - 1;
+            acc += data[idx] * kernel[k + half];
+        }
+        buf[i] = acc;
+    }
+    for (int i = 0; i < len; i++) data[i] = buf[i];
+}
+
+/* ------------------------------------------------------------------ */
+void BuildSpatialReference(const Pose *smooth_path, int path_length,
+                           SimulinkReferenceArrays *sim_out)
+{
+    if (path_length == 0) {
+        sim_out->S_path[0] = 0.0f;
+        sim_out->P_x[0] = 0.0f;
+        sim_out->P_y[0] = 0.0f;
+        sim_out->theta_ref[0] = 0.0f;
+        sim_out->vd_path[0] = 0.0f;
+        sim_out->wd_path[0] = 0.0f;
+        sim_out->length = 0;
+        return;
+    }
+
+    /* 1. Raw arc length in physical metres */
+    float S_raw[MAX_PATH_LENGTH];
+    S_raw[0] = 0.0f;
+    for (int i = 1; i < path_length; i++) {
+        float dx = (smooth_path[i].x - smooth_path[i-1].x) * GRID_RES_M;
+        float dy = (smooth_path[i].y - smooth_path[i-1].y) * GRID_RES_M;
+        S_raw[i] = S_raw[i-1] + sqrtf(dx*dx + dy*dy);
+    }
+    float total_length = S_raw[path_length - 1];
+
+    /* 2. Resample at DS_SPATIAL = 0.02 m — linear interpolation         *
+     *    (MATLAB uses cubic spline; linear is a known approximation)    */
+    int   out_idx         = 0;
+    int   current_segment = 0;
+    float current_s       = 0.0f;
+
+    while (current_s <= total_length && out_idx < MAX_PATH_LENGTH) {
+        sim_out->S_path[out_idx] = current_s;
+
+        while (current_segment < path_length - 2 &&
+               S_raw[current_segment + 1] < current_s)
+            current_segment++;
+
+        float seg_len = S_raw[current_segment + 1] - S_raw[current_segment];
+        float alpha   = (seg_len > 0.0001f)
+                      ? (current_s - S_raw[current_segment]) / seg_len
+                      : 0.0f;
+
+        sim_out->P_x[out_idx] =
+            (smooth_path[current_segment].x
+             + alpha * (smooth_path[current_segment+1].x - smooth_path[current_segment].x))
+            * GRID_RES_M;
+        sim_out->P_y[out_idx] =
+            (smooth_path[current_segment].y
+             + alpha * (smooth_path[current_segment+1].y - smooth_path[current_segment].y))
+            * GRID_RES_M;
+
+        out_idx++;
+        current_s += DS_SPATIAL;
+    }
+    sim_out->length = out_idx;
+
+    /* 3. Theta via atan2, then unwrap */
+    for (int i = 0; i < sim_out->length - 1; i++) {
+        float dx = sim_out->P_x[i+1] - sim_out->P_x[i];
+        float dy = sim_out->P_y[i+1] - sim_out->P_y[i];
+        sim_out->theta_ref[i] = atan2f(dy, dx);
+    }
+    sim_out->theta_ref[sim_out->length - 1] =
+        sim_out->theta_ref[sim_out->length - 2];
+
+    for (int i = 1; i < sim_out->length; i++) {
+        float diff = sim_out->theta_ref[i] - sim_out->theta_ref[i-1];
+        while (diff >  3.14159f) { sim_out->theta_ref[i] -= 6.2831853f; diff -= 6.2831853f; }
+        while (diff < -3.14159f) { sim_out->theta_ref[i] += 6.2831853f; diff += 6.2831853f; }
+    }
+
+    /*
+     * FIX 8: Kappa — finite-diff + Gaussian smooth (window 51) +
+     *         dkappa_max rate-limiter, matching MATLAB section 6.
+     */
+    float kappa[MAX_PATH_LENGTH];
+    for (int i = 0; i < sim_out->length - 1; i++) {
+        kappa[i] = (sim_out->theta_ref[i+1] - sim_out->theta_ref[i]) / DS_SPATIAL;
+    }
+    kappa[sim_out->length - 1] = kappa[sim_out->length - 2];
+
+    /* Gaussian smooth with window = 51 */
+    GaussianSmooth(kappa, sim_out->length, 51);
+
+    /* dkappa rate-limiter: MATLAB applies dkappa_max = 0.05 */
+    const float dkappa_max = 0.05f;
+    for (int i = 1; i < sim_out->length; i++) {
+        float dkappa = kappa[i] - kappa[i-1];
+        if (fabsf(dkappa) > dkappa_max)
+            kappa[i] = kappa[i-1] + (dkappa > 0 ? dkappa_max : -dkappa_max);
+    }
+
+    /* Clamp kappa to ±1/r_min */
+    float kappa_max = 1.0f / min_turn_rad_m;
+    for (int i = 0; i < sim_out->length; i++) {
+        if (kappa[i] >  kappa_max) kappa[i] =  kappa_max;
+        if (kappa[i] < -kappa_max) kappa[i] = -kappa_max;
+    }
+
+    /* 4. Speed profile (ramp up / cruise / ramp down) */
+    float s_ramp_up   = fminf(0.4f, total_length * 0.35f);
+    float s_ramp_down = fminf(0.4f, total_length * 0.35f);
+    float a_ramp      = (robot_velocity_m_s * robot_velocity_m_s)
+                      / (2.0f * s_ramp_up);
+
+    float v_kickstart = 0.02f;
+    float vd_max      = 0.3f;
+    float wd_max      = vd_max / min_turn_rad_m;
+
+    for (int i = 0; i < sim_out->length; i++) {
+        float s     = sim_out->S_path[i];
+        float s_rem = total_length - s;
+
+        /* FIX 1 (compile error): was `out->vd_path`, corrected to `sim_out->vd_path` */
+        if (s <= s_ramp_up) {
+            sim_out->vd_path[i] = fmaxf(sqrtf(fmaxf(0.0f, 2.0f * a_ramp * s)), v_kickstart);
+        } else if (s_rem <= s_ramp_down) {
+            sim_out->vd_path[i] = sqrtf(fmaxf(0.0f, 2.0f * a_ramp * s_rem));
+        } else {
+            sim_out->vd_path[i] = robot_velocity_m_s;
+        }
+        sim_out->vd_path[i] = fminf(sim_out->vd_path[i], vd_max);
+
+        /* Angular speed = v × kappa */
+        sim_out->wd_path[i] = sim_out->vd_path[i] * kappa[i];
+        /* (wd clamp applied after smoothing below) */
+    }
+
+    /* Ensure final stop */
+    sim_out->vd_path[sim_out->length - 1] = 0.0f;
+    sim_out->wd_path[sim_out->length - 1] = 0.0f;
+
+    /*
+     * FIX 9: wd_path Gaussian smoothing (window 31), matching MATLAB:
+     *   wd_path = smoothdata(wd_path, 'gaussian', 31)
+     * Applied AFTER computing wd = vd × kappa, before final clamp.
+     */
+    GaussianSmooth(sim_out->wd_path, sim_out->length, 31);
+
+    /* Final clamp on wd_path */
+    for (int i = 0; i < sim_out->length; i++) {
+        if (sim_out->wd_path[i] >  wd_max) sim_out->wd_path[i] =  wd_max;
+        if (sim_out->wd_path[i] < -wd_max) sim_out->wd_path[i] = -wd_max;
+    }
+    /* Re-enforce final stop after smoothing */
+    sim_out->wd_path[sim_out->length - 1] = 0.0f;
+}

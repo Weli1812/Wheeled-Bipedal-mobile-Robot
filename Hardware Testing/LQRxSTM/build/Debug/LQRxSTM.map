@@ -5982,7 +5982,7 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
  .igot.plt      0x24000078        0x0 D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+dp/hard/crtbegin.o
                 0x24000078                        . = ALIGN (0x4)
 
-.bss            0x24000078     0x5174 load address 0x08008348
+.bss            0x24000078     0x4bb4 load address 0x08008348
                 0x24000078                        _sbss = .
                 0x24000078                        __bss_start__ = _sbss
  *(.bss)
@@ -5995,51 +5995,51 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
  .bss.path_nodes
                 0x24001940      0xbb8 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
  .bss.inflated_map
-                0x240024f8      0x9c4 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
- .bss.map       0x24002ebc      0x9c4 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240024f8      0x6e4 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+ .bss.map       0x24002bdc      0x6e4 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
  .bss.localization_data_ready
-                0x24003880        0x1 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003880                localization_data_ready
+                0x240032c0        0x1 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240032c0                localization_data_ready
  .bss.sensor_data_ready
-                0x24003881        0x1 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003881                sensor_data_ready
- *fill*         0x24003882        0x2 
+                0x240032c1        0x1 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240032c1                sensor_data_ready
+ *fill*         0x240032c2        0x2 
  .bss.localization_data
-                0x24003884       0x14 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003884                localization_data
+                0x240032c4       0x14 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240032c4                localization_data
  .bss.sensor_data
-                0x24003898      0x324 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003898                sensor_data
+                0x240032d8      0x324 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240032d8                sensor_data
  .bss.hdma_usart2_rx
-                0x24003bbc       0x78 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003bbc                hdma_usart2_rx
+                0x240035fc       0x78 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240035fc                hdma_usart2_rx
  .bss.hdma_usart1_rx
-                0x24003c34       0x78 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003c34                hdma_usart1_rx
- .bss.huart2    0x24003cac       0x94 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003cac                huart2
- .bss.huart1    0x24003d40       0x94 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003d40                huart1
- .bss.htim8     0x24003dd4       0x4c CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003dd4                htim8
- .bss.htim1     0x24003e20       0x4c CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
-                0x24003e20                htim1
- .bss.htim2     0x24003e6c       0x4c CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
-                0x24003e6c                htim2
- .bss.uwTick    0x24003eb8        0x4 CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
-                0x24003eb8                uwTick
- *fill*         0x24003ebc        0x4 
- .bss.rtY       0x24003ec0       0x20 CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
-                0x24003ec0                rtY
- .bss.rtU       0x24003ee0     0x1300 CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
-                0x24003ee0                rtU
+                0x24003674       0x78 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x24003674                hdma_usart1_rx
+ .bss.huart2    0x240036ec       0x94 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x240036ec                huart2
+ .bss.huart1    0x24003780       0x94 CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x24003780                huart1
+ .bss.htim8     0x24003814       0x4c CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x24003814                htim8
+ .bss.htim1     0x24003860       0x4c CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+                0x24003860                htim1
+ .bss.htim2     0x240038ac       0x4c CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+                0x240038ac                htim2
+ .bss.uwTick    0x240038f8        0x4 CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+                0x240038f8                uwTick
+ *fill*         0x240038fc        0x4 
+ .bss.rtY       0x24003900       0x20 CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
+                0x24003900                rtY
+ .bss.rtU       0x24003920     0x1300 CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
+                0x24003920                rtU
  .bss.steer_angles
-                0x240051e0        0xc CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
-                0x240051e0                steer_angles
+                0x24004c20        0xc CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+                0x24004c20                steer_angles
  *(COMMON)
-                0x240051ec                        . = ALIGN (0x4)
-                0x240051ec                        _ebss = .
-                0x240051ec                        __bss_end__ = _ebss
+                0x24004c2c                        . = ALIGN (0x4)
+                0x24004c2c                        _ebss = .
+                0x24004c2c                        __bss_end__ = _ebss
 
 .ram_d2         0x30000000     0xa410
                 0x30000000                        . = ALIGN (0x4)
@@ -6048,24 +6048,24 @@ LOAD D:/programs/STM32Cube/STM32CUBEIDE/STM32CubeIDE_2.1.1/STM32CubeIDE/plugins/
  *(.ram_d2*)
                 0x3000a410                        . = ALIGN (0x4)
 
-.ram_d3         0x38000000    0x15f90
+.ram_d3         0x38000000     0xf810
                 0x38000000                        . = ALIGN (0x4)
  *(.ram_d3)
- .ram_d3        0x38000000    0x15f90 CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+ .ram_d3        0x38000000     0xf810 CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
  *(.ram_d3*)
-                0x38015f90                        . = ALIGN (0x4)
+                0x3800f810                        . = ALIGN (0x4)
 
 ._user_heap_stack
-                0x240051ec      0x604
-                0x240051f0                        . = ALIGN (0x8)
- *fill*         0x240051ec        0x4 
+                0x24004c2c      0x604
+                0x24004c30                        . = ALIGN (0x8)
+ *fill*         0x24004c2c        0x4 
                 [!provide]                        PROVIDE (end = .)
-                0x240051f0                        PROVIDE (_end = .)
-                0x240053f0                        . = (. + _Min_Heap_Size)
- *fill*         0x240051f0      0x200 
-                0x240057f0                        . = (. + _Min_Stack_Size)
- *fill*         0x240053f0      0x400 
-                0x240057f0                        . = ALIGN (0x8)
+                0x24004c30                        PROVIDE (_end = .)
+                0x24004e30                        . = (. + _Min_Heap_Size)
+ *fill*         0x24004c30      0x200 
+                0x24005230                        . = (. + _Min_Stack_Size)
+ *fill*         0x24004e30      0x400 
+                0x24005230                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)

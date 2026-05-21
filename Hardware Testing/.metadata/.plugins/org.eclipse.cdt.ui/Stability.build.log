@@ -1,0 +1,6 @@
+01:02:42 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+
+01:02:43 Build Finished. 0 errors, 0 warnings. (took 1s.107ms)
+

@@ -3,8 +3,10 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
-		<item value="slave"/>
 		<item value="main"/>
+		<item value="while("/>
+		<item value="while()"/>
+		<item value="slave"/>
 		<item value="simulink_step"/>
 		<item value="data_ready"/>
 		<item value="glob"/>

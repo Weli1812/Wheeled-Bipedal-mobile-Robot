@@ -14,7 +14,7 @@
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
  * Code generation objectives:
- *    1. Execution efficiency
+ *    1. Execution eFfficiency
  *    2. RAM efficiency
  * Validation result: Not run
  */

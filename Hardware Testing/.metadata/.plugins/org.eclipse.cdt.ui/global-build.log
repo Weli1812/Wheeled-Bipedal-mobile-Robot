@@ -1495,3 +1495,812 @@ Memory region         Used Size  Region Size  %age Used
 collect2.exe: error: ld returned 1 exit status
 ninja: build stopped: subcommand failed.
 "cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:53:07 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/build/Debug
+[0/1] Re-running CMake...
+[1/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:576:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  576 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+[2/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj
+[3/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+[4/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[5/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[6/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[7/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[8/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[9/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[10/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[11/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[12/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[13/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[14/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[15/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[16/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[17/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj
+[18/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[19/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[20/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[21/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj
+[22/32] Building ASM object CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj
+[23/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+[24/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[25/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj
+[26/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:147:18: warning: 'rtIsNaNF' defined but not used [-Wunused-function]
+  147 | static boolean_T rtIsNaNF(real32_T value)
+      |                  ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:135:18: warning: 'rtIsInfF' defined but not used [-Wunused-function]
+  135 | static boolean_T rtIsInfF(real32_T value)
+      |                  ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:123:17: warning: 'rtGetNaNF' defined but not used [-Wunused-function]
+  123 | static real32_T rtGetNaNF(void)
+      |                 ^~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:117:15: warning: 'rtGetNaN' defined but not used [-Wunused-function]
+  117 | static real_T rtGetNaN(void)
+      |               ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:111:17: warning: 'rtGetMinusInfF' defined but not used [-Wunused-function]
+  111 | static real32_T rtGetMinusInfF(void)
+      |                 ^~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:105:15: warning: 'rtGetMinusInf' defined but not used [-Wunused-function]
+  105 | static real_T rtGetMinusInf(void)
+      |               ^~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:99:17: warning: 'rtGetInfF' defined but not used [-Wunused-function]
+   99 | static real32_T rtGetInfF(void)
+      |                 ^~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/LQRxSTM.c:93:15: warning: 'rtGetInf' defined but not used [-Wunused-function]
+   93 | static real_T rtGetInf(void)
+      |               ^~~~~~~~
+[27/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[28/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj
+[29/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+[30/32] Building C object CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[31/32] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[32/32] Linking C executable LQRxSTM.elf
+FAILED: LQRxSTM.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=LQRxSTM.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage -Wl,--gc-sections CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj -o LQRxSTM.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: LQRxSTM.elf section `.ram_d3' will not fit in region `RAM_D3'
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: region `RAM_D3' overflowed by 24464 bytes
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:           0 B       128 KB      0.00%
+
+             RAM:       22512 B       512 KB      4.29%
+
+          RAM_D2:       42000 B       288 KB     14.24%
+
+          RAM_D3:       90000 B        64 KB    137.33%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       33608 B       128 KB     25.64%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:53:58 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[2/2] Linking C executable LQRxSTM.elf
+FAILED: LQRxSTM.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=LQRxSTM.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage -Wl,--gc-sections CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj -o LQRxSTM.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: LQRxSTM.elf section `.ram_d3' will not fit in region `RAM_D3'
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: region `RAM_D3' overflowed by 24464 bytes
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:       22512 B       512 KB      4.29%
+          RAM_D2:       42000 B       288 KB     14.24%
+
+          RAM_D3:       90000 B        64 KB    137.33%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       33608 B       128 KB     25.64%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:54:29 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:576:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  576 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[3/3] Linking C executable LQRxSTM.elf
+FAILED: LQRxSTM.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=LQRxSTM.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage -Wl,--gc-sections CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj -o LQRxSTM.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: LQRxSTM.elf section `.ram_d3' will not fit in region `RAM_D3'
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: region `RAM_D3' overflowed by 7364 bytes
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:       21560 B       512 KB      4.11%
+          RAM_D2:       42000 B       288 KB     14.24%
+          RAM_D3:       72900 B        64 KB    111.24%
+         ITCMRAM:           0 B        64 KB      0.00%
+           FLASH:       33608 B       128 KB     25.64%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:54:46 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:576:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  576 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[3/3] Linking C executable LQRxSTM.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:       20712 B       512 KB      3.95%
+          RAM_D2:       42000 B       288 KB     14.24%
+          RAM_D3:       57600 B        64 KB     87.89%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       33608 B       128 KB     25.64%
+
+22:55:09 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:576:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  576 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[3/3] Linking C executable LQRxSTM.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:       21040 B       512 KB      4.01%
+          RAM_D2:       42000 B       288 KB     14.24%
+          RAM_D3:       63504 B        64 KB     96.90%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       33608 B       128 KB     25.64%
+
+22:55:30 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:576:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  576 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[3/3] Linking C executable LQRxSTM.elf
+FAILED: LQRxSTM.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=LQRxSTM.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage -Wl,--gc-sections CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/LQRxSTM.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/sysmem.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/syscalls.c.obj CMakeFiles/LQRxSTM.dir/startup_stm32h750xx.s.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/LQRxSTM_data.c.obj CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj -o LQRxSTM.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: LQRxSTM.elf section `.ram_d3' will not fit in region `RAM_D3'
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: region `RAM_D3' overflowed by 4160 bytes
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:       21384 B       512 KB      4.08%
+          RAM_D2:       42000 B       288 KB     14.24%
+          RAM_D3:       69696 B        64 KB    106.35%
+         ITCMRAM:           0 B        64 KB      0.00%
+           FLASH:       33608 B       128 KB     25.64%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:55:42 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/main.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/LQRxSTM/Core/Src/main.c:576:13: warning: 'MX_USART3_UART_Init' defined but not used [-Wunused-function]
+  576 | static void MX_USART3_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~
+[2/3] Building C object CMakeFiles/LQRxSTM.dir/Core/Src/path_planner.c.obj
+[3/3] Linking C executable LQRxSTM.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: LQRxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:           0 B       128 KB      0.00%
+             RAM:       21040 B       512 KB      4.01%
+          RAM_D2:       42000 B       288 KB     14.24%
+          RAM_D3:       63504 B        64 KB     96.90%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       33608 B       128 KB     25.64%
+
+17:15:13 **** Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj
+[2/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+[3/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[4/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[5/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[6/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[7/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[8/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[9/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[10/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[11/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[12/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[13/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[14/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[15/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[16/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[17/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[18/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[19/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[20/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[21/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[22/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+[23/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+[24/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj
+[25/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/sysmem.c.obj
+[26/28] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/syscalls.c.obj
+[27/28] Building ASM object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/startup_stm32h750xx.s.obj
+[28/28] Linking C executable STM32H750VBT6-ESP32UARTCommunication.elf
+FAILED: STM32H750VBT6-ESP32UARTCommunication.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=STM32H750VBT6-ESP32UARTCommunication.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/sysmem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/syscalls.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/startup_stm32h750xx.s.obj -o STM32H750VBT6-ESP32UARTCommunication.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-ESP32UARTCommunication.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj: in function `TIM2_IRQHandler':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_it.c:230:(.text.TIM2_IRQHandler+0x10): undefined reference to `htim2'
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2056 B       128 KB      1.57%
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       36180 B       128 KB     27.60%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+17:15:53 **** Build of configuration Debug for project Tutorial ****
+cmake --build "build\\Debug" 
+[1/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/main.c.obj
+[2/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/stm32h7xx_it.c.obj
+[3/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[4/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[5/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[6/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[7/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[8/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[9/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[10/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[11/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[12/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[13/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[14/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[15/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[16/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[17/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[18/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[19/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[20/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[21/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[22/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/system_stm32h7xx.c.obj
+[23/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/sysmem.c.obj
+[24/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/syscalls.c.obj
+[25/26] Building ASM object CMakeFiles/Tutorial.dir/startup_stm32h750xx.s.obj
+[26/26] Linking C executable Tutorial.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Tutorial.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        1584 B       128 KB      1.21%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:        7024 B       128 KB      5.36%
+
+22:31:32 **** Incremental Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/1] Linking C executable STM32H750VBT6-ESP32UARTCommunication.elf
+FAILED: STM32H750VBT6-ESP32UARTCommunication.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=STM32H750VBT6-ESP32UARTCommunication.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/sysmem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/syscalls.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/startup_stm32h750xx.s.obj -o STM32H750VBT6-ESP32UARTCommunication.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-ESP32UARTCommunication.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj: in function `TIM2_IRQHandler':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_it.c:230:(.text.TIM2_IRQHandler+0x10): undefined reference to `htim2'
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        2056 B       128 KB      1.57%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       36180 B       128 KB     27.60%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:32:02 **** Incremental Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/1] Linking C executable STM32H750VBT6-ESP32UARTCommunication.elf
+FAILED: STM32H750VBT6-ESP32UARTCommunication.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=STM32H750VBT6-ESP32UARTCommunication.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/sysmem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/syscalls.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/startup_stm32h750xx.s.obj -o STM32H750VBT6-ESP32UARTCommunication.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-ESP32UARTCommunication.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj: in function `TIM2_IRQHandler':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_it.c:230:(.text.TIM2_IRQHandler+0x10): undefined reference to `htim2'
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        2056 B       128 KB      1.57%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       36180 B       128 KB     27.60%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:32:37 **** Incremental Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+[1/1] Linking C executable STM32H750VBT6-ESP32UARTCommunication.elf
+FAILED: STM32H750VBT6-ESP32UARTCommunication.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=STM32H750VBT6-ESP32UARTCommunication.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/sysmem.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/syscalls.c.obj CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/startup_stm32h750xx.s.obj -o STM32H750VBT6-ESP32UARTCommunication.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: STM32H750VBT6-ESP32UARTCommunication.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj: in function `TIM2_IRQHandler':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_it.c:230:(.text.TIM2_IRQHandler+0x10): undefined reference to `htim2'
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        2056 B       128 KB      1.57%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       36180 B       128 KB     27.60%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+22:45:39 **** Incremental Build of configuration Debug for project STM32H750VBT6-ESP32UARTCommunication ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.5s)
+-- Generating done (0.2s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/build/Debug
+[0/1] Re-running CMake...
+[1/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Core\Src\stm32h7xx_it.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_it.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_it.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/main.h:30,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_it.c:21:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[2/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Core\Src\stm32h7xx_hal_timebase_tim.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_hal_timebase_tim.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_hal_timebase_tim.c:21:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[3/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Core\Src\stm32h7xx_hal_msp.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/stm32h7xx_hal_msp.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_hal_msp.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/main.h:30,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/stm32h7xx_hal_msp.c:23:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[4/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c:85:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[5/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c:67:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[6/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c:82:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[7/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Core\Src\main.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/main.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/main.h:30,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Core/Src/main.c:20:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[8/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c:88:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[9/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c:107:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[10/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c:150:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[11/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c:23:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[12/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c:87:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[13/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c:146:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[14/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c:51:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[15/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c:95:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[16/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c:153:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[17/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c:36:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+[18/29] Building C object CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+FAILED: CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj -MF CMakeFiles\STM32H750VBT6-ESP32UARTCommunication.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c.obj.d -o CMakeFiles/STM32H750VBT6-ESP32UARTCommunication.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:129,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:27,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Core/Inc/stm32h7xx_hal_conf.h:247,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:29,
+                 from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c:323:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/STM32H750VBT6-ESP32UARTCommunication/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:224:10: fatal error: core_cm7.h: No such file or directory
+  224 | #include "core_cm7.h"                     /*!< Cortex-M7 processor and core peripherals      */
+      |          ^~~~~~~~~~~~
+compilation terminated.
+
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+00:26:10 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+00:55:50 **** Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/29] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/29] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj
+[3/29] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[4/29] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+[5/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[6/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[7/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[8/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[9/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[10/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[11/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[12/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[13/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[14/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[15/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[16/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[17/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[18/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[19/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[20/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[21/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[22/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[23/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+[24/29] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+[25/29] Building C object CMakeFiles/Stability.dir/Core/Src/system_stm32h7xx.c.obj
+[26/29] Building C object CMakeFiles/Stability.dir/Core/Src/sysmem.c.obj
+[27/29] Building C object CMakeFiles/Stability.dir/Core/Src/syscalls.c.obj
+[28/29] Building ASM object CMakeFiles/Stability.dir/startup_stm32h750xx.s.obj
+[29/29] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        2080 B       128 KB      1.59%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       33392 B       128 KB     25.48%
+
+00:57:45 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.7s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/build/Debug
+[0/1] Re-running CMake...
+[1/30] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/30] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj
+[3/30] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[4/30] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+[5/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[6/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[7/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[8/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[9/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[10/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[11/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[12/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[13/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[14/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[15/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[16/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[17/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[18/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[19/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[20/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[21/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[22/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[23/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj
+[24/30] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj
+[25/30] Building C object CMakeFiles/Stability.dir/Core/Src/system_stm32h7xx.c.obj
+[26/30] Building C object CMakeFiles/Stability.dir/Core/Src/sysmem.c.obj
+[27/30] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:22:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc/Simulink.h:31:10: fatal error: MW_target_hardware_resources.h: No such file or directory
+   31 | #include "MW_target_hardware_resources.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+[28/30] Building C object CMakeFiles/Stability.dir/Core/Src/syscalls.c.obj
+[29/30] Building ASM object CMakeFiles/Stability.dir/startup_stm32h750xx.s.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+00:58:03 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:22:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc/Simulink.h:31:10: fatal error: MW_target_hardware_resources.h: No such file or directory
+   31 | #include "MW_target_hardware_resources.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+00:58:16 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/main.c.obj -MF CMakeFiles\Stability.dir\Core\Src\main.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:24:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc/Simulink.h:31:10: fatal error: MW_target_hardware_resources.h: No such file or directory
+   31 | #include "MW_target_hardware_resources.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+In file included from C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:22:
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc/Simulink.h:31:10: fatal error: MW_target_hardware_resources.h: No such file or directory
+   31 | #include "MW_target_hardware_resources.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+01:01:50 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[3/3] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2192 B       128 KB      1.67%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       39232 B       128 KB     29.93%
+
+01:02:33 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+01:02:42 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.

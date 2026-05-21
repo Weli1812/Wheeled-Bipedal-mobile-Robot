@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>     // Required for memcpy to parse binary data
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,22 +42,43 @@
 /* Private variables ---------------------------------------------------------*/
 
 UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
+// Raw byte buffer for the 24-bit DMA payload (6 floats * 4 bytes)
+uint8_t uart_rx_buffer[24];
 
+// GLOBAL VARIABLES FOR IDE LIVE WATCH
+// Watch these variables in your IDE Expressions window to see live updates
+volatile float esp_states[6];
+volatile uint32_t packet_counter = 0; // Increments every time a valid packet arrives
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MPU_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+// UART DMA Receive Complete Callback
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    // 1. Copy the 24 bytes from the raw buffer into our visible float array
+    memcpy((void*)esp_states, uart_rx_buffer, 24);
+
+    // 2. Increment counter so you can visually verify data is streaming in the IDE
+    packet_counter++;
+
+    // 3. Re-enable DMA to listen for the next 24-byte transaction
+    HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 24);
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -93,8 +114,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  // Kick off the non-blocking DMA receiver to start capturing ESP32 data
+  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 24);
 
   /* USER CODE END 2 */
 
@@ -103,9 +128,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  char *msg = "PING\n";
-	  HAL_UART_Transmit(&huart1, (uint8_t*)msg, 5, HAL_MAX_DELAY);
+
     /* USER CODE BEGIN 3 */
+    // The background DMA + Callback handles data extraction entirely.
+    // The CPU can perform other tasks here or sleep.
   }
   /* USER CODE END 3 */
 }
@@ -182,7 +208,7 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_USART1_UART_Init(void)
+void MX_USART1_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART1_Init 0 */
@@ -193,7 +219,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 921600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -226,17 +252,34 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+void MX_GPIO_Init(void)
 {
 /* USER CODE BEGIN MX_GPIO_Init_1 */
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
@@ -274,6 +317,27 @@ void MPU_Config(void)
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM2 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM2) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
 
 /**
