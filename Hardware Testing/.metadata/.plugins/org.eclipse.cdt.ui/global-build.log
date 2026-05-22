@@ -2333,3 +2333,183 @@ ninja: no work to do.
 00:55:27 **** Incremental Build of configuration Debug for project Stability ****
 cmake --build "build\\Debug" 
 ninja: no work to do.
+01:12:57 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2144 B       128 KB      1.64%
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       37800 B       128 KB     28.84%
+
+01:15:45 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+01:54:30 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.7s)
+-- Generating done (0.2s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/build/Debug
+[0/1] Re-running CMake...
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/3] Linking C executable Stability.elf
+FAILED: Stability.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=Stability.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/Stability.dir/Core/Src/main.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/Stability.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/Stability.dir/Core/Src/sysmem.c.obj CMakeFiles/Stability.dir/Core/Src/syscalls.c.obj CMakeFiles/Stability.dir/startup_stm32h750xx.s.obj -o Stability.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/Stability.dir/Core/Src/main.c.obj: in function `HAL_UART_RxCpltCallback':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:101:(.text.HAL_UART_RxCpltCallback+0xe0): undefined reference to `rtU'
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2088 B       128 KB      1.59%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       37880 B       128 KB     28.90%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+01:54:51 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/1] Linking C executable Stability.elf
+FAILED: Stability.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=Stability.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/Stability.dir/Core/Src/main.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/Stability.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/Stability.dir/Core/Src/sysmem.c.obj CMakeFiles/Stability.dir/Core/Src/syscalls.c.obj CMakeFiles/Stability.dir/startup_stm32h750xx.s.obj -o Stability.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/Stability.dir/Core/Src/main.c.obj: in function `HAL_UART_RxCpltCallback':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:101:(.text.HAL_UART_RxCpltCallback+0xe0): undefined reference to `rtU'
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2088 B       128 KB      1.59%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+           FLASH:       37880 B       128 KB     28.90%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+01:55:29 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/1] Linking C executable Stability.elf
+FAILED: Stability.elf 
+C:\WINDOWS\system32\cmd.exe /C "cd . && D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -T "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/STM32H750VBTx_FLASH.ld" --specs=nano.specs -Wl,-Map=Stability.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage  CMakeFiles/Stability.dir/Core/Src/main.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj CMakeFiles/Stability.dir/Core/Src/system_stm32h7xx.c.obj CMakeFiles/Stability.dir/Core/Src/sysmem.c.obj CMakeFiles/Stability.dir/Core/Src/syscalls.c.obj CMakeFiles/Stability.dir/startup_stm32h750xx.s.obj -o Stability.elf   && cd ."
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: CMakeFiles/Stability.dir/Core/Src/main.c.obj: in function `HAL_UART_RxCpltCallback':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:101:(.text.HAL_UART_RxCpltCallback+0xe0): undefined reference to `rtU'
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2088 B       128 KB      1.59%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+           FLASH:       37880 B       128 KB     28.90%
+
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+01:56:32 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.5s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/build/Debug
+[0/1] Re-running CMake...
+[1/24] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj
+[2/24] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/24] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj
+[4/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[5/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[6/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[7/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[8/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[9/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[10/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[11/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[12/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[13/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[14/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[15/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[16/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[17/24] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/main.c.obj -MF CMakeFiles\Stability.dir\Core\Src\main.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:65:30: error: unknown type name 'UART_HandleTypeDef'; did you mean 'TIM_HandleTypeDef'?
+   65 | void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+      |                              ^~~~~~~~~~~~~~~~~~
+      |                              TIM_HandleTypeDef
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c: In function 'main':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:139:3: error: implicit declaration of function 'HAL_UART_Receive_DMA'; did you mean 'HAL_I2C_Slave_Receive_DMA'? [-Wimplicit-function-declaration]
+  139 |   HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+      |   ^~~~~~~~~~~~~~~~~~~~
+      |   HAL_I2C_Slave_Receive_DMA
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:139:25: error: 'huart1' undeclared (first use in this function)
+  139 |   HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+      |                         ^~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:139:25: note: each undeclared identifier is reported only once for each function it appears in
+[18/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[19/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[20/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[21/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[22/24] Building C object CMakeFiles/Stability.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[23/24] Building C object CMakeFiles/Stability.dir/Core/Src/system_stm32h7xx.c.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+01:57:47 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/4] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/main.c.obj -MF CMakeFiles\Stability.dir\Core\Src\main.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c: In function 'HAL_UART_RxCpltCallback':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:90:27: error: 'huart1' undeclared (first use in this function); did you mean 'huart'?
+   90 |     HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+      |                           ^~~~~~
+      |                           huart
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:90:27: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c: In function 'main':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:139:25: error: 'huart1' undeclared (first use in this function)
+  139 |   HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+      |                         ^~~~~~
+[2/4] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/4] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+01:58:05 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/4] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/main.c.obj -MF CMakeFiles\Stability.dir\Core\Src\main.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c: In function 'HAL_UART_RxCpltCallback':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:90:27: error: 'huart1' undeclared (first use in this function); did you mean 'huart'?
+   90 |     HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+      |                           ^~~~~~
+      |                           huart
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:90:27: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c: In function 'main':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:139:25: error: 'huart1' undeclared (first use in this function)
+  139 |   HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+      |                         ^~~~~~
+[2/4] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/4] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_it.c.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.

@@ -45,9 +45,6 @@
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim8;
 
-UART_HandleTypeDef huart1;
-DMA_HandleTypeDef hdma_usart1_rx;
-
 /* USER CODE BEGIN PV */
 // 1. STM32H7 CRITICAL: Force buffer to AXI SRAM so DMA and CPU Cache don't fight
 uint8_t* uart_rx_buffer = (uint8_t*)0x24000000;
@@ -57,12 +54,6 @@ volatile uint8_t data_ready = 0; // Flag to trigger control loop
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MPU_Config(void);
-void MX_GPIO_Init(void);
-void MX_DMA_Init(void);
-void MX_USART1_UART_Init(void);
-void MX_TIM1_Init(void);
-void MX_TIM8_Init(void);
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -107,6 +98,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -132,67 +124,54 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_USART1_UART_Init();
   MX_TIM1_Init();
   MX_TIM8_Init();
-
   /* USER CODE BEGIN 2 */
+  // 1. Start the PWM for TIM1 (Motor 1 - PA9, PA10)
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
 
-  // 1. SAFETY: Override CubeMX init and explicitly pull PE3 LOW to disable motors
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+  // 2. Start the PWM for TIM8 (Motor 2 - PC6, PC7)
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
 
-  // 2. Initialize the Simulink controller
-  Simulink_initialize();
-
-  // 3. Kick off the asynchronous DMA listener to receive data from ESP32
+  // 3. Kickstart the UART DMA to listen for the first ESP32 packet
   HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
-
-  // 4. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first packet
-  while(data_ready == 0)
-  {
-      // Waiting for ESP32 connection...
-      HAL_Delay(10);
-  }
-
-  // ESP32 IS CONNECTED! Clear the flag from the first packet
-  data_ready = 0;
-
-  // 5. ENABLE MOTORS: Pull PE3 HIGH now that we have valid state data
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
-
-  // 6. Start the Hardware Timers for PWM Output
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); // Right Motor (RPWM_R)
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // Right Motor (LPWM_R)
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1); // Left Motor (RPWM_L)
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2); // Left Motor (LPWM_L)
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // Check if a new data packet has arrived from the ESP32
-    if (data_ready == 1)
-    {
-      // Acknowledge the flag
-      data_ready = 0;
+    // PE3 is initialized HIGH in MX_GPIO_Init, so the drivers are enabled.
 
-      // 1. Run the LQR Control Matrix calculation
-      Simulink_step();
+    // --- MOVE FORWARD ---
+    // Motor 1 (TIM1 CH2 High, CH3 Low)
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 500);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
+    // Motor 2 (TIM8 CH1 High, CH2 Low)
+    __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 500);
+    __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
+    HAL_Delay(2000);
 
-      // 2. Apply generated PWM to hardware timers
-      // The Simulink output (double) is cast to uint32_t for the timer registers
+    // --- STOP ---
+    // Motor 1
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
+    // Motor 2
+    __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
+    __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
+    HAL_Delay(1000);
 
-      // Right Motor (TIM1)
-      __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R);
-      __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R1); // LPWM_R
+    // --- MOVE REVERSE ---
+    // Motor 1 (TIM1 CH2 Low, CH3 High)
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 500);
+    // Motor 2 (TIM8 CH1 Low, CH2 High)
+    __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
+    __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 500);
+    HAL_Delay(2000);
 
-      // Left Motor (TIM8)
-      __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R2); // RPWM_L
-      __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R3); // LPWM_L
-    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -274,7 +253,9 @@ void SystemClock_Config(void)
   */
 void MX_TIM1_Init(void)
 {
+
   /* USER CODE BEGIN TIM1_Init 0 */
+
   /* USER CODE END TIM1_Init 0 */
 
   TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -282,6 +263,7 @@ void MX_TIM1_Init(void)
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
 
   /* USER CODE BEGIN TIM1_Init 1 */
+
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
@@ -308,10 +290,6 @@ void MX_TIM1_Init(void)
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
@@ -332,8 +310,10 @@ void MX_TIM1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM1_Init 2 */
+
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
+
 }
 
 /**
@@ -343,7 +323,9 @@ void MX_TIM1_Init(void)
   */
 void MX_TIM8_Init(void)
 {
+
   /* USER CODE BEGIN TIM8_Init 0 */
+
   /* USER CODE END TIM8_Init 0 */
 
   TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -351,6 +333,7 @@ void MX_TIM8_Init(void)
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
 
   /* USER CODE BEGIN TIM8_Init 1 */
+
   /* USER CODE END TIM8_Init 1 */
   htim8.Instance = TIM8;
   htim8.Init.Prescaler = 0;
@@ -401,65 +384,10 @@ void MX_TIM8_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM8_Init 2 */
+
   /* USER CODE END TIM8_Init 2 */
   HAL_TIM_MspPostInit(&htim8);
-}
 
-/**
-  * @brief USART1 Initialization Function
-  * @param None
-  * @retval None
-  */
-void MX_USART1_UART_Init(void)
-{
-  /* USER CODE BEGIN USART1_Init 0 */
-  /* USER CODE END USART1_Init 0 */
-
-  /* USER CODE BEGIN USART1_Init 1 */
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 921600;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.Init.ClockPrescaler = UART_PRESCALER_DIV1;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_SetTxFifoThreshold(&huart1, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART1_Init 2 */
-  /* USER CODE END USART1_Init 2 */
-}
-
-/**
-  * Enable DMA controller clock
-  */
-void MX_DMA_Init(void)
-{
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 }
 
 /**
@@ -476,7 +404,6 @@ void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
@@ -499,6 +426,7 @@ void MX_GPIO_Init(void)
 /* USER CODE END 4 */
 
  /* MPU Configuration */
+
 void MPU_Config(void)
 {
   MPU_Region_InitTypeDef MPU_InitStruct = {0};
@@ -523,6 +451,7 @@ void MPU_Config(void)
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+
 }
 
 /**
@@ -536,11 +465,13 @@ void MPU_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
+
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM2) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
+
   /* USER CODE END Callback 1 */
 }
 

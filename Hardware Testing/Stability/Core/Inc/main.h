@@ -28,7 +28,8 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal.h"
-
+#include "stm32h7xx_hal_uart.h"
+#include "stm32h7xx_hal_dma.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -54,10 +55,8 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 void MX_GPIO_Init(void);
-void MX_DMA_Init(void);
 void MX_TIM1_Init(void);
 void MX_TIM8_Init(void);
-void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN EFP */
 

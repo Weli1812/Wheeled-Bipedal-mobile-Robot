@@ -3,7 +3,10 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="stm"/>
 		<item value="main"/>
+		<item value="24"/>
+		<item value="26"/>
 		<item value="while("/>
 		<item value="while()"/>
 		<item value="slave"/>
