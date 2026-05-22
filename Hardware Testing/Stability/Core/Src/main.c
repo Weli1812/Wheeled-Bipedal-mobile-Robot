@@ -49,8 +49,8 @@ UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
-// Buffer for 6 states sent as 32-bit floats from ESP32 (6 * 4 bytes = 24 bytes)
-uint8_t uart_rx_buffer[24];
+// 1. STM32H7 CRITICAL: Force buffer to AXI SRAM so DMA and CPU Cache don't fight
+uint8_t* uart_rx_buffer = (uint8_t*)0x24000000;
 volatile uint8_t data_ready = 0; // Flag to trigger control loop
 /* USER CODE END PV */
 
@@ -69,30 +69,36 @@ void MX_TIM8_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 // UART DMA Receive Complete Callback
-// Automatically called when 24 bytes arrive from the ESP32
+// Automatically called when 26 bytes arrive from the ESP32
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART1)
   {
-    // 1. Reconstruct the 32-bit floats from the incoming binary byte buffer
-    float temp_states[6];
-    memcpy(temp_states, uart_rx_buffer, 24);
+    // 1. Invalidate Data Cache for the buffer (Critical for STM32H7)
+    // 32 bytes safely covers our 26-byte buffer
+    SCB_InvalidateDCache_by_Addr((uint32_t *)uart_rx_buffer, 32);
 
-    // 2. Cast the 32-bit floats into 64-bit doubles (real_T) for Simulink input
-    for(int i = 0; i < 6; i++) {
-        rtU.state_x[i] = (double)temp_states[i];
+    // 2. Validate the Sync Headers (0xAA, 0x55) from ESP32
+    if (uart_rx_buffer[0] == 0xAA && uart_rx_buffer[1] == 0x55)
+    {
+        // 3. Extract the 6 floats (24 bytes) skipping the 2 header bytes
+        float temp_states[6];
+        memcpy(temp_states, &uart_rx_buffer[2], 24);
+
+        // 4. Cast the 32-bit floats into 64-bit doubles (real_T) for Simulink input
+        for(int i = 0; i < 6; i++) {
+            rtU.state_x[i] = (double)temp_states[i];
+        }
+
+        // 5. Set flag to inform the main loop that new data is ready
+        data_ready = 1;
     }
 
-    // 3. Set flag to inform the main loop that new data is ready
-    data_ready = 1;
-
-    // 4. Restart DMA to listen for the next packet
-    HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 24);
+    // 6. Restart DMA to listen for the next 26-byte packet
+    HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
   }
 }
-
 /* USER CODE END 0 */
 
 /**
@@ -140,7 +146,7 @@ int main(void)
   Simulink_initialize();
 
   // 3. Kick off the asynchronous DMA listener to receive data from ESP32
-  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 24);
+  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
 
   // 4. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first packet
   while(data_ready == 0)
