@@ -1,0 +1,6 @@
+# Ignore IDE metadata for Hardware Testing (Eclipse/STM32Cube)
+Hardware Testing/.metadata/
+
+# Common ignores
+build/
+*.log
