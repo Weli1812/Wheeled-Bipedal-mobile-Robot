@@ -3,6 +3,9 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="real"/>
+		<item value="uart"/>
+		<item value="while"/>
 		<item value="stm"/>
 		<item value="main"/>
 		<item value="24"/>

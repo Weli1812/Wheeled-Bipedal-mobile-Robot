@@ -48,8 +48,8 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/system_stm32h7xx.c
     ../../Core/Src/sysmem.c
     ../../Core/Src/syscalls.c
+    ../../Core/Src/Simulink.c
     ../../startup_stm32h750xx.s
-    ../../startup_Simulink.c
 )
 
 target_link_directories(stm32cubemx INTERFACE
