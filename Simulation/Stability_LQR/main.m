@@ -866,89 +866,31 @@ grid on; xlabel('Arc-length s (m)'); ylabel('\kappa (rad/m)');
 title('Path curvature — arc-length indexed');
 
 %% =========================
-% Animated Figure: Robot Drive + Jump (single unified figure)
+% Animated Figure: Robot Drive Only
 % ==========================
 
-% ── Physical parameters for the 2D robot body ────────────────────────────
-r_wheel  = 0.060;   % Wheel radius 60 mm
-L_min    = 0.170;   % Min leg length 170 mm
-L_max    = 0.311;   % Max leg length 311 mm
-L_stance = 0.250;   % Normal standing leg length
-body_w   = 0.250;   % Body visual width
-body_h   = 0.150;   % Body visual height
-leg_dist = 0.150;   % Left/right leg separation (visual)
-v_lift   = 1.72;    % Liftoff velocity (m/s)
-g_jump   = 9.81;    % Gravity (m/s^2)
-dt_anim  = 0.02;    % Animation timestep (s)
+% This animation now shows only the ground trajectory tracking.
+% Removed the extra airborne animation phases after reaching the goal.
 
 % ── Animation speed control while robot is moving ─────────────────────────
 % Increase pause_drive to slow it more.
 % Decrease pause_drive to make it faster.
-maxDriveFrames = 700;     % 700 = clear but still slightly fast
+maxDriveFrames = 700;     % Maximum number of animation frames
 pause_drive    = 0.015;   % bigger = slower, smaller = faster
 
-% ── Find when robot is stopped AND stable before starting jump ────────────
+% Make sure all vectors have the same usable length
+num_pts = min([numel(sim_t), numel(x), numel(y), numel(theta), ...
+               numel(phi), numel(v), numel(omega), numel(vd_cmd), numel(wd_cmd)]);
 
-% Speed condition
-stopSpeedTol = 0.02;      % actual speed must be near zero [m/s]
-cmdStopTol   = 0.005;     % desired speed must be near zero [m/s]
-
-% Tilt stability condition
-phiStableTol     = deg2rad(0.20);  % max allowed tilt angle before jump
-phiRateStableTol = 0.004;          % max allowed tilt rate [rad/s]
-
-% Robot must remain stable for this duration before jumping
-stableCheckTime = 2.0;    % seconds
-
-% Avoid detecting the initial zero-speed period at the beginning
-minJumpSearchTime = 0.50 * sim_t(end);
-
-% Estimate phi_dot from phi signal
-dt_phi = diff(sim_t);
-dt_phi(dt_phi <= 0) = eps;
-
-phi_dot_est = [0; diff(phi) ./ dt_phi];
-
-% Stability mask
-stableMask = sim_t > minJumpSearchTime & ...
-             abs(v) < stopSpeedTol & ...
-             abs(vd_cmd) < cmdStopTol & ...
-             abs(phi) < phiStableTol & ...
-             abs(phi_dot_est) < phiRateStableTol;
-
-% Search for first time where robot has been stable for stableCheckTime
-jump_idx = [];
-
-for i = 1:length(sim_t)
-
-    if ~stableMask(i)
-        continue;
-    end
-
-    j = find(sim_t >= sim_t(i) + stableCheckTime, 1, 'first');
-
-    if isempty(j)
-        break;
-    end
-
-    if all(stableMask(i:j))
-        jump_idx = j;   % jump after confirming stability
-        break;
-    end
-end
-
-% Safety fallback
-if isempty(jump_idx)
-    warning('[ANIM] Could not confirm stability early. Jump will start at final simulation time.');
-    jump_idx = length(sim_t);
-end
-
-fprintf('[ANIM] Robot stable. Jump will start at t = %.2f s instead of %.2f s.\n', ...
-        sim_t(jump_idx), sim_t(end));
-
-% ── Trajectory data already assembled above in x, y, phi, sim_t ──────────
-goal_x2D = x(jump_idx);
-goal_y2D = y(jump_idx);
+sim_t   = sim_t(1:num_pts);
+x       = x(1:num_pts);
+y       = y(1:num_pts);
+theta   = theta(1:num_pts);
+phi     = phi(1:num_pts);
+v       = v(1:num_pts);
+omega   = omega(1:num_pts);
+vd_cmd  = vd_cmd(1:num_pts);
+wd_cmd  = wd_cmd(1:num_pts);
 
 % Map-space bounding box for the top-down drive view
 x_pad = 0.5;
@@ -956,26 +898,31 @@ y_pad = 0.5;
 map_xlim = [min(x) - x_pad,  max(x) + x_pad];
 map_ylim = [min(y) - y_pad,  max(y) + y_pad];
 
-% ── Jump-view constants ──────────────────────────────────────────────────
-jump_x_margin = 0.55;
-jump_y_top    = 0.82;
-
-% ── Create the unified figure ─────────────────────────────────────────────
-fig_main = figure('Name', 'Robot Drive & Jump Animation', ...
+% ── Create the unified drive-only figure ──────────────────────────────────
+fig_main = figure('Name', 'Robot Drive Animation', ...
                   'Color', 'w', 'Position', [80, 60, 1000, 820]);
 
 % ── Top panel: 2-D map view ───────────────────────────────────────────────
 ax_map = subplot(4, 1, 1, 'Parent', fig_main);
-hold(ax_map, 'on'); grid(ax_map, 'on');
-title(ax_map, 'Robot Trajectory & Jump  (top view → side view at goal)', ...
+hold(ax_map, 'on'); grid(ax_map, 'on'); axis(ax_map, 'equal');
+title(ax_map, 'Robot Trajectory Tracking Animation', ...
       'FontSize', 12, 'FontWeight', 'bold');
 xlabel(ax_map, 'X (m)');
-ylabel(ax_map, 'Y / Height (m)');
+ylabel(ax_map, 'Y (m)');
 ax_map.XLim = map_xlim;
 ax_map.YLim = map_ylim;
 
-% Reference path
+% Full robot path as a light reference trace for the animation
 plot(ax_map, x, y, '--', 'Color', [0.75 0.75 0.75], 'LineWidth', 1);
+
+% If available, also show the planned path
+if exist('P_original', 'var') && ~isempty(P_original)
+    plot(ax_map, P_original(:,1), P_original(:,2), 'g--', 'LineWidth', 1.2);
+end
+
+if exist('usedReplan', 'var') && usedReplan && exist('P', 'var') && ~isempty(P)
+    plot(ax_map, P(:,1), P(:,2), 'm--', 'LineWidth', 1.2);
+end
 
 % Start / goal markers
 plot(ax_map, x(1), y(1), 'go', ...
@@ -989,13 +936,14 @@ plot(ax_map, x(end), y(end), 'rp', ...
 % Live trail
 h_trail = plot(ax_map, NaN, NaN, 'b-', 'LineWidth', 1.4);
 
-% Robot body parts in drive view
+% Robot body marker in drive view
 h_dot = plot(ax_map, x(1), y(1), 'ko', ...
              'MarkerSize', 11, ...
              'MarkerFaceColor', [0.2 0.2 0.2]);
 
+% Heading arrow uses theta, not phi. Theta is robot heading; phi is body tilt.
 h_arrow = quiver(ax_map, x(1), y(1), ...
-                 0.12*cos(phi(1)), 0.12*sin(phi(1)), ...
+                 0.12*cos(theta(1)), 0.12*sin(theta(1)), ...
                  0, 'r', 'LineWidth', 2, 'MaxHeadSize', 0.6);
 
 % State label
@@ -1009,7 +957,8 @@ st_label = text(ax_map, map_xlim(1)+0.08, map_ylim(2)-0.12, ...
 ax_phi = subplot(4, 1, 2, 'Parent', fig_main);
 hold(ax_phi, 'on'); grid(ax_phi, 'on');
 xlim(ax_phi, [sim_t(1) sim_t(end)]);
-ylim(ax_phi, [min(phi)-0.02, max(phi)+0.02]);
+phi_pad = max(0.02, 0.1 * max(abs(phi)));
+ylim(ax_phi, [min(phi)-phi_pad, max(phi)+phi_pad]);
 ylabel(ax_phi, '\phi (rad)');
 title(ax_phi, 'Tilt angle \phi');
 phi_line = animatedline(ax_phi, 'Color', '#0072BD', 'LineWidth', 1.5);
@@ -1018,8 +967,10 @@ phi_line = animatedline(ax_phi, 'Color', '#0072BD', 'LineWidth', 1.5);
 ax_v = subplot(4, 1, 3, 'Parent', fig_main);
 hold(ax_v, 'on'); grid(ax_v, 'on');
 xlim(ax_v, [sim_t(1) sim_t(end)]);
-ylim(ax_v, [min(min(v), min(vd_cmd))-0.05, ...
-            max(max(v), max(vd_cmd))+0.05]);
+v_min = min(min(v), min(vd_cmd));
+v_max = max(max(v), max(vd_cmd));
+v_pad = max(0.05, 0.1 * max(abs([v_min, v_max])));
+ylim(ax_v, [v_min-v_pad, v_max+v_pad]);
 ylabel(ax_v, 'v (m/s)');
 title(ax_v, 'Forward velocity v');
 v_line  = animatedline(ax_v, 'Color', '#0072BD', 'LineWidth', 1.5);
@@ -1031,8 +982,10 @@ legend(ax_v, 'Actual', 'Desired', 'Location', 'best');
 ax_w = subplot(4, 1, 4, 'Parent', fig_main);
 hold(ax_w, 'on'); grid(ax_w, 'on');
 xlim(ax_w, [sim_t(1) sim_t(end)]);
-ylim(ax_w, [min(min(omega), min(wd_cmd))-0.05, ...
-            max(max(omega), max(wd_cmd))+0.05]);
+w_min = min(min(omega), min(wd_cmd));
+w_max = max(max(omega), max(wd_cmd));
+w_pad = max(0.05, 0.1 * max(abs([w_min, w_max])));
+ylim(ax_w, [w_min-w_pad, w_max+w_pad]);
 ylabel(ax_w, '\omega (rad/s)');
 xlabel(ax_w, 'Time (s)');
 title(ax_w, 'Angular velocity \omega');
@@ -1042,11 +995,9 @@ wd_line = animatedline(ax_w, 'Color', '#D95319', ...
 legend(ax_w, 'Actual', 'Desired', 'Location', 'best');
 
 % ════════════════════════════════════════════════════════════════════════════
-%  PHASE A — DRIVE
+%  DRIVE-ONLY ANIMATION LOOP
 % ════════════════════════════════════════════════════════════════════════════
-num_pts = jump_idx;
 
-% More frames = smoother animation
 skip_factor = max(1, floor(num_pts / maxDriveFrames));
 
 trail_x = [];
@@ -1060,20 +1011,20 @@ for k = 1:skip_factor:num_pts
 
     cx = x(k);
     cy = y(k);
-    cp = phi(k);
+    ch = theta(k);
 
     % Update trail
     trail_x(end+1) = cx; %#ok<AGROW>
     trail_y(end+1) = cy; %#ok<AGROW>
     set(h_trail, 'XData', trail_x, 'YData', trail_y);
 
-    % Update robot dot
+    % Update robot marker
     set(h_dot, 'XData', cx, 'YData', cy);
 
     % Update heading arrow
     set(h_arrow, 'XData', cx, 'YData', cy, ...
-                 'UData', 0.12*cos(cp), ...
-                 'VData', 0.12*sin(cp));
+                 'UData', 0.12*cos(ch), ...
+                 'VData', 0.12*sin(ch));
 
     % Update signal subplots
     addpoints(phi_line, sim_t(k), phi(k));
@@ -1084,266 +1035,43 @@ for k = 1:skip_factor:num_pts
     addpoints(w_line,  sim_t(k), omega(k));
     addpoints(wd_line, sim_t(k), wd_cmd(k));
 
-    % Slower than original, but still slightly fast
     drawnow;
     pause(pause_drive);
 end
 
-% Flush final data point into signal plots
-addpoints(phi_line, sim_t(jump_idx), phi(jump_idx));
+% Add final point in case it was skipped
+if ishandle(fig_main)
+    addpoints(phi_line, sim_t(end), phi(end));
 
-addpoints(v_line,  sim_t(jump_idx), v(jump_idx));
-addpoints(vd_line, sim_t(jump_idx), vd_cmd(jump_idx));
+    addpoints(v_line,  sim_t(end), v(end));
+    addpoints(vd_line, sim_t(end), vd_cmd(end));
 
-addpoints(w_line,  sim_t(jump_idx), omega(jump_idx));
-addpoints(wd_line, sim_t(jump_idx), wd_cmd(jump_idx));
+    addpoints(w_line,  sim_t(end), omega(end));
+    addpoints(wd_line, sim_t(end), wd_cmd(end));
 
-drawnow;
+    set(h_trail, 'XData', x, 'YData', y);
+    set(h_dot, 'XData', x(end), 'YData', y(end));
+    set(h_arrow, 'XData', x(end), 'YData', y(end), ...
+                 'UData', 0.12*cos(theta(end)), ...
+                 'VData', 0.12*sin(theta(end)));
 
-% ════════════════════════════════════════════════════════════════════════════
-%  TRANSITION — switch top panel to side-view for the jump
-% ════════════════════════════════════════════════════════════════════════════
+    set(st_label, 'String', 'State: FINISHED', 'Color', [0.1 0.70 0.2]);
 
-% Remove drive-view dot and arrow
-delete(h_dot);
-delete(h_arrow);
+    text(ax_map, x(end) + 0.04, y(end) + 0.04, ...
+         sprintf('Finished (%.2f, %.2f)', x(end), y(end)), ...
+         'FontSize', 10, ...
+         'Color', [0.1 0.65 0.2], ...
+         'FontWeight', 'bold');
 
-% Rescale top axes to jump-view coordinate system
-ax_map.XLim = [goal_x2D - jump_x_margin, goal_x2D + jump_x_margin];
-ax_map.YLim = [-0.04, jump_y_top];
-
-title(ax_map, 'Jump Sequence at Goal  (side view: height vs X)', ...
-      'FontSize', 12, 'FontWeight', 'bold');
-ylabel(ax_map, 'Height (m)');
-
-% Ground line
-plot(ax_map, ...
-     [goal_x2D - jump_x_margin, goal_x2D + jump_x_margin], ...
-     [0 0], ...
-     'k', 'LineWidth', 2.5);
-
-% Goal marker
-plot(ax_map, goal_x2D, 0, 'p', ...
-     'MarkerSize', 16, ...
-     'MarkerFaceColor', [1 0.84 0], ...
-     'MarkerEdgeColor', 'k');
-
-text(ax_map, goal_x2D + 0.04, 0.03, 'GOAL', ...
-     'FontSize', 9, ...
-     'FontWeight', 'bold', ...
-     'Color', [0.6 0.4 0]);
-
-% ── Create robot graphics for jump side-view ──────────────────────────────
-
-% Wheels
-jWL = rectangle('Parent', ax_map, ...
-    'Position', [goal_x2D - leg_dist/2 - r_wheel, 0, 2*r_wheel, 2*r_wheel], ...
-    'Curvature', [1 1], ...
-    'FaceColor', [0.15 0.15 0.15], ...
-    'EdgeColor', 'k');
-
-jWR = rectangle('Parent', ax_map, ...
-    'Position', [goal_x2D + leg_dist/2 - r_wheel, 0, 2*r_wheel, 2*r_wheel], ...
-    'Curvature', [1 1], ...
-    'FaceColor', [0.15 0.15 0.15], ...
-    'EdgeColor', 'k');
-
-% Legs
-jLL = plot(ax_map, ...
-           [goal_x2D - leg_dist/2, goal_x2D - leg_dist/2], ...
-           [r_wheel, r_wheel + L_stance], ...
-           'Color', [0.2 0.4 0.85], ...
-           'LineWidth', 7);
-
-jLR = plot(ax_map, ...
-           [goal_x2D + leg_dist/2, goal_x2D + leg_dist/2], ...
-           [r_wheel, r_wheel + L_stance], ...
-           'Color', [0.2 0.4 0.85], ...
-           'LineWidth', 7);
-
-% Body
-jBody = rectangle('Parent', ax_map, ...
-    'Position', [goal_x2D - body_w/2, r_wheel + L_stance, body_w, body_h], ...
-    'Curvature', [0.12 0.12], ...
-    'FaceColor', [0.60 0.70 0.90], ...
-    'EdgeColor', [0.2 0.2 0.5], ...
-    'LineWidth', 2);
-
-% IMU dot
-jIMU = plot(ax_map, ...
-            goal_x2D, r_wheel + L_stance + body_h*0.5, ...
-            'o', ...
-            'MarkerSize', 8, ...
-            'MarkerFaceColor', [1 0.3 0.3], ...
-            'MarkerEdgeColor', 'k');
-
-% State label for jump
-set(st_label, ...
-    'Position', [goal_x2D - jump_x_margin + 0.03, jump_y_top - 0.06, 0], ...
-    'String', 'State: SQUAT', ...
-    'Color', [0.9 0.5 0.0]);
-
-drawnow;
-
-% ── Inline update helper ──────────────────────────────────────────────────
-jDraw = @(xc, yw, cL, pt) jDrawFcn(xc, yw, cL, pt, ...
-    leg_dist, r_wheel, body_w, body_h, ...
-    jWL, jWR, jLL, jLR, jBody, jIMU);
-
-% ════════════════════════════════════════════════════════════════════════════
-%  PHASE B — SQUAT
-% ════════════════════════════════════════════════════════════════════════════
-cur_L = L_stance;
-y_w   = 0;
-
-while cur_L > L_min && ishandle(fig_main)
-    cur_L = max(cur_L - 0.22 * dt_anim, L_min);
-    jDraw(goal_x2D, y_w, cur_L, 0);
     drawnow;
-    pause(dt_anim);
 end
 
-pause(0.15);
-
-% ════════════════════════════════════════════════════════════════════════════
-%  PHASE C — THRUST
-% ════════════════════════════════════════════════════════════════════════════
-set(st_label, 'String', 'State: THRUST', 'Color', [0.85 0.1 0.1]);
-
-while cur_L < L_max && ishandle(fig_main)
-    cur_L = min(cur_L + 2.1 * dt_anim, L_max);
-    jDraw(goal_x2D, y_w, cur_L, 0);
-    drawnow;
-    pause(dt_anim);
-end
-
-v_y = v_lift;
-
-% ════════════════════════════════════════════════════════════════════════════
-%  PHASE D — FLIGHT
-% ════════════════════════════════════════════════════════════════════════════
-set(st_label, 'String', 'State: FLIGHT', 'Color', [0.1 0.6 0.1]);
-
-y_w_f = 0;
-
-while y_w_f >= 0 && ishandle(fig_main)
-
-    y_w_f = y_w_f + v_y * dt_anim;
-    v_y   = v_y   - g_jump * dt_anim;
-
-    % Retract legs mid-flight
-    cur_L = max(cur_L - 1.9 * dt_anim, L_min + 0.025);
-
-    % Tiny IMU wobble
-    phi_f = 0.06 * sin(8 * y_w_f / max(y_w_f + 0.01, 0.01));
-
-    jDraw(goal_x2D, y_w_f, cur_L, phi_f);
-    drawnow;
-    pause(dt_anim);
-end
-
-y_w_f = 0;
-
-% ════════════════════════════════════════════════════════════════════════════
-%  PHASE E — LANDING
-% ════════════════════════════════════════════════════════════════════════════
-set(st_label, 'String', 'State: LANDING', 'Color', [0.5 0.1 0.8]);
-
-L_impact = L_min + 0.015;
-
-while cur_L > L_impact && ishandle(fig_main)
-
-    cur_L = max(cur_L - 2.5 * dt_anim, L_impact);
-
-    phi_imp = 0.16 * ...
-        (cur_L - L_impact) / max(L_stance - L_impact, 0.01);
-
-    jDraw(goal_x2D, y_w_f, cur_L, phi_imp);
-    drawnow;
-    pause(dt_anim);
-end
-
-L_land = 0.210;
-
-while cur_L < L_land && ishandle(fig_main)
-
-    cur_L = min(cur_L + 1.1 * dt_anim, L_land);
-
-    jDraw(goal_x2D, y_w_f, cur_L, 0.08);
-    drawnow;
-    pause(dt_anim);
-end
-
-% ════════════════════════════════════════════════════════════════════════════
-%  PHASE F — STABILIZE
-% ════════════════════════════════════════════════════════════════════════════
-set(st_label, 'String', 'State: STABILIZE', 'Color', [0.1 0.4 0.85]);
-
-t_stab = 0;
-
-while t_stab < 2.5 && ishandle(fig_main)
-
-    decay = exp(-t_stab / 0.5);
-
-    phi_s = 0.09 * decay * cos(7.5 * t_stab);
-
-    L_s = L_stance + 0.025 * decay * cos(4.5 * t_stab);
-    L_s = max(L_min, min(L_max, L_s));
-
-    jDraw(goal_x2D, 0, L_s, phi_s);
-    drawnow;
-    pause(dt_anim);
-
-    t_stab = t_stab + dt_anim;
-end
-
-% ════════════════════════════════════════════════════════════════════════════
-%  FINAL SETTLED POSE
-% ════════════════════════════════════════════════════════════════════════════
-jDraw(goal_x2D, 0, L_stance, 0);
-
-set(st_label, ...
-    'String', 'State: SETTLED', ...
-    'Color', [0.1 0.70 0.2]);
-
-% Stable annotation
-final_top = r_wheel + L_stance + body_h;
-
-text(ax_map, goal_x2D + 0.04, final_top + 0.03, ...
-     sprintf('✓ Stable (%.2f, %.2f)', goal_x2D, goal_y2D), ...
-     'FontSize', 11, ...
-     'Color', [0.1 0.65 0.2], ...
-     'FontWeight', 'bold');
-
-drawnow;
-
-fprintf('\n[ANIM] Complete — robot settled at goal (%.3f, %.3f).\n', ...
-        goal_x2D, goal_y2D);
+fprintf('\n[ANIM] Complete — drive-only animation finished at (%.3f, %.3f).\n', ...
+        x(end), y(end));
 
 %% ========================================================================
 %  LOCAL FUNCTIONS
 % ========================================================================
-
-% -------------------------------------------------------------------------
-%  Jump robot redraw — called via anonymous handle jDraw in the script
-%  All constants passed explicitly so no workspace-sharing issues arise.
-% -------------------------------------------------------------------------
-function jDrawFcn(xc, yw, cL, phi_tilt, leg_dist, r_wheel, body_w, body_h, ...
-                  jWL, jWR, jLL, jLR, jBody, jIMU)
-    po = phi_tilt * 0.05;          % small lateral sway from lean
-    lx = xc - leg_dist/2;
-    rx = xc + leg_dist/2;
-    by = yw + r_wheel + cL;        % body bottom Y
-
-    set(jWL,   'Position', [lx - r_wheel, yw, 2*r_wheel, 2*r_wheel]);
-    set(jWR,   'Position', [rx - r_wheel, yw, 2*r_wheel, 2*r_wheel]);
-    set(jLL,   'XData', [lx, xc - body_w*0.28 + po], ...
-               'YData', [yw + r_wheel, by]);
-    set(jLR,   'XData', [rx, xc + body_w*0.28 + po], ...
-               'YData', [yw + r_wheel, by]);
-    set(jBody, 'Position', [xc - body_w/2 + po, by, body_w, body_h]);
-    set(jIMU,  'XData', xc + po, 'YData', by + body_h*0.5);
-end
 
 % -------------------------------------------------------------------------
 %  LQR gain
