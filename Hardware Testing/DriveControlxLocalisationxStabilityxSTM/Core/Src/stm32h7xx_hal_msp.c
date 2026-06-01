@@ -1,10 +1,9 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file         stm32h7xx_hal_msp.c
   * @brief        This file provides code for the MSP Initialization
-  *               and de-Initialization codes.
+  * and de-Initialization codes.
   ******************************************************************************
   * @attention
   *
@@ -243,7 +242,10 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     hdma_usart1_rx.Init.MemInc = DMA_MINC_ENABLE;
     hdma_usart1_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
     hdma_usart1_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart1_rx.Init.Mode = DMA_NORMAL;
+
+    // UPDATED: Now runs continuously in the background using Circular Mode
+    hdma_usart1_rx.Init.Mode = DMA_CIRCULAR;
+
     hdma_usart1_rx.Init.Priority = DMA_PRIORITY_LOW;
     hdma_usart1_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     if (HAL_DMA_Init(&hdma_usart1_rx) != HAL_OK)

@@ -1,6 +1,229 @@
-16:22:08 **** Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
+22:49:24 **** Incremental Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
 cmake --build "build\\Debug" 
-[1/2] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c.obj
+[1/4] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/main.c.obj
+[2/4] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c: In function 'ReferenceGeneratorxLQRCombinedxPWMGenerator_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:30: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                              ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:30: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:35: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                   ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:35: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:40: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                        ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:40: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:45: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                             ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:45: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:50: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                  ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:50: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:55: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                       ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:55: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:60: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                            ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:60: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:65: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                 ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:65: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:70: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                      ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:70: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:75: warning: excess elements in array initializer
+  246 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                           ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:246:75: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:5: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |     ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:5: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:10: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |          ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:10: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:15: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |               ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:15: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:20: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                    ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:20: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:25: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                         ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:25: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:30: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                              ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:30: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:35: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                   ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:35: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:40: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                        ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:40: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:45: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                             ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:45: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:50: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                  ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:50: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:55: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                       ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:55: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:60: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                            ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:60: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:65: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                 ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:65: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:70: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                      ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:70: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:75: warning: excess elements in array initializer
+  247 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                           ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:247:75: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:5: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |     ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:5: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:10: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |          ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:10: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:15: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |               ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:15: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:20: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                    ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:20: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:25: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                         ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:25: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:30: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                              ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:30: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:35: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                   ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:35: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:40: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                        ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:40: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:45: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                             ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:45: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:50: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                  ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:50: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:55: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                       ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:55: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:60: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                            ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:60: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:65: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                 ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:65: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:70: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                      ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:70: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:75: warning: excess elements in array initializer
+  248 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      |                                                                           ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:248:75: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:5: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |     ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:5: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:10: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |          ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:10: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:15: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |               ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:15: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:20: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                    ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:20: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:25: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                         ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:25: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:30: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                              ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:30: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:35: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                   ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:35: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:40: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                        ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:40: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:45: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                             ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:45: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:50: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                                  ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:50: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:55: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                                       ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:55: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:60: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                                            ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:60: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:65: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                                                 ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:65: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:70: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                                                      ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:70: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:75: warning: excess elements in array initializer
+  249 |     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      |                                                                           ^~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:249:75: note: (near initialization for 'b_0')
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c: At top level:
 C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:147:18: warning: 'rtIsNaNF' defined but not used [-Wunused-function]
   147 | static boolean_T rtIsNaNF(real32_T value)
       |                  ^~~~~~~~
@@ -25,12 +248,13 @@ C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Te
 C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:93:15: warning: 'rtGetInf' defined but not used [-Wunused-function]
    93 | static real_T rtGetInf(void)
       |               ^~~~~~~~
-[2/2] Linking C executable DriveControlxLocalisationxStabilityxSTM.elf
+[3/4] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[4/4] Linking C executable DriveControlxLocalisationxStabilityxSTM.elf
 D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: DriveControlxLocalisationxStabilityxSTM.elf has a LOAD segment with RWX permissions
 
 Memory region         Used Size  Region Size  %age Used
 
-         DTCMRAM:        2208 B       128 KB      1.68%
+         DTCMRAM:        2200 B       128 KB      1.68%
 
              RAM:           0 B       512 KB      0.00%
 
@@ -40,8 +264,8 @@ Memory region         Used Size  Region Size  %age Used
 
          ITCMRAM:           0 B        64 KB      0.00%
 
-           FLASH:       54176 B       128 KB     41.33%
+           FLASH:       55712 B       128 KB     42.50%
 
 
-16:22:14 Build Finished. 0 errors, 9 warnings. (took 5s.806ms)
+22:49:35 Build Finished. 0 errors, 64 warnings. (took 11s.85ms)
 

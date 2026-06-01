@@ -198,7 +198,7 @@ int main(void)
 
   // 1. SAFETY: Override CubeMX init and explicitly pull PE3 LOW to disable motors
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
-
+  HAL_Delay(5000);
   // 2. Initialize the Simulink controller
   Simulink_initialize();
 

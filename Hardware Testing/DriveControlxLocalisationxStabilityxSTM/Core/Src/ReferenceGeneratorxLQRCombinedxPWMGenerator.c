@@ -14,8 +14,8 @@
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
  * Code generation objectives:
- *    1. Execution efficiency
- *    2. RAM efficiency
+ * 1. Execution efficiency
+ * 2. RAM efficiency
  * Validation result: Not run
  */
 
@@ -56,8 +56,8 @@ static real32_T rtGetNaNF(void);
 
 /*
  * UNUSED_PARAMETER(x)
- *   Used to specify that a function parameter (argument) is required but not
- *   accessed by the function body.
+ * Used to specify that a function parameter (argument) is required but not
+ * accessed by the function body.
  */
 #ifndef UNUSED_PARAMETER
 #if defined(__LCC__)
@@ -216,7 +216,10 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
   int32_T k_prev;
   int32_T y;
   int32_T y_0;
-  static const real_T b_0[200] = { 0.0, 0.454545, 0.909091, 1.363636, 1.818182, //P
+
+  // FIX: Padded the end of the X array with 45.0 instead of 0.0
+  static const real_T b_0[200] = {
+    0.0, 0.454545, 0.909091, 1.363636, 1.818182,
     2.272727, 2.727273, 3.181818, 3.636364, 4.090909, 4.545455, 5.0, 5.454545,
     5.909091, 6.363636, 6.818182, 7.272727, 7.727273, 8.181818, 8.636364,
     9.090909, 9.545455, 10.0, 10.454545, 10.909091, 11.363636, 11.818182,
@@ -230,7 +233,14 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
     34.545455, 35.0, 35.454545, 35.909091, 36.363636, 36.818182, 37.272727,
     37.727273, 38.181818, 38.636364, 39.090909, 39.545455, 40.0, 40.454545,
     40.909091, 41.363636, 41.818182, 42.272727, 42.727273, 43.181818, 43.636364,
-    44.090909, 44.545455, 45.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    44.090909, 44.545455, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -263,8 +273,8 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
 	-1.622468529505869, 1.6224685295058661 };
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
-   *  Inport: '<Root>/x_robot'
-   *  Inport: '<Root>/y_robot'
+   * Inport: '<Root>/x_robot'
+   * Inport: '<Root>/y_robot'
    */
   u_des_idx_1 = (rtInf);
   k_min = 0;
@@ -323,15 +333,15 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
   }
 
   /* MATLAB Function: '<Root>/CombinedLQR' incorporates:
-   *  Inport: '<Root>/omega'
-   *  Inport: '<Root>/phi'
-   *  Inport: '<Root>/phi_dot'
-   *  Inport: '<Root>/s'
-   *  Inport: '<Root>/theta'
-   *  Inport: '<Root>/v'
-   *  Inport: '<Root>/x_robot'
-   *  Inport: '<Root>/y_robot'
-   *  MATLAB Function: '<Root>/MATLAB Function'
+   * Inport: '<Root>/omega'
+   * Inport: '<Root>/phi'
+   * Inport: '<Root>/phi_dot'
+   * Inport: '<Root>/s'
+   * Inport: '<Root>/theta'
+   * Inport: '<Root>/v'
+   * Inport: '<Root>/x_robot'
+   * Inport: '<Root>/y_robot'
+   * MATLAB Function: '<Root>/MATLAB Function'
    */
   b[3] = rtU.phi_dot;
   u_des_idx_0 = ((((1.0 - u_des_idx_1) * b_0[k_prev] + u_des_idx_1 * b_0[k_next])
@@ -357,11 +367,39 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
       b[0] = 0.0;
     }
   }
-    /* ----------------------------------------- */
-  b[1] = rtU.s - ((1.0 - u_des_idx_1) * c[k_prev] + u_des_idx_1 * c[k_next]);
+
+  /* --- CUSTOM VELOCITY PROFILE (Spatial Ramp) --- */
+  /* Determine where the robot is along the path (S_target) */
+  real_T s_target = ((1.0 - u_des_idx_1) * c[k_prev] + u_des_idx_1 * c[k_next]);
+  b[1] = rtU.s - s_target; // Along-track error calculation
+
+  /* Create the Trapezoidal Velocity Profile */
+  real_T v_target = 0.0;
+  real_T v_nom = 0.2;     // Target nominal speed (0.2 m/s)
+  real_T d_ramp = 2.0;    // Distance to ramp up/down (meters)
+  real_T s_total = 45.0;  // Total path length (meters)
+
+  if (s_target <= 0.0) {
+      v_target = 0.0;
+  } else if (s_target < d_ramp) {
+      // Ramp UP proportional to distance traveled
+      v_target = v_nom * (s_target / d_ramp);
+  } else if (s_target > (s_total - d_ramp)) {
+      // Ramp DOWN proportional to distance remaining
+      v_target = v_nom * ((s_total - s_target) / d_ramp);
+      if (v_target < 0.0) {
+          v_target = 0.0; // Ensure it doesn't command reverse at the end
+      }
+  } else {
+      // Cruising speed in the middle of the path
+      v_target = v_nom;
+  }
+
+  b[4] = rtU.v - v_target; // Velocity error calculation
+  /* ---------------------------------------------- */
+
   u_des_idx_0 = rtU.theta - u_des_idx_0;
   b[2] = rt_atan2d_snf(sin(u_des_idx_0), cos(u_des_idx_0));
-  b[4] = rtU.v - fmin((1.0 - u_des_idx_1) + u_des_idx_1, 0.3);
   b[5] = rtU.omega;
   u_des_idx_0 = 0.0;
   u_des_idx_1 = 0.0;
@@ -385,10 +423,10 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
   }
 
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
-   *  MATLAB Function: '<Root>/CombinedLQR'
+   * MATLAB Function: '<Root>/CombinedLQR'
    */
-  u_des_idx_0 = rt_roundd_snf(u_des_idx_0 / 4.5 * 4000.0);
-  u_des_idx_1 = rt_roundd_snf(u_des_idx_1 / 4.5 * 4000.0);
+  u_des_idx_0 = rt_roundd_snf(u_des_idx_0 / 3 * 4000.0);
+  u_des_idx_1 = rt_roundd_snf(u_des_idx_1 / 3 * 4000.0);
   if (u_des_idx_0 != 0.0) {
     if (rtIsNaN(u_des_idx_0)) {
       dy = (rtNaN);
@@ -413,26 +451,26 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
     u_des_idx_1 += dy * 130.0;
   }
 
-  u_des_idx_0 = fmax(fmin(u_des_idx_0, 3500.0), -3500.0);
-  u_des_idx_1 = fmax(fmin(u_des_idx_1, 3500.0), -3500.0);
+  u_des_idx_0 = fmax(fmin(u_des_idx_0, 4000.0), -4000.0);
+  u_des_idx_1 = fmax(fmin(u_des_idx_1, 4000.0), -4000.0);
 
   /* Outport: '<Root>/RPWM_R' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.RPWM_R = fmax(0.0, u_des_idx_0);
 
   /* Outport: '<Root>/LPWM_R' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.LPWM_R = fmax(0.0, -u_des_idx_0);
 
   /* Outport: '<Root>/RPWM_L' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.RPWM_L = fmax(0.0, u_des_idx_1);
 
   /* Outport: '<Root>/LPWM_L' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.LPWM_L = fmax(0.0, -u_des_idx_1);
 }
