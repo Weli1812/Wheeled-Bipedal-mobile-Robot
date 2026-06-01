@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item key="hasShownOverlayPopupBefore" value="true"/>
-	<item key="replaceBarOpen" value="false"/>
+	<item key="replaceBarOpen" value="true"/>
 	<list key="searchhistory">
-		<item value="slave"/>
-		<item value="main"/>
-		<item value="simulink_step"/>
+		<item value="mx_usar"/>
+		<item value="Simulink_reset_integrator();"/>
+		<item value="simulink"/>
+		<item value="presca"/>
+		<item value="7"/>
+		<item value="baud"/>
+		<item value="6"/>
+		<item value="//"/>
+		<item value="infin"/>
+		<item value="htim1"/>
+		<item value="huart1"/>
+		<item value="TIM_CHANNEL"/>
 		<item value="data_ready"/>
-		<item value="glob"/>
+		<item value="dead"/>
+		<item value="a"/>
+	</list>
+	<list key="replacehistory">
+		<item value="4000"/>
 	</list>
 </section>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;STM32H750VBT6-ESP32UARTCommunication/StabilityxSTM.ioc&apos; to &apos;STM32H750VBT6-ESP32UARTCommunication.ioc&apos;" description="Rename resource &apos;StabilityxSTM.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="StabilityxSTM.ioc" name="STM32H750VBT6-ESP32UARTCommunication.ioc" stamp="1779199507795" updateReferences="true"/>
+</session>

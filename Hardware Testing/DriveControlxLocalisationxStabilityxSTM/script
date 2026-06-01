@@ -1,0 +1,10 @@
+config load "D:\GIU\git\Wheeled-Bipedal-mobile-Robot\Hardware Testing\DriveControlxLocalisationxStabilityxSTM\DriveControlxLocalisationxStabilityxSTM.ioc"
+project toolchain STM32CubeIDE
+
+SetStructure Advanced
+
+project setCustomFWPath "D:\programs\STM32Cube\Repository\STM32Cube_FW_H7_V1.11.2"
+
+project generate 
+
+exit wait

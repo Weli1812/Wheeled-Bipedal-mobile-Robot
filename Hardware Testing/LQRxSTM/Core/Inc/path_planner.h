@@ -6,8 +6,8 @@
 #include <math.h>
 
 // Constants adapted for the LQRxSTM project
-#define MAP_WIDTH  50
-#define MAP_HEIGHT 50
+#define MAP_WIDTH  42
+#define MAP_HEIGHT 42
 #define THETA_BINS 8
 #define MAX_PATH_LENGTH 250
 #define MAX_NODES 1500
