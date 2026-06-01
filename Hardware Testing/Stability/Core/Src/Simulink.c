@@ -4,7 +4,7 @@
  *
  * File: Simulink.c
  */
-
+#include "main.h"
 #include "Simulink.h"
 #include <math.h>
 #include "rtwtypes.h"
@@ -18,99 +18,157 @@ ExtY rtY;
 /* Real-time model */
 static RT_MODEL rtM_;
 RT_MODEL *const rtM = &rtM_;
-extern real_T rt_roundd_snf(real_T u);
 
+extern real_T rt_roundd_snf(real_T u);
+/* External tuning variables passed from main.c UART DMA */
+extern volatile float dynamic_K_gains[6];
+extern volatile float dynamic_KI_PHI;
 real_T rt_roundd_snf(real_T u)
 {
-  real_T y;
-  if (fabs(u) < 4.503599627370496E+15) {
-    if (u >= 0.5) {
-      y = floor(u + 0.5);
-    } else if (u > -0.5) {
-      y = u * 0.0;
+    real_T y;
+    if (fabs(u) < 4.503599627370496E+15) {
+        if (u >= 0.5) {
+            y = floor(u + 0.5);
+        } else if (u > -0.5) {
+            y = u * 0.0;
+        } else {
+            y = ceil(u - 0.5);
+        }
     } else {
-      y = ceil(u - 0.5);
+        y = u;
     }
-  } else {
-    y = u;
-  }
-  return y;
+    return y;
 }
+
+/* -----------------------------------------------------------------------
+ * INTEGRATOR STATE — persists between Simulink_step() calls
+ * ----------------------------------------------------------------------- */
+static real_T phi_integral    = 0.0;  /* accumulated pitch error          */
+static uint32_T last_step_tick = 0;   /* for real dt measurement          */
+
+/* -----------------------------------------------------------------------
+ * INTEGRATOR TUNING — start here, change only these values
+ *
+ *  KI_PHI        how fast the integrator corrects a steady lean
+ *                start at 0.0, increase by 0.3 each test run
+ *                typical useful range: 0.3 – 1.5
+ *
+ *  INT_CLAMP_PWM max PWM counts the integrator term can ever add
+ *                keep at ~15% of your 4000 limit = 600
+ *                prevents windup from swamping the P+D terms
+ *
+ *  INT_RESET_RAD kill integrator if pitch exceeds this (robot falling)
+ *                0.35 rad ≈ 20° — well inside your 0.52 fall-detect
+ * ----------------------------------------------------------------------- */
+#define KI_PHI          0.05f    /* SET TO 0 FIRST — confirm P+D still works */
+#define INT_CLAMP_PWM   600     /* max integrator contribution in PWM counts */
+#define INT_RESET_RAD   0.35    /* reset threshold in radians               */
 
 /* Model step function */
 void Simulink_step(void)
 {
-  real_T tmp;
-  real_T u_idx_0;
-  real_T u_idx_1;
-  int32_T pwm_l;
-  int32_T pwm_r;
+    real_T tmp;
+    real_T u_idx_0;
+    real_T u_idx_1;
+    int32_T pwm_l;
+    int32_T pwm_r;
 
-  // TUNE THIS: Minimum PWM required to overcome 775 motor static friction.
-  const int32_T DEADBAND_OFFSET = 250;
+    /* ── Measure real dt from HAL tick (milliseconds → seconds) ── */
+    uint32_T now     = HAL_GetTick();
+    real_T   dt      = (real_T)(now - last_step_tick) * 0.001;
+    last_step_tick   = now;
 
-  static const real_T a[12] = {
-      -12.1937, -12.1937,  /* State 1: tau_r, tau_l */
-       -0.7071,  -0.7071,  /* State 2: tau_r, tau_l */
-        0.7071,  -0.7071,  /* State 3: tau_r, tau_l */
-       -2.7380,  -2.7380,  /* State 4: tau_r, tau_l */
-       -1.3470,  -1.3470,  /* State 5: tau_r, tau_l */
-        0.7292,  -0.7292   /* State 6: tau_r, tau_l */
-    };
+    /* Guard: clamp dt to sane range on first call or timer wrap */
+    if (dt <= 0.0 || dt > 0.05) dt = 0.01;   /* assume 100 Hz if bad */
 
-  /* 1. Extract states and multiply by LQR gain matrix */
-  u_idx_0 = 0.0;
-  u_idx_1 = 0.0;
-  for (pwm_r = 0; pwm_r < 6; pwm_r++) {
-    tmp = rtU.state_x[pwm_r];
-    pwm_l = pwm_r << 1;
-    u_idx_0 += a[pwm_l] * tmp;
-    u_idx_1 += a[pwm_l + 1] * tmp;
-  }
+    // TUNE THIS: Minimum PWM required to overcome 775 motor static friction.
+    const int32_T DEADBAND_OFFSET = 130;
 
-  /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
-  int32_T raw_pwm_r = (int32_T)rt_roundd_snf(u_idx_0 / 24.0 * 4000.0);
-  int32_T raw_pwm_l = (int32_T)rt_roundd_snf(u_idx_1 / 24.0 * 4000.0);
+    /* Updated LQR Gain Matrix (K) */
+    static const real_T a[12] = {
+  		  -7.25 ,   -7.25 ,  /* State 1 (phi)    : tau_r, tau_l */
+           -0.123,  -0.123,  /* State 2 (s)      : tau_r, tau_l */
+            0.00,  -0.00,  /* State 3 (theta)  : tau_r, tau_l */
+           -0.80,  -0.80,  /* State 4 (phi_dot): tau_r, tau_l */
+           -0.2,  -0.2,  /* State 5 (v)      : tau_r, tau_l */
+            0.000,  -0.000   /* State 6 (omega)  : tau_r, tau_l */
+        };
+    /* 1. Extract states and multiply by LQR gain matrix */
+    // ... [Keep the dt and DEADBAND_OFFSET calculations as they were] ...
 
-  /* 3. Apply Deadband Compensation (Only if LQR demands movement) */
-  if (raw_pwm_r > 0) {
-      raw_pwm_r += DEADBAND_OFFSET;
-  } else if (raw_pwm_r < 0) {
-      raw_pwm_r -= DEADBAND_OFFSET;
-  }
+        /* 1. Extract states and multiply by dynamic LQR gain array */
+        u_idx_0 = 0.0;
+        u_idx_1 = 0.0;
+        for (pwm_r = 0; pwm_r < 6; pwm_r++) {
+            tmp = rtU.state_x[pwm_r];
+            // Apply the same gain to both left and right wheels
+            u_idx_0 += (real_T)dynamic_K_gains[pwm_r] * tmp;
+            u_idx_1 += (real_T)dynamic_K_gains[pwm_r] * tmp;
+        }
 
-  if (raw_pwm_l > 0) {
-      raw_pwm_l += DEADBAND_OFFSET;
-  } else if (raw_pwm_l < 0) {
-      raw_pwm_l -= DEADBAND_OFFSET;
-  }
+        /* ── INTEGRATOR ────────────────────────────────────────────────────── */
+        real_T phi = rtU.state_x[0];
 
-  /* 4. Clamp safely to hardware limits (-4000 to 4000) */
-  pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, 4000.0), -4000.0);
-  pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, 4000.0), -4000.0);
+        /* Step A — reset on fall */
+        if (fabs(phi) > INT_RESET_RAD) {
+            phi_integral = 0.0;
+        }
 
-  /* 5. Route to Outports (Direction Control) */
-  if (pwm_r >= 0) {
-    rtY.RPWM_R = pwm_r;
-    rtY.RPWM_R1 = 0.0;
-  } else {
-    rtY.RPWM_R = 0.0;
-    rtY.RPWM_R1 = fabs((real_T)pwm_r);
-  }
+        /* Step B — accumulate */
+        phi_integral += phi * dt;
 
-  if (pwm_l >= 0) {
-    rtY.RPWM_R2 = pwm_l;
-    rtY.RPWM_R3 = 0.0;
-  } else {
-    rtY.RPWM_R2 = 0.0;
-    rtY.RPWM_R3 = fabs((real_T)pwm_l);
-  }
+        /* Step C — anti-windup: clamp integral in torque units */
+        const real_T int_clamp_torque = (real_T)INT_CLAMP_PWM * 6.0 / 4000.0;
+
+        // Use dynamic_KI_PHI safely (avoiding divide-by-zero)
+        if (dynamic_KI_PHI > 0.0001f) {
+            if (phi_integral >  int_clamp_torque / (real_T)dynamic_KI_PHI)
+                phi_integral =  int_clamp_torque / (real_T)dynamic_KI_PHI;
+            if (phi_integral < -int_clamp_torque / (real_T)dynamic_KI_PHI)
+                phi_integral = -int_clamp_torque / (real_T)dynamic_KI_PHI;
+        } else {
+            // If KI_PHI is essentially 0, zero out the accumulated integral
+            phi_integral = 0.0;
+        }
+
+        /* Add integrator contribution to both motor torque demands */
+        real_T ki_contribution = (real_T)dynamic_KI_PHI * phi_integral;
+        u_idx_0 -= ki_contribution;
+        u_idx_1 -= ki_contribution;
+
+        /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
+        // ... [Rest of the file remains unchanged] ...
+
+    /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
+    int32_T raw_pwm_r = (int32_T)rt_roundd_snf(u_idx_0 / 4.5 * 4000.0);
+    int32_T raw_pwm_l = (int32_T)rt_roundd_snf(u_idx_1 / 4.5 * 4000.0);
+
+    /* 3. Apply Deadband Compensation (only if LQR demands movement) */
+    if (raw_pwm_r > 0)       raw_pwm_r += DEADBAND_OFFSET;
+    else if (raw_pwm_r < 0)  raw_pwm_r -= DEADBAND_OFFSET;
+
+    if (raw_pwm_l > 0)       raw_pwm_l += DEADBAND_OFFSET;
+    else if (raw_pwm_l < 0)  raw_pwm_l -= DEADBAND_OFFSET;
+
+    /* 4. Clamp safely to hardware limits */
+    pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, 4000.0), -4000.0);
+    pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, 4000.0), -4000.0);
+
+    /* 5. Route to Outports (Direction Control) */
+    if (pwm_r >= 0) { rtY.RPWM_R  = pwm_r;           rtY.RPWM_R1 = 0.0; }
+    else            { rtY.RPWM_R  = 0.0;              rtY.RPWM_R1 = fabs((real_T)pwm_r); }
+
+    if (pwm_l >= 0) { rtY.RPWM_R2 = pwm_l;           rtY.RPWM_R3 = 0.0; }
+    else            { rtY.RPWM_R2 = 0.0;              rtY.RPWM_R3 = fabs((real_T)pwm_l); }
 }
 
 /* Model initialize function */
 void Simulink_initialize(void)
 {
-  /* (no initialization code required) */
+    phi_integral   = 0.0;
+    last_step_tick = HAL_GetTick();
 }
-
-/* [EOF] */
+void Simulink_reset_integrator(void)
+{
+    phi_integral = 0.0;
+}

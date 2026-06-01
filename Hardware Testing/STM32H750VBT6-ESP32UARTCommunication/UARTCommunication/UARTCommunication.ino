@@ -154,7 +154,7 @@ void loop() {
 
   // ADDED 'false' FLAG HERE FOR NORMAL OPERATION
   rpy_EKF(mpu.getAccelY_mss(), mpu.getAccelX_mss(), -mpu.getAccelZ_mss(),
-          mpu.getGyroY_rads(), mpu.getGyroX_rads(), -mpu.getGyroZ_rads(),
+          mpu.getGyroY_rads(), mpu.getGyroX_rads(), -mpu.getGyroZ_rads(),   
           mpu.getMagY_uT(), mpu.getMagX_uT(), -mpu.getMagZ_uT(),
           dt_imu, 0, &currentRoll, &currentPitch, &currentYaw);
 

@@ -1,8 +1,18 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
+  * @file : main.c
+  * @brief : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -11,19 +21,42 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Simulink.h"   // Auto-generated Simulink header
-#include <string.h>     // Required for memcpy
+#include "Simulink.h" // Auto-generated Simulink header
+#include <string.h> // Required for memcpy
 /* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim8;
+
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
 // 1. STM32H7 CRITICAL: Force buffer to AXI SRAM so DMA and CPU Cache don't fight
-uint8_t* uart_rx_buffer = (uint8_t*)0x24000000;
-volatile uint8_t data_ready = 0; // Flag to trigger control loop
+uint8_t * const uart_rx_buffer = (uint8_t*)0x24000000;
+volatile uint8_t data_ready = 0;
+volatile uint32_t last_packet_time = 0;
+
+// --- NEW: Dynamic Tuning Variables ---
+volatile float dynamic_K_gains[6] = {0};
+volatile float dynamic_KI_PHI = 0.0f;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -31,128 +64,259 @@ void SystemClock_Config(void);
 static void MPU_Config(void);
 static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
-void MX_TIM1_Init(void);
-void MX_TIM8_Init(void);
-void MX_GPIO_Init(void);
+/* USER CODE BEGIN PFP */
 
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-// UART DMA Receive Complete Callback
+
+// 1. Error Recovery Callback (Catches Overrun/Framing Errors safely)
+// Directly clears the flags and restarts the DMA, avoiding HAL abort deadlocks.
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    // 1. Clear all UART error flags (ORE, NE, FE, PE)
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF | UART_CLEAR_NEF | UART_CLEAR_FEF | UART_CLEAR_PEF);
+
+    // 2. Directly restart the DMA in "Hunting Mode" (1 byte)
+    HAL_UART_Receive_DMA(huart, uart_rx_buffer, 1);
+  }
+}
+
+// 3. Self-Healing Receive Complete Callback
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART1)
   {
-    // 1. Invalidate Data Cache
-    SCB_InvalidateDCache_by_Addr((uint32_t *)uart_rx_buffer, 32);
+    // CRITICAL: Invalidate 64 bytes (covers the new 54-byte packet, must be 32-byte aligned)
+    SCB_InvalidateDCache_by_Addr((uint32_t *)uart_rx_buffer, 64);
 
-    // 2. Validate the Sync Headers (0xAA, 0x55)
-    if (uart_rx_buffer[0] == 0xAA && uart_rx_buffer[1] == 0x55)
+    // --- STATE 1: Normal 54-byte synchronized reading ---
+    if (huart->RxXferSize == 54)
     {
-        // 3. Extract floats
-        float temp_states[6];
-        memcpy(temp_states, &uart_rx_buffer[2], 24);
+        if (uart_rx_buffer[0] == 0xAA && uart_rx_buffer[1] == 0x55)
+        {
+            // Packet is aligned. Extract 13 floats (52 bytes)
+            float payload[13];
+            memcpy(payload, &uart_rx_buffer[2], 52);
 
-        // 4. Cast into doubles for Simulink
-        for(int i = 0; i < 6; i++) {
-            rtU.state_x[i] = (double)temp_states[i];
+            for(int i = 0; i < 6; i++) {
+                rtU.state_x[i] = (double)payload[i];      // First 6 floats: States
+                dynamic_K_gains[i] = payload[i + 6];      // Next 6 floats: K Matrix
+            }
+            dynamic_KI_PHI = payload[12];                 // 13th float: KI_PHI
+
+            data_ready = 1; // Trigger Simulink
+
+            // Keep listening for the next 54-byte packet
+            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 54);
         }
-
-        // 5. Trigger control loop
-        data_ready = 1;
+        else
+        {
+            // Packet rejected. Switch to Hunting Mode
+            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 1);
+        }
     }
-    // 6. Restart DMA
-    HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+
+    // --- STATE 2: Hunting Mode (Reading 1 byte at a time) ---
+    else if (huart->RxXferSize == 1)
+    {
+        static uint8_t last_byte = 0;
+        if (last_byte == 0xAA && uart_rx_buffer[0] == 0x55)
+        {
+            // Found headers! Request the remaining 52 bytes of the payload.
+            HAL_UART_Receive_DMA(&huart1, &uart_rx_buffer[2], 52);
+            last_byte = 0;
+        }
+        else
+        {
+            last_byte = uart_rx_buffer[0];
+            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 1);
+        }
+    }
+
+    // --- STATE 3: Payload Recovery ---
+    else if (huart->RxXferSize == 52)
+    {
+        float payload[13];
+        memcpy(payload, &uart_rx_buffer[2], 52);
+
+        for(int i = 0; i < 6; i++) {
+            rtU.state_x[i] = (double)payload[i];
+            dynamic_K_gains[i] = payload[i + 6];
+        }
+        dynamic_KI_PHI = payload[12];
+
+        data_ready = 1;
+
+        // Fully synchronized! Go back to State 1
+        HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 54);
+    }
   }
 }
 /* USER CODE END 0 */
 
+/**
+  * @brief The application entry point.
+  * @retval int
+  */
 int main(void)
 {
+
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MPU Configuration--------------------------------------------------------*/
   MPU_Config();
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
   SystemClock_Config();
 
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_TIM1_Init();
   MX_TIM8_Init();
   MX_USART1_UART_Init();
-
   /* USER CODE BEGIN 2 */
-  // 1. Force Disable Motors Explicitly
+
+  // 1. SAFETY: Override CubeMX init and explicitly pull PE3 LOW to disable motors
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
 
-  // Set Timers to 0 explicitly to prevent rogue outputs on start
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
-  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
-  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
-
-  // 2. Init Simulink
+  // 2. Initialize the Simulink controller
   Simulink_initialize();
 
-  // 3. Start DMA listener
-  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 26);
+  // 3. Kick off the asynchronous DMA listener to receive data from ESP32
+  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 54); // UPDATED SIZE
 
-  // 4. BLOCKING WAIT: Trap the STM32 here until valid data arrives
+  // 4. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first packet
   while(data_ready == 0)
   {
+      // Waiting for ESP32 connection...
       HAL_Delay(10);
   }
-  data_ready = 0; // Clear flag
 
-  // 5. Run one step of the control loop to get VALID initial PWM values
-  Simulink_step();
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1);
-  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R2);
-  __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R3);
+  // ESP32 IS CONNECTED! Clear the flag from the first packet
+  data_ready = 0;
+  last_packet_time = HAL_GetTick(); // Initialize watchdog timestamp
 
-  // 6. Start the PWM Timers now that they have valid target values
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
-
-  // 7. ENABLE DRIVER: Safe to pull PE3 HIGH now that communication and math are established
+  // 5. ENABLE MOTORS: Pull PE3 HIGH now that we have valid state data
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+
+  // 6. Start the Hardware Timers for PWM Output (UPDATED CHANNELS)
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // Right Motor RPWM (PA9)
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // Right Motor LPWM (PA10)
+
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1); // Left Motor RPWM (PC6)
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2); // Left Motor LPWM (PC7)
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   while (1)
-  {
-    /* USER CODE BEGIN WHILE */
-    // Only run LQR when new sensor data arrives
-    if (data_ready == 1)
-    {
-      data_ready = 0; // Reset flag
+      {
+        // CRITICAL: Only run LQR math when NEW data arrives from the ESP32.
+        if (data_ready == 1)
+        {
+          // Acknowledge the flag and update timestamp
+          data_ready = 0;
+          last_packet_time = HAL_GetTick();
 
-      // 1. Calculate LQR
-      Simulink_step();
+          // -------------------------------------------------------------
+          // FALL DETECTION: Check if pitch is outside controllable range
+          // Assuming rtU.state_x[0] is Pitch in radians (0.52 rad ≈ 30 deg)
+          // -------------------------------------------------------------
+          if (fabs(rtU.state_x[0]) > 0.52)
+          {
+              // ROBOT HAS FALLEN: Disable motor drivers globally
+              HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
 
-      // 2. Apply generated PWM to hardware timers
-      __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);  // PA9
-      __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1); // PA10
+              // Force duty cycles to 0
+              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
+              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
+              Simulink_reset_integrator();
+              // Note: We DO NOT call Simulink_step() here. We just wait.
+          }
+          else
+          {
+              // ROBOT IS UPRIGHT: Re-enable motors and balance
+              HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
 
-      __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R2); // PC6
-      __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R3); // PC7
-    }
-    /* USER CODE END WHILE */
-  }
+              // 1. Run the LQR Control Matrix calculation
+              Simulink_step();
+
+              // 2. Apply generated PWM to hardware timers dynamically
+              // Right Motor (TIM1) -> PA9 and PA10
+              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);
+              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1);
+
+              // Left Motor (TIM8) -> PC6 and PC7
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
+          }
+        }
+        else
+        {
+          // Failsafe Watchdog: If no packet received for > 100ms, shutdown motors
+          if (HAL_GetTick() - last_packet_time > 100)
+          {
+            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+            __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
+            __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
+            __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
+            __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
+          }
+        }
+      }
+  /* USER CODE END 3 */
 }
 
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
+  /** Supply configuration update enable
+  */
   HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY);
+
+  /** Configure the main internal regulator output voltage
+  */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
   __HAL_RCC_SYSCFG_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
+
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -170,6 +334,8 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
@@ -185,17 +351,31 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
+  /** Enables the Clock Security System
+  */
   HAL_RCC_EnableCSS();
 }
 
+/**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
 void MX_TIM1_Init(void)
 {
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+  /* USER CODE END TIM1_Init 0 */
+
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
 
+  /* USER CODE BEGIN TIM1_Init 1 */
+  /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
+  htim1.Init.Prescaler = 5;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 4000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -219,17 +399,14 @@ void MX_TIM1_Init(void)
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
   }
-
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
   {
     Error_Handler();
   }
-
   sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
   sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
   sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
@@ -245,17 +422,31 @@ void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
+  /* USER CODE BEGIN TIM1_Init 2 */
+  /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
+
 }
 
+/**
+  * @brief TIM8 Initialization Function
+  * @param None
+  * @retval None
+  */
 void MX_TIM8_Init(void)
 {
+
+  /* USER CODE BEGIN TIM8_Init 0 */
+  /* USER CODE END TIM8_Init 0 */
+
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
   TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
 
+  /* USER CODE BEGIN TIM8_Init 1 */
+  /* USER CODE END TIM8_Init 1 */
   htim8.Instance = TIM8;
-  htim8.Init.Prescaler = 0;
+  htim8.Init.Prescaler = 5;
   htim8.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim8.Init.Period = 4000;
   htim8.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -302,13 +493,27 @@ void MX_TIM8_Init(void)
   {
     Error_Handler();
   }
+  /* USER CODE BEGIN TIM8_Init 2 */
+  /* USER CODE END TIM8_Init 2 */
   HAL_TIM_MspPostInit(&htim8);
+
 }
 
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_USART1_UART_Init(void)
 {
+
+  /* USER CODE BEGIN USART1_Init 0 */
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+  /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 921600;
+  huart1.Init.BaudRate = 460800;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -334,39 +539,74 @@ static void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
+  /* USER CODE BEGIN USART1_Init 2 */
+  /* USER CODE END USART1_Init 2 */
+
 }
 
+/**
+  * Enable DMA controller clock
+  */
 static void MX_DMA_Init(void)
 {
+
+  /* DMA controller clock enable */
   __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream0_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
+
 }
 
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
+
+  /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  // FIX: This used to say GPIO_PIN_SET. Setting it to RESET prevents
-  // the motors from glitching ON before the main while-loop starts!
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
 
+  /*Configure GPIO pin : PE3 */
   GPIO_InitStruct.Pin = GPIO_PIN_3;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
-static void MPU_Config(void)
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+ /* MPU Configuration */
+
+void MPU_Config(void)
 {
   MPU_Region_InitTypeDef MPU_InitStruct = {0};
+
+  /* Disables the MPU */
   HAL_MPU_Disable();
+
+  /** Initializes and configures the Region and the memory to be protected
+  */
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
   MPU_InitStruct.Number = MPU_REGION_NUMBER0;
   MPU_InitStruct.BaseAddress = 0x0;
@@ -378,27 +618,80 @@ static void MPU_Config(void)
   MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
   MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
   MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+
 }
 
+/**
+  * @brief Period elapsed callback in non blocking mode
+  * @note This function is called when TIM2 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param htim : TIM handle
+  * @retval None
+  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+  /* USER CODE BEGIN Callback 0 */
+  /* USER CODE END Callback 0 */
   if (htim->Instance == TIM2) {
     HAL_IncTick();
   }
+  /* USER CODE BEGIN Callback 1 */
+  /* USER CODE END Callback 1 */
 }
 
+/**
+  * @brief This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
+  /* USER CODE END Error_Handler_Debug */
 }
+#ifdef USE_FULL_ASSERT
 
-#ifdef  USE_FULL_ASSERT
+/**
+
+* @brief Reports the name of the source file and the source line number
+
+* where the assert_param error has occurred.
+
+* @param file: pointer to the source file
+
+name
+
+* @param line: assert_param error line
+
+source number
+
+* @retval None
+
+*/
+
 void assert_failed(uint8_t *file, uint32_t line)
+
 {
+
+/* USER CODE BEGIN 6 */
+
+/* User can add his own implementation
+
+to report the file name and line number,
+
+ex: printf("Wrong parameters value: file
+
+%s on line %d\r\n", file, line) */
+
+/* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

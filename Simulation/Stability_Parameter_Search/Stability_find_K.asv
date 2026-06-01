@@ -1,0 +1,77 @@
+%% =========================================================
+%  Minimal LQR Gain (K) Calculator - Wheel-Biped Robot
+%  Configuration: Minimum Height ONLY
+%% =========================================================
+
+clear; clc;
+
+% 1. ROBOT PHYSICAL PARAMETERS
+Mw  = 0.150;                    % Wheel mass [kg]
+r   = 0.060;                    % Wheel radius [m]
+d   = 0.450;                    % Wheel-to-wheel distance [m]
+Iw  = 2.757224e-4;              % Wheel moment of inertia [kg.m^2]
+Mb  = 11.9;                    % Upper body lumped mass [kg]
+g   = 9.81;                     % Gravity [m/s^2]
+
+% Damping / Friction Parameters
+Cp = 0.05;  % Pitch joint viscous friction [N.m.s/rad]
+Cv = 1.50;  % Translational viscous friction [N.s/m]
+Cw = 0.50;  % Yaw viscous friction [N.m.s/rad]
+
+% --- MINIMUM HEIGHT CONFIGURATION ---
+L  = 0.170;                     % Minimum Height CoM [m]
+%Iy = 0.1709;                    % Pitch inertia [kg.m^2]
+Iz = 0.1809;                    % Yaw inertia [kg.m^2]
+
+% 2. LQR WEIGHT MATRICES (Phase 1: Pitch Stabilization)
+% States: [phi, s, theta, phi_dot, v, omega]
+% Using 1e-4 instead of 0 to satisfy Riccati detectability constraints
+Q = diag([15, 0.1, 1e-4, 0.1, 1, 1e-4]); 
+R = diag([12, 12]);
+
+% 3. MASS MATRIX COMPONENTS
+m11 = 0.5134; %Mb*L^2 + Iy
+m12 = Mb*L;
+m22 = Mb + 2*Mw + 2*Iw/r^2;
+m33 = (d^2/2)*Mw + (d^2/(2*r^2))*Iw + Iz;
+det_sag = m11*m22 - m12^2;
+
+% 4. STATE-SPACE MATRICES (with physical damping)
+a41 =  Mb*g*L * m22 / det_sag;
+a51 = -Mb*g*L * m12 / det_sag;
+a44 = -m22 * Cp / det_sag;
+a45 =  m12 * Cv / det_sag;
+a54 =  m12 * Cp / det_sag;
+a55 = -m11 * Cv / det_sag;
+a66 = -Cw / m33;
+
+b41 = -m12 / (det_sag * r);
+b51 =  m11 / (det_sag * r);
+b61 =  d   / (2 * r * m33);
+
+A = [0,   0,  0,  1,   0,   0;
+     0,   0,  0,  0,   1,   0;
+     0,   0,  0,  0,   0,   1;
+     a41, 0,  0,  a44, a45, 0;
+     a51, 0,  0,  a54, a55, 0;
+     0,   0,  0,  0,   0,   a66];
+
+B = [0,    0;
+     0,    0;
+     0,    0;
+     b41,  b41;
+     b51,  b51;
+     b61, -b61];
+
+% 5. LQR CALCULATION
+K = lqr(A, B, Q, R);
+
+% 6. OUTPUT
+disp('====================================================');
+disp('  Calculated LQR Gain Matrix (K) for L = 0.170 m');
+disp('====================================================');
+disp('Columns correspond to states: [phi, s, theta, phi_dot, v, omega]');
+disp('Row 1: Right Wheel Torque');
+disp('Row 2: Left Wheel Torque');
+disp('----------------------------------------------------');
+disp(K);

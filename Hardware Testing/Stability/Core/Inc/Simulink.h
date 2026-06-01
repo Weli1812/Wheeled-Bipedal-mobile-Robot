@@ -71,7 +71,7 @@ extern ExtY rtY;
 /* Model entry point functions */
 extern void Simulink_initialize(void);
 extern void Simulink_step(void);
-
+extern void Simulink_reset_integrator(void);
 /* Real-time Model object */
 extern RT_MODEL *const rtM;
 extern volatile boolean_T stopRequested;
