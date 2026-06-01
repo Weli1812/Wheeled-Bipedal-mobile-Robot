@@ -2,17 +2,7 @@
 /**
   ******************************************************************************
   * @file : main.c
-  * @brief : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
+  * @brief : ESP32 LQR Stability (PWM) + Hardcoded RS485 Joint Control
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -22,22 +12,28 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Simulink.h" // Auto-generated Simulink header
-#include <string.h> // Required for memcpy
+#include <string.h>   // Required for memcpy
+#include <math.h>     // Required for fabs()
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+// ============================================================================
+// RS485 JOINT CONTROL CONFIGURATION
+// ============================================================================
+#define MOTOR_ID                    1
+#define COUNTS_PER_REV              16384.0f
+#define JOINT_SPEED_RPM             60.0f  // Safe traversal speed for joint
+#define HARDCODED_JOINT_ANGLE_DEG   90.0f  // <--- SET YOUR HARDCODED TARGET HERE
+// ============================================================================
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -46,6 +42,7 @@ TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim8;
 
 UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart3; // Added for RS485
 DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
@@ -57,22 +54,119 @@ volatile uint32_t last_packet_time = 0;
 // --- NEW: Dynamic Tuning Variables ---
 volatile float dynamic_K_gains[6] = {0};
 volatile float dynamic_KI_PHI = 0.0f;
+
+// RS485 Motor Control Variables
+static uint8_t packet_seq = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MPU_Config(void);
 static void MX_DMA_Init(void);
+void MX_TIM1_Init(void);
+void MX_TIM8_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_USART3_UART_Init(void);
+void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+/* ============================================================================
+ * V3.03 RS485 BLDC PROTOCOL IMPLEMENTATION (USART3)
+ * ============================================================================ */
+
+uint16_t CRC16_Modbus(uint8_t *data, uint16_t length)
+{
+    uint16_t crc = 0xFFFF;
+    for (uint16_t pos = 0; pos < length; pos++) {
+        crc ^= (uint16_t)data[pos];
+        for (int i = 8; i != 0; i--) {
+            if ((crc & 0x0001) != 0) {
+                crc >>= 1;
+                crc ^= 0xA001;
+            } else {
+                crc >>= 1;
+            }
+        }
+    }
+    return crc;
+}
+
+/**
+  * @brief Builds and transmits a V3.03 compliant frame on USART3.
+  */
+static void RS485_SendCmd(uint8_t id, uint8_t cmd, uint8_t *data, uint8_t len)
+{
+    uint8_t frame[256];
+
+    // Build Header
+    frame[0] = 0xAE;
+    frame[1] = packet_seq++;
+    frame[2] = id;
+    frame[3] = cmd;
+    frame[4] = len;
+
+    // Copy Payload
+    if (len > 0 && data != NULL) {
+        memcpy(&frame[5], data, len);
+    }
+
+    // Calculate CRC
+    uint16_t crc = CRC16_Modbus(frame, 5 + len);
+    frame[5 + len] = (uint8_t)(crc & 0xFF);
+    frame[6 + len] = (uint8_t)((crc >> 8) & 0xFF);
+
+    // Flush RX buffer before TX to prevent garbage
+    __HAL_UART_CLEAR_FLAG(&huart3, UART_CLEAR_OREF);
+    __HAL_UART_SEND_REQ(&huart3, UART_RXDATA_FLUSH_REQUEST);
+
+    // Transmit to Motor via USART3
+    HAL_UART_Transmit(&huart3, frame, 7 + len, 50);
+
+    /* CRITICAL FIX: Absorb the motor's automatic ACK. */
+    uint8_t ack_dummy[32];
+    HAL_UART_Receive(&huart3, ack_dummy, sizeof(ack_dummy), 15);
+}
+
+void Motor_ClearFault(uint8_t id)
+{
+    RS485_SendCmd(id, 0x0F, NULL, 0);
+}
+
+/**
+  * @brief Command 0x25: Absolute Position + Speed Control
+  */
+void Motor_SetPositionAbs(uint8_t id, float angle_deg, float speed_rpm)
+{
+    uint8_t payload[9];
+
+    // Convert degrees to counts (16384 counts = 360 degrees) [cite: 290]
+    int32_t pos_counts = (int32_t)(angle_deg * (COUNTS_PER_REV / 360.0f));
+
+    // Datasheet format for speed: 0.01 Rpm [cite: 145]
+    uint32_t speed_unit = (uint32_t)(speed_rpm * 100.0f);
+
+    payload[0] = 0x00; // 0x00 indicates Absolute Position Mode [cite: 145]
+
+    // Target Position (4 bytes, Signed 32-bit, Little Endian)
+    payload[1] = (uint8_t)((pos_counts >>  0) & 0xFF);
+    payload[2] = (uint8_t)((pos_counts >>  8) & 0xFF);
+    payload[3] = (uint8_t)((pos_counts >> 16) & 0xFF);
+    payload[4] = (uint8_t)((pos_counts >> 24) & 0xFF);
+
+    // Target Speed (4 bytes, Unsigned 32-bit, Little Endian)
+    payload[5] = (uint8_t)((speed_unit >>  0) & 0xFF);
+    payload[6] = (uint8_t)((speed_unit >>  8) & 0xFF);
+    payload[7] = (uint8_t)((speed_unit >> 16) & 0xFF);
+    payload[8] = (uint8_t)((speed_unit >> 24) & 0xFF);
+
+    RS485_SendCmd(id, 0x25, payload, 9); // [cite: 145]
+}
+
 // 1. Error Recovery Callback (Catches Overrun/Framing Errors safely)
-// Directly clears the flags and restarts the DMA, avoiding HAL abort deadlocks.
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART1)
@@ -194,6 +288,8 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM8_Init();
   MX_USART1_UART_Init();
+  MX_USART3_UART_Init(); // Initialize RS485 Peripheral
+
   /* USER CODE BEGIN 2 */
 
   // 1. SAFETY: Override CubeMX init and explicitly pull PE3 LOW to disable motors
@@ -202,10 +298,15 @@ int main(void)
   // 2. Initialize the Simulink controller
   Simulink_initialize();
 
-  // 3. Kick off the asynchronous DMA listener to receive data from ESP32
-  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 54); // UPDATED SIZE
+  // 3. Clear RS485 Motor Faults before operation
+  HAL_Delay(1000);
+  Motor_ClearFault(MOTOR_ID);
+  HAL_Delay(100);
 
-  // 4. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first packet
+  // 4. Kick off the asynchronous DMA listener to receive data from ESP32
+  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 54);
+
+  // 5. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first packet
   while(data_ready == 0)
   {
       // Waiting for ESP32 connection...
@@ -216,10 +317,10 @@ int main(void)
   data_ready = 0;
   last_packet_time = HAL_GetTick(); // Initialize watchdog timestamp
 
-  // 5. ENABLE MOTORS: Pull PE3 HIGH now that we have valid state data
+  // 6. ENABLE MOTORS: Pull PE3 HIGH now that we have valid state data
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
 
-  // 6. Start the Hardware Timers for PWM Output (UPDATED CHANNELS)
+  // 7. Start the Hardware Timers for PWM Output
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); // Right Motor RPWM (PA9)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3); // Right Motor LPWM (PA10)
 
@@ -231,18 +332,17 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-      {
-        // CRITICAL: Only run LQR math when NEW data arrives from the ESP32.
+  {
+        // CRITICAL: Only run math/updates when NEW data arrives from the ESP32.
         if (data_ready == 1)
         {
           // Acknowledge the flag and update timestamp
           data_ready = 0;
           last_packet_time = HAL_GetTick();
 
-          // -------------------------------------------------------------
-          // FALL DETECTION: Check if pitch is outside controllable range
-          // Assuming rtU.state_x[0] is Pitch in radians (0.52 rad ≈ 30 deg)
-          // -------------------------------------------------------------
+          // =============================================================
+          // PART 1: FALL DETECTION & LQR STABILITY (DC MOTORS via PWM)
+          // =============================================================
           if (fabs(rtU.state_x[0]) > 0.52)
           {
               // ROBOT HAS FALLEN: Disable motor drivers globally
@@ -273,20 +373,43 @@ int main(void)
               __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
               __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
           }
+
+          // =============================================================
+          // PART 2: HARDCODED JOINT CONTROL (BLDC MOTOR via RS485)
+          // =============================================================
+          // Send RS485 command at a max of 200Hz (every 5ms) to prevent flooding
+          static uint32_t last_rs485_tx = 0;
+          if ((HAL_GetTick() - last_rs485_tx) >= 5)
+          {
+              Motor_SetPositionAbs(MOTOR_ID, HARDCODED_JOINT_ANGLE_DEG, JOINT_SPEED_RPM);
+              last_rs485_tx = HAL_GetTick();
+          }
         }
         else
         {
+          // =============================================================
+          // PART 3: FAILSAFE WATCHDOG
+          // =============================================================
           // Failsafe Watchdog: If no packet received for > 100ms, shutdown motors
           if (HAL_GetTick() - last_packet_time > 100)
           {
+            // 1. Shutdown DC Motors
             HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
             __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
             __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
             __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
             __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
+
+            // 2. Shutdown BLDC Motor via RS485 (Limit to every 100ms so we don't flood bus)
+            static uint32_t last_disable_tx = 0;
+            if ((HAL_GetTick() - last_disable_tx) >= 100)
+            {
+                RS485_SendCmd(MOTOR_ID, 0x2F, NULL, 0); // Motor Free-State Command [cite: 171]
+                last_disable_tx = HAL_GetTick();
+            }
           }
         }
-      }
+  }
   /* USER CODE END 3 */
 }
 
@@ -541,6 +664,51 @@ static void MX_USART1_UART_Init(void)
   }
   /* USER CODE BEGIN USART1_Init 2 */
   /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200; // As per standard datasheet baudrate [cite: 12]
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart3.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_RS485Ex_Init(&huart3, UART_DE_POLARITY_HIGH, 0, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart3, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart3, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+  /* USER CODE END USART3_Init 2 */
 
 }
 

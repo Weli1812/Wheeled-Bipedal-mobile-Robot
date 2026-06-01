@@ -1,6 +1,27 @@
-03:48:48 **** Incremental Build of configuration Debug for project Stability ****
+15:14:06 **** Incremental Build of configuration Debug for project Stability ****
 cmake --build "build\\Debug" 
-ninja: no work to do.
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
 
-03:48:49 Build Finished. 0 errors, 0 warnings. (took 332ms)
+Build type: Debug
+-- Configuring done (0.4s)
+CMake Error at CMakeLists.txt:64 (target_link_libraries):
+  Cannot find source file:
+
+    C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink
+
+
+CMake Error at CMakeLists.txt:38 (add_executable):
+  No SOURCES given to target: Stability
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
+ninja: error: rebuilding 'build.ninja': subcommand failed
+[0/1] Re-running CMake...
+FAILED: build.ninja 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cmake.win32_1.1.101.202603101401\tools\bin\cmake.exe --regenerate-during-build -S"C:\Users\hassa\OneDrive\Desktop\GIU\git\Wheeled-Bipedal-mobile-Robot\Hardware Testing\Stability" -B"C:\Users\hassa\OneDrive\Desktop\GIU\git\Wheeled-Bipedal-mobile-Robot\Hardware Testing\Stability\build\Debug"
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+
+15:14:07 Build Finished. 0 errors, 0 warnings. (took 1s.219ms)
 
