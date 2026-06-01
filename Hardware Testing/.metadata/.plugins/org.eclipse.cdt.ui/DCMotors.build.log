@@ -1,0 +1,6 @@
+17:23:24 **** Incremental Build of configuration Debug for project DCMotors ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+
+17:23:25 Build Finished. 0 errors, 0 warnings. (took 1s.314ms)
+
