@@ -133,60 +133,74 @@ int main(void)
   // 2. Initialize the Simulink controller
   ReferenceGeneratorxLQRCombinedxPWMGenerator_initialize();
 
-  // Kick off the asynchronous DMA listener in background (Circular Mode)
+  // 3. Wait for ESP32 to boot, then kick off the DMA listener
+   HAL_Delay(500);  // ESP32 typically needs 200-500ms to boot and start transmitting
   HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, RX_BUFFER_SIZE);
 
-  // 4. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first valid packet
-  while(data_ready == 0)
-  {
-      uint16_t dma_head = RX_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
-      uint16_t available = (dma_head >= dma_tail) ? (dma_head - dma_tail) : (RX_BUFFER_SIZE - dma_tail + dma_head);
+  // 4. BLOCKING WAIT with self-healing: restart DMA periodically if no packet arrives
+    uint32_t wait_start = HAL_GetTick();
 
-      while(available >= PACKET_SIZE)
-      {
-          uint8_t b1 = uart_rx_buffer[dma_tail];
-          uint8_t b2 = uart_rx_buffer[(dma_tail + 1) % RX_BUFFER_SIZE];
+    while(data_ready == 0)
+    {
+        HAL_Delay(10); // Prevent tight loop lockup
 
-          if (b1 == 0xAA && b2 == 0x55)
-          {
-              uint8_t packet[PACKET_SIZE];
-              for(int i = 0; i < PACKET_SIZE; i++)
-              {
-                  packet[i] = uart_rx_buffer[(dma_tail + i) % RX_BUFFER_SIZE];
-              }
+        uint16_t dma_head = RX_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+        uint16_t available = (dma_head >= dma_tail) ? (dma_head - dma_tail) : (RX_BUFFER_SIZE - dma_tail + dma_head);
 
-              // Calculate XOR Checksum over the 32 bytes of payload
-              uint8_t calc_crc = 0;
-              for(int i = 2; i < 34; i++)
-              {
-                  calc_crc ^= packet[i];
-              }
+        while(available >= PACKET_SIZE)
+        {
+            uint8_t b1 = uart_rx_buffer[dma_tail];
+            uint8_t b2 = uart_rx_buffer[(dma_tail + 1) % RX_BUFFER_SIZE];
 
-              if (calc_crc == packet[34])
-              {
-                  float temp_states[8];
-                  memcpy(temp_states, &packet[2], 32);
+            if (b1 == 0xAA && b2 == 0x55)
+            {
+                uint8_t packet[PACKET_SIZE];
+                for(int i = 0; i < PACKET_SIZE; i++)
+                {
+                    packet[i] = uart_rx_buffer[(dma_tail + i) % RX_BUFFER_SIZE];
+                }
 
-                  rtU.x_robot = (double)temp_states[0];
-                  rtU.y_robot = (double)temp_states[1];
-                  rtU.phi     = (double)temp_states[2];
-                  rtU.s       = (double)temp_states[3];
-                  rtU.theta   = (double)temp_states[4];
-                  rtU.v       = (double)temp_states[5];
-                  rtU.omega   = (double)temp_states[6];
-                  rtU.phi_dot = (double)temp_states[7];
+                // Calculate XOR Checksum over the 32 bytes of payload
+                uint8_t calc_crc = 0;
+                for(int i = 2; i < 34; i++)
+                {
+                    calc_crc ^= packet[i];
+                }
 
-                  data_ready = 1;
-                  dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
-                  available -= PACKET_SIZE;
-                  continue;
-              }
-          }
-          // Bad header or CRC: slide window by 1 byte
-          dma_tail = (dma_tail + 1) % RX_BUFFER_SIZE;
-          available--;
-      }
-  }
+                if (calc_crc == packet[34])
+                {
+                    float temp_states[8];
+                    memcpy(temp_states, &packet[2], 32);
+
+                    rtU.x_robot = (double)temp_states[0];
+                    rtU.y_robot = (double)temp_states[1];
+                    rtU.phi     = (double)temp_states[2];
+                    rtU.s       = (double)temp_states[3];
+                    rtU.theta   = (double)temp_states[4];
+                    rtU.v       = (double)temp_states[5];
+                    rtU.omega   = (double)temp_states[6];
+                    rtU.phi_dot = (double)temp_states[7];
+
+                    data_ready = 1;
+                    dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
+                    available -= PACKET_SIZE;
+                    continue;
+                }
+            }
+            // Bad header or CRC: slide window by 1 byte
+            dma_tail = (dma_tail + 1) % RX_BUFFER_SIZE;
+            available--;
+        }
+
+        // Self-healing block: Every 200ms, abort and restart DMA in case it silently died
+        if (HAL_GetTick() - wait_start > 200)
+        {
+            HAL_UART_AbortReceive(&huart1);
+            dma_tail = 0; // CRITICAL: Reset circular buffer tail to match new DMA Head
+            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, RX_BUFFER_SIZE);
+            wait_start = HAL_GetTick();
+        }
+    }
 
   // ESP32 IS CONNECTED! Clear the flag from the first packet
   data_ready = 0;
@@ -549,7 +563,7 @@ void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
+  if (HAL_UARTEx_EnableFifoMode(&huart1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -569,7 +583,7 @@ void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 
 }
@@ -593,7 +607,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PE3 */
   GPIO_InitStruct.Pin = GPIO_PIN_3;
@@ -622,11 +636,12 @@ void MPU_Config(void)
    * Allows the rest of the 4GB space to benefit from global CPU cache.
   */
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-  MPU_InitStruct.Number = MPU_REGION_NUMBER0;
+  MPU_InitStruct.Number = MPU_REGION_NUMBER1;
   MPU_InitStruct.BaseAddress = 0x24000000;
-  MPU_InitStruct.Size = MPU_REGION_SIZE_512KB;
-  MPU_InitStruct.SubRegionDisable = 0x0;
-  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
+  // CONFLICT RESOLUTION: Increased to 256B because your new RX_BUFFER_SIZE is 140 bytes
+  MPU_InitStruct.Size = MPU_REGION_SIZE_256B;
+  MPU_InitStruct.SubRegionDisable = 0x00;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;
   MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
   MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
   MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;

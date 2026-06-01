@@ -5479,3 +5479,22 @@ Memory region         Used Size  Region Size  %age Used
 
            FLASH:       55712 B       128 KB     42.50%
 
+23:17:41 **** Incremental Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/main.c.obj
+[2/2] Linking C executable DriveControlxLocalisationxStabilityxSTM.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: DriveControlxLocalisationxStabilityxSTM.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        2200 B       128 KB      1.68%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       56192 B       128 KB     42.87%
+
