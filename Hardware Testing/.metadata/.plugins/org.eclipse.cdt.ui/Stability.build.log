@@ -1,6 +1,20 @@
-20:49:11 **** Incremental Build of configuration Debug for project Stability ****
+02:14:52 **** Incremental Build of configuration Debug for project Stability ****
 cmake --build "build\\Debug" 
-ninja: no work to do.
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2216 B       128 KB      1.69%
+             RAM:           0 B       512 KB      0.00%
 
-20:49:12 Build Finished. 0 errors, 0 warnings. (took 633ms)
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47048 B       128 KB     35.89%
+
+
+02:14:54 Build Finished. 0 errors, 1 warnings. (took 2s.67ms)
 

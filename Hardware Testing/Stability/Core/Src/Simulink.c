@@ -140,8 +140,8 @@ void Simulink_step(void)
         // ... [Rest of the file remains unchanged] ...
 
     /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
-    int32_T raw_pwm_r = (int32_T)rt_roundd_snf(u_idx_0 / 4.5 * 4000.0);
-    int32_T raw_pwm_l = (int32_T)rt_roundd_snf(u_idx_1 / 4.5 * 4000.0);
+    int32_T raw_pwm_r = (int32_T)rt_roundd_snf(u_idx_0 / 3 * 4000.0);
+    int32_T raw_pwm_l = (int32_T)rt_roundd_snf(u_idx_1 / 3 * 4000.0);
 
     /* 3. Apply Deadband Compensation (only if LQR demands movement) */
     if (raw_pwm_r > 0)       raw_pwm_r += DEADBAND_OFFSET;

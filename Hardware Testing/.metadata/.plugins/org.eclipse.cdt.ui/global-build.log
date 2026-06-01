@@ -5498,3 +5498,82 @@ Memory region         Used Size  Region Size  %age Used
 
            FLASH:       56192 B       128 KB     42.87%
 
+00:14:42 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/3] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+
+         DTCMRAM:        2216 B       128 KB      1.69%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47032 B       128 KB     35.88%
+
+01:10:18 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:88:25: warning: unused variable 'a' [-Wunused-variable]
+   88 |     static const real_T a[12] = {
+      |                         ^
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2216 B       128 KB      1.69%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47032 B       128 KB     35.88%
+
+01:36:57 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2216 B       128 KB      1.69%
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47048 B       128 KB     35.89%
+
+01:39:29 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+01:40:21 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+02:14:52 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2216 B       128 KB      1.69%
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47048 B       128 KB     35.89%
+

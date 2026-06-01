@@ -1,0 +1,488 @@
+/*
+ * Academic License - for use in teaching, academic research, and meeting
+ * course requirements at degree granting institutions only.  Not for
+ * government, commercial, or other organizational use.
+ *
+ * File: ReferenceGeneratorxLQRCombinedxPWMGenerator.c
+ *
+ * Code generated for Simulink model 'ReferenceGeneratorxLQRCombinedxPWMGenerator'.
+ *
+ * Model version                  : 1.30
+ * Simulink Coder version         : 25.2 (R2025b) 28-Jul-2025
+ * C/C++ source code generated on : Sun May 31 04:40:19 2026
+ *
+ * Target selection: ert.tlc
+ * Embedded hardware selection: ARM Compatible->ARM Cortex-M
+ * Code generation objectives:
+ * 1. Execution efficiency
+ * 2. RAM efficiency
+ * Validation result: Not run
+ */
+
+#include "ReferenceGeneratorxLQRCombinedxPWMGenerator.h"
+#include <math.h>
+#include "rtwtypes.h"
+#include "math.h"
+
+/* External inputs (root inport signals with default storage) */
+ExtU rtU;
+
+/* External outputs (root outports fed by signals with default storage) */
+ExtY rtY;
+
+/* Real-time model */
+static RT_MODEL rtM_;
+RT_MODEL *const rtM = &rtM_;
+extern real_T rt_atan2d_snf(real_T u0, real_T u1);
+extern real_T rt_roundd_snf(real_T u);
+static real_T rtGetInf(void);
+static real32_T rtGetInfF(void);
+static real_T rtGetMinusInf(void);
+static real32_T rtGetMinusInfF(void);
+static real_T rtGetNaN(void);
+static real32_T rtGetNaNF(void);
+
+/*===========*
+ * Constants *
+ *===========*/
+#define RT_PI                          3.14159265358979323846
+#define RT_PIF                         3.1415927F
+#define RT_LN_10                       2.30258509299404568402
+#define RT_LN_10F                      2.3025851F
+#define RT_LOG10E                      0.43429448190325182765
+#define RT_LOG10EF                     0.43429449F
+#define RT_E                           2.7182818284590452354
+#define RT_EF                          2.7182817F
+
+/*
+ * UNUSED_PARAMETER(x)
+ * Used to specify that a function parameter (argument) is required but not
+ * accessed by the function body.
+ */
+#ifndef UNUSED_PARAMETER
+#if defined(__LCC__)
+#define UNUSED_PARAMETER(x)                                      /* do nothing */
+#else
+
+/*
+ * This is the semi-ANSI standard way of indicating that an
+ * unused function parameter is required.
+ */
+#define UNUSED_PARAMETER(x)            (void) (x)
+#endif
+#endif
+
+extern real_T rtInf;
+extern real_T rtMinusInf;
+extern real_T rtNaN;
+extern real32_T rtInfF;
+extern real32_T rtMinusInfF;
+extern real32_T rtNaNF;
+static boolean_T rtIsInf(real_T value);
+static boolean_T rtIsInfF(real32_T value);
+static boolean_T rtIsNaN(real_T value);
+static boolean_T rtIsNaNF(real32_T value);
+real_T rtNaN = -(real_T)NAN;
+real_T rtInf = (real_T)INFINITY;
+real_T rtMinusInf = -(real_T)INFINITY;
+real32_T rtNaNF = -(real32_T)NAN;
+real32_T rtInfF = (real32_T)INFINITY;
+real32_T rtMinusInfF = -(real32_T)INFINITY;
+
+/* Return rtInf needed by the generated code. */
+static real_T rtGetInf(void)
+{
+  return rtInf;
+}
+
+/* Get rtInfF needed by the generated code. */
+static real32_T rtGetInfF(void)
+{
+  return rtInfF;
+}
+
+/* Return rtMinusInf needed by the generated code. */
+static real_T rtGetMinusInf(void)
+{
+  return rtMinusInf;
+}
+
+/* Return rtMinusInfF needed by the generated code. */
+static real32_T rtGetMinusInfF(void)
+{
+  return rtMinusInfF;
+}
+
+/* Return rtNaN needed by the generated code. */
+static real_T rtGetNaN(void)
+{
+  return rtNaN;
+}
+
+/* Return rtNaNF needed by the generated code. */
+static real32_T rtGetNaNF(void)
+{
+  return rtNaNF;
+}
+
+/* Test if value is infinite */
+static boolean_T rtIsInf(real_T value)
+{
+  return (boolean_T)isinf(value);
+}
+
+/* Test if single-precision value is infinite */
+static boolean_T rtIsInfF(real32_T value)
+{
+  return (boolean_T)isinf(value);
+}
+
+/* Test if value is not a number */
+static boolean_T rtIsNaN(real_T value)
+{
+  return (boolean_T)(isnan(value) != 0);
+}
+
+/* Test if single-precision value is not a number */
+static boolean_T rtIsNaNF(real32_T value)
+{
+  return (boolean_T)(isnan(value) != 0);
+}
+
+real_T rt_atan2d_snf(real_T u0, real_T u1)
+{
+  real_T y;
+  if (rtIsNaN(u0) || rtIsNaN(u1)) {
+    y = (rtNaN);
+  } else if (rtIsInf(u0) && rtIsInf(u1)) {
+    int32_T tmp;
+    int32_T tmp_0;
+    if (u0 > 0.0) {
+      tmp = 1;
+    } else {
+      tmp = -1;
+    }
+
+    if (u1 > 0.0) {
+      tmp_0 = 1;
+    } else {
+      tmp_0 = -1;
+    }
+
+    y = atan2(tmp, tmp_0);
+  } else if (u1 == 0.0) {
+    if (u0 > 0.0) {
+      y = RT_PI / 2.0;
+    } else if (u0 < 0.0) {
+      y = -(RT_PI / 2.0);
+    } else {
+      y = 0.0;
+    }
+  } else {
+    y = atan2(u0, u1);
+  }
+
+  return y;
+}
+
+real_T rt_roundd_snf(real_T u)
+{
+  real_T y;
+  if (fabs(u) < 4.503599627370496E+15) {
+    if (u >= 0.5) {
+      y = floor(u + 0.5);
+    } else if (u > -0.5) {
+      y = u * 0.0;
+    } else {
+      y = ceil(u - 0.5);
+    }
+  } else {
+    y = u;
+  }
+
+  return y;
+}
+
+/* Model step function */
+void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
+{
+  real_T b[6];
+  real_T d_a;
+  real_T dy;
+  real_T u_des_idx_0;
+  real_T u_des_idx_1;
+  int32_T k_min;
+  int32_T k_next;
+  int32_T k_prev;
+  int32_T y;
+  int32_T y_0;
+
+  // FIX: Padded the end of the X array with 45.0 instead of 0.0
+  static const real_T b_0[200] = {
+    0.0, 0.454545, 0.909091, 1.363636, 1.818182,
+    2.272727, 2.727273, 3.181818, 3.636364, 4.090909, 4.545455, 5.0, 5.454545,
+    5.909091, 6.363636, 6.818182, 7.272727, 7.727273, 8.181818, 8.636364,
+    9.090909, 9.545455, 10.0, 10.454545, 10.909091, 11.363636, 11.818182,
+    12.272727, 12.727273, 13.181818, 13.636364, 14.090909, 14.545455, 15.0,
+    15.454545, 15.909091, 16.363636, 16.818182, 17.272727, 17.727273, 18.181818,
+    18.636364, 19.090909, 19.545455, 20.0, 20.454545, 20.909091, 21.363636,
+    21.818182, 22.272727, 22.727273, 23.181818, 23.636364, 24.090909, 24.545455,
+    25.0, 25.454545, 25.909091, 26.363636, 26.818182, 27.272727, 27.727273,
+    28.181818, 28.636364, 29.090909, 29.545455, 30.0, 30.454545, 30.909091,
+    31.363636, 31.818182, 32.272727, 32.727273, 33.181818, 33.636364, 34.090909,
+    34.545455, 35.0, 35.454545, 35.909091, 36.363636, 36.818182, 37.272727,
+    37.727273, 38.181818, 38.636364, 39.090909, 39.545455, 40.0, 40.454545,
+    40.909091, 41.363636, 41.818182, 42.272727, 42.727273, 43.181818, 43.636364,
+    44.090909, 44.545455, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0, 45.0,
+    45.0, 45.0, 45.0, 45.0, 45.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+
+  static const real_T c[100] = { 0.0, 0.454545, 0.909091, 1.363636, 1.818182, //S_Path
+    2.272727, 2.727273, 3.181818, 3.636364, 4.090909, 4.545455, 5.0, 5.454545,
+    5.909091, 6.363636, 6.818182, 7.272727, 7.727273, 8.181818, 8.636364,
+    9.090909, 9.545455, 10.0, 10.454545, 10.909091, 11.363636, 11.818182,
+    12.272727, 12.727273, 13.181818, 13.636364, 14.090909, 14.545455, 15.0,
+    15.454545, 15.909091, 16.363636, 16.818182, 17.272727, 17.727273, 18.181818,
+    18.636364, 19.090909, 19.545455, 20.0, 20.454545, 20.909091, 21.363636,
+    21.818182, 22.272727, 22.727273, 23.181818, 23.636364, 24.090909, 24.545455,
+    25.0, 25.454545, 25.909091, 26.363636, 26.818182, 27.272727, 27.727273,
+    28.181818, 28.636364, 29.090909, 29.545455, 30.0, 30.454545, 30.909091,
+    31.363636, 31.818182, 32.272727, 32.727273, 33.181818, 33.636364, 34.090909,
+    34.545455, 35.0, 35.454545, 35.909091, 36.363636, 36.818182, 37.272727,
+    37.727273, 38.181818, 38.636364, 39.090909, 39.545455, 40.0, 40.454545,
+    40.909091, 41.363636, 41.818182, 42.272727, 42.727273, 43.181818, 43.636364,
+    44.090909, 44.545455, 45.0 };
+
+  static const real_T a[12] = {
+	16.616882069954595, 16.6168820699546, //k
+    1.1180339887498989, 1.1180339887499,
+	-3.162277660168384, 3.162277660168376,
+    2.938330914554923, 2.9383309145549221,
+	2.0613551855486412,2.0613551855486438,
+	-1.622468529505869, 1.6224685295058661 };
+
+  /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
+   * Inport: '<Root>/x_robot'
+   * Inport: '<Root>/y_robot'
+   */
+  u_des_idx_1 = (rtInf);
+  k_min = 0;
+  for (k_next = 0; k_next < 100; k_next++) {
+    u_des_idx_0 = b_0[k_next] - rtU.x_robot;
+    dy = b_0[k_next + 100] - rtU.y_robot;
+    u_des_idx_0 = u_des_idx_0 * u_des_idx_0 + dy * dy;
+    if (u_des_idx_0 < u_des_idx_1) {
+      u_des_idx_1 = u_des_idx_0;
+      k_min = k_next;
+    }
+  }
+
+  if (k_min + 2 <= 100) {
+    y = k_min + 2;
+    k_prev = k_min + 2;
+  } else {
+    y = 100;
+    k_prev = 100;
+  }
+
+  k_next = k_prev - 1;
+  if (k_min >= 1) {
+    y_0 = k_min;
+    k_prev = k_min;
+  } else {
+    y_0 = 1;
+    k_prev = 1;
+  }
+
+  k_prev--;
+  u_des_idx_1 = b_0[y - 1] - rtU.x_robot;
+  u_des_idx_0 = b_0[y + 99] - rtU.y_robot;
+  dy = b_0[y_0 - 1] - rtU.x_robot;
+  d_a = b_0[y_0 + 99] - rtU.y_robot;
+  if (u_des_idx_1 * u_des_idx_1 + u_des_idx_0 * u_des_idx_0 < dy * dy + d_a *
+      d_a) {
+    k_prev = k_min;
+  } else {
+    k_next = k_min;
+  }
+
+  if (k_prev == k_next) {
+    u_des_idx_1 = 0.0;
+  } else {
+    u_des_idx_1 = b_0[k_next] - b_0[k_prev];
+    d_a = b_0[k_prev + 100];
+    u_des_idx_0 = b_0[k_next + 100] - d_a;
+    dy = u_des_idx_1 * u_des_idx_1 + u_des_idx_0 * u_des_idx_0;
+    if (dy > 1.0E-6) {
+      u_des_idx_1 = fmax(0.0, fmin(1.0, ((rtU.y_robot - d_a) * u_des_idx_0 +
+        (rtU.x_robot - b_0[k_prev]) * u_des_idx_1) / dy));
+    } else {
+      u_des_idx_1 = 0.0;
+    }
+  }
+
+  /* MATLAB Function: '<Root>/CombinedLQR' incorporates:
+   * Inport: '<Root>/omega'
+   * Inport: '<Root>/phi'
+   * Inport: '<Root>/phi_dot'
+   * Inport: '<Root>/s'
+   * Inport: '<Root>/theta'
+   * Inport: '<Root>/v'
+   * Inport: '<Root>/x_robot'
+   * Inport: '<Root>/y_robot'
+   * MATLAB Function: '<Root>/MATLAB Function'
+   */
+  b[3] = rtU.phi_dot;
+  u_des_idx_0 = ((((1.0 - u_des_idx_1) * b_0[k_prev] + u_des_idx_1 * b_0[k_next])
+                  - rtU.x_robot) * -sin(rtU.theta) + (((1.0 - u_des_idx_1) *
+    b_0[k_prev + 100] + b_0[k_next + 100] * u_des_idx_1) - rtU.y_robot) * cos
+                 (rtU.theta)) * 0.1;
+  if (u_des_idx_0 > 0.1396263) {
+    u_des_idx_0 = 0.1396263;
+  } else if (u_des_idx_0 < -0.1396263) {
+    u_des_idx_0 = -0.1396263;
+  }
+
+  /* --- MANUAL DEADBAND INSERTION FOR PHI --- */
+  {
+    real_T raw_phi_error = rtU.phi - 0.0032767583132328297;
+    real_T phi_threshold = 0.05; /* Adjust this value as needed */
+
+    if (raw_phi_error > phi_threshold) {
+      b[0] = raw_phi_error - phi_threshold;
+    } else if (raw_phi_error < -phi_threshold) {
+       b[0] = raw_phi_error + phi_threshold;
+    } else {
+      b[0] = 0.0;
+    }
+  }
+
+  /* --- CUSTOM VELOCITY PROFILE (Spatial Ramp) --- */
+  /* Determine where the robot is along the path (S_target) */
+  real_T s_target = ((1.0 - u_des_idx_1) * c[k_prev] + u_des_idx_1 * c[k_next]);
+  b[1] = rtU.s - s_target; // Along-track error calculation
+
+  /* Create the Trapezoidal Velocity Profile */
+  real_T v_target = 0.0;
+  real_T v_nom = 0.2;     // Target nominal speed (0.2 m/s)
+  real_T d_ramp = 2.0;    // Distance to ramp up/down (meters)
+  real_T s_total = 45.0;  // Total path length (meters)
+
+  if (s_target <= 0.0) {
+      v_target = 0.0;
+  } else if (s_target < d_ramp) {
+      // Ramp UP proportional to distance traveled
+      v_target = v_nom * (s_target / d_ramp);
+  } else if (s_target > (s_total - d_ramp)) {
+      // Ramp DOWN proportional to distance remaining
+      v_target = v_nom * ((s_total - s_target) / d_ramp);
+      if (v_target < 0.0) {
+          v_target = 0.0; // Ensure it doesn't command reverse at the end
+      }
+  } else {
+      // Cruising speed in the middle of the path
+      v_target = v_nom;
+  }
+
+  b[4] = rtU.v - v_target; // Velocity error calculation
+  /* ---------------------------------------------- */
+
+  u_des_idx_0 = rtU.theta - u_des_idx_0;
+  b[2] = rt_atan2d_snf(sin(u_des_idx_0), cos(u_des_idx_0));
+  b[5] = rtU.omega;
+  u_des_idx_0 = 0.0;
+  u_des_idx_1 = 0.0;
+  for (k_prev = 0; k_prev < 6; k_prev++) {
+    dy = b[k_prev];
+    k_min = k_prev << 1;
+    u_des_idx_0 += a[k_min] * dy;
+    u_des_idx_1 += a[k_min + 1] * dy;
+  }
+
+  if (u_des_idx_0 > 3.0) {
+    u_des_idx_0 = 3.0;
+  } else if (u_des_idx_0 < -3.0) {
+    u_des_idx_0 = -3.0;
+  }
+
+  if (u_des_idx_1 > 3.0) {
+    u_des_idx_1 = 3.0;
+  } else if (u_des_idx_1 < -3.0) {
+    u_des_idx_1 = -3.0;
+  }
+
+  /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
+   * MATLAB Function: '<Root>/CombinedLQR'
+   */
+  u_des_idx_0 = rt_roundd_snf(u_des_idx_0 / 3 * 4000.0);
+  u_des_idx_1 = rt_roundd_snf(u_des_idx_1 / 3 * 4000.0);
+  if (u_des_idx_0 != 0.0) {
+    if (rtIsNaN(u_des_idx_0)) {
+      dy = (rtNaN);
+    } else if (u_des_idx_0 < 0.0) {
+      dy = -1.0;
+    } else {
+      dy = (u_des_idx_0 > 0.0);
+    }
+
+    u_des_idx_0 += dy * 130.0;
+  }
+
+  if (u_des_idx_1 != 0.0) {
+    if (rtIsNaN(u_des_idx_1)) {
+      dy = (rtNaN);
+    } else if (u_des_idx_1 < 0.0) {
+      dy = -1.0;
+    } else {
+      dy = (u_des_idx_1 > 0.0);
+    }
+
+    u_des_idx_1 += dy * 130.0;
+  }
+
+  u_des_idx_0 = fmax(fmin(u_des_idx_0, 4000.0), -4000.0);
+  u_des_idx_1 = fmax(fmin(u_des_idx_1, 4000.0), -4000.0);
+
+  /* Outport: '<Root>/RPWM_R' incorporates:
+   * MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  rtY.RPWM_R = fmax(0.0, u_des_idx_0);
+
+  /* Outport: '<Root>/LPWM_R' incorporates:
+   * MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  rtY.LPWM_R = fmax(0.0, -u_des_idx_0);
+
+  /* Outport: '<Root>/RPWM_L' incorporates:
+   * MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  rtY.RPWM_L = fmax(0.0, u_des_idx_1);
+
+  /* Outport: '<Root>/LPWM_L' incorporates:
+   * MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  rtY.LPWM_L = fmax(0.0, -u_des_idx_1);
+}
+
+/* Model initialize function */
+void ReferenceGeneratorxLQRCombinedxPWMGenerator_initialize(void)
+{
+  /* (no initialization code required) */
+}
+
+/*
+ * File trailer for generated code.
+ *
+ * [EOF]
+ */
