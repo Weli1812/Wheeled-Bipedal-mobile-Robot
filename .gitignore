@@ -1,0 +1,10 @@
+### Generated .gitignore
+# Ignore Eclipse/IDE workspace metadata
+.metadata/
+
+# Ignore CSV data files
+*.csv
+
+# Optional: ignore OS files
+Thumbs.db
+.DS_Store
