@@ -1,11 +1,36 @@
-23:17:41 **** Incremental Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
+06:47:59 **** Incremental Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
 cmake --build "build\\Debug" 
-[1/2] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/main.c.obj
+[1/2] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:147:18: warning: 'rtIsNaNF' defined but not used [-Wunused-function]
+  147 | static boolean_T rtIsNaNF(real32_T value)
+      |                  ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:135:18: warning: 'rtIsInfF' defined but not used [-Wunused-function]
+  135 | static boolean_T rtIsInfF(real32_T value)
+      |                  ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:123:17: warning: 'rtGetNaNF' defined but not used [-Wunused-function]
+  123 | static real32_T rtGetNaNF(void)
+      |                 ^~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:117:15: warning: 'rtGetNaN' defined but not used [-Wunused-function]
+  117 | static real_T rtGetNaN(void)
+      |               ^~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:111:17: warning: 'rtGetMinusInfF' defined but not used [-Wunused-function]
+  111 | static real32_T rtGetMinusInfF(void)
+      |                 ^~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:105:15: warning: 'rtGetMinusInf' defined but not used [-Wunused-function]
+  105 | static real_T rtGetMinusInf(void)
+      |               ^~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:99:17: warning: 'rtGetInfF' defined but not used [-Wunused-function]
+   99 | static real32_T rtGetInfF(void)
+      |                 ^~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:93:15: warning: 'rtGetInf' defined but not used [-Wunused-function]
+   93 | static real_T rtGetInf(void)
+      |               ^~~~~~~~
 [2/2] Linking C executable DriveControlxLocalisationxStabilityxSTM.elf
 D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: DriveControlxLocalisationxStabilityxSTM.elf has a LOAD segment with RWX permissions
+
 Memory region         Used Size  Region Size  %age Used
 
-         DTCMRAM:        2200 B       128 KB      1.68%
+         DTCMRAM:        2208 B       128 KB      1.68%
 
              RAM:           0 B       512 KB      0.00%
 
@@ -15,8 +40,8 @@ Memory region         Used Size  Region Size  %age Used
 
          ITCMRAM:           0 B        64 KB      0.00%
 
-           FLASH:       56192 B       128 KB     42.87%
+           FLASH:       56000 B       128 KB     42.72%
 
 
-23:17:49 Build Finished. 0 errors, 1 warnings. (took 7s.519ms)
+06:48:24 Build Finished. 0 errors, 9 warnings. (took 25s.344ms)
 

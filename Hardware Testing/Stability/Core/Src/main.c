@@ -29,8 +29,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define RX_BUFFER_SIZE 220  // Fits exactly 4 packets of 55 bytes
-#define PACKET_SIZE 55      // 2 Header + 52 Payload (13 floats) + 1 Checksum
+#define RX_BUFFER_SIZE 252  // Fits exactly 4 packets of 63 bytes
+#define PACKET_SIZE 63      // 2 Header + 60 Payload (15 floats) + 1 Checksum
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,6 +57,8 @@ volatile uint32_t last_packet_time = 0;
 // --- Dynamic Tuning Variables ---
 volatile float dynamic_K_gains[6] = {0};
 volatile float dynamic_KI_PHI = 0.0f;
+volatile float esp_wheel_speed_r = 0.0f; // NEW: Right wheel speed from ESP
+volatile float esp_wheel_speed_l = 0.0f; // NEW: Left wheel speed from ESP
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -152,29 +154,32 @@ int main(void)
                   packet[i] = uart_rx_buffer[(dma_tail + i) % RX_BUFFER_SIZE];
               }
 
-              // Calculate XOR Checksum over the 52 bytes of payload
-              uint8_t calc_crc = 0;
-              for(int i = 2; i < 54; i++)
-              {
-                  calc_crc ^= packet[i];
-              }
+              // Calculate XOR Checksum over the 60 bytes of payload (indices 2 through 61)
+                            uint8_t calc_crc = 0;
+                            for(int i = 2; i < 62; i++)
+                            {
+                                calc_crc ^= packet[i];
+                            }
 
-              if (calc_crc == packet[54])
-              {
-                  float payload[13];
-                  memcpy(payload, &packet[2], 52);
+                            // Check against byte 62 (the 63rd byte)
+                            if (calc_crc == packet[62])
+                            {
+                                float payload[15]; // Now holds 15 floats
+                                memcpy(payload, &packet[2], 60);
 
-                  for(int i = 0; i < 6; i++) {
-                      rtU.state_x[i] = (double)payload[i];
-                      dynamic_K_gains[i] = payload[i + 6];
-                  }
-                  dynamic_KI_PHI = payload[12];
+                                for(int i = 0; i < 6; i++) {
+                                    rtU.state_x[i] = (double)payload[i];
+                                    dynamic_K_gains[i] = payload[i + 6];
+                                }
+                                dynamic_KI_PHI = payload[12];
+                                esp_wheel_speed_r = payload[13]; // Extract Right Speed
+                                esp_wheel_speed_l = payload[14]; // Extract Left Speed
 
-                  data_ready = 1;
-                  dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
-                  available -= PACKET_SIZE;
-                  continue;
-              }
+                                data_ready = 1;
+                                dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
+                                available -= PACKET_SIZE;
+                                continue;
+                            }
           }
           // Bad header or CRC: slide window by 1 byte
           dma_tail = (dma_tail + 1) % RX_BUFFER_SIZE;
@@ -227,19 +232,26 @@ int main(void)
                   packet[i] = uart_rx_buffer[(dma_tail + i) % RX_BUFFER_SIZE];
               }
 
+              // Calculate XOR Checksum over the 60 bytes of payload (indices 2 through 61)
               uint8_t calc_crc = 0;
-              for(int i = 2; i < 54; i++) calc_crc ^= packet[i];
-
-              if (calc_crc == packet[54])
+              for(int i = 2; i < 62; i++)
               {
-                  float payload[13];
-                  memcpy(payload, &packet[2], 52);
+                  calc_crc ^= packet[i];
+              }
+
+              // Check against byte 62 (the 63rd byte)
+              if (calc_crc == packet[62])
+              {
+                  float payload[15]; // Holds 15 floats
+                  memcpy(payload, &packet[2], 60);
 
                   for(int i = 0; i < 6; i++) {
                       rtU.state_x[i] = (double)payload[i];
                       dynamic_K_gains[i] = payload[i + 6];
                   }
                   dynamic_KI_PHI = payload[12];
+                  esp_wheel_speed_r = payload[13]; // Dynamically updated wheel speed
+                  esp_wheel_speed_l = payload[14]; // Dynamically updated wheel speed
 
                   data_ready = 1;
                   dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
@@ -252,6 +264,7 @@ int main(void)
       }
 
       // 2. Control Loop Execution
+      // ... (Keep your existing data_ready == 1 control loop logic below here)
       if (data_ready == 1)
       {
           // Acknowledge the flag and update timestamp
