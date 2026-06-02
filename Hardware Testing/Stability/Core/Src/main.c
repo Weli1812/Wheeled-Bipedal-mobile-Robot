@@ -317,7 +317,7 @@ int main(void)
   data_ready = 0;
   last_packet_time = HAL_GetTick(); // Initialize watchdog timestamp
 
-  // 6. ENABLE MOTORS: Pull PE3 HIGH now that we have valid state data
+  // 6. ENABLE MOTORS: Pull PE3 HIGH now that we have val state data
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
 
   // 7. Start the Hardware Timers for PWM Output
