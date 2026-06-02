@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item key="hasShownOverlayPopupBefore" value="true"/>
-	<item key="replaceBarOpen" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="integrator"/>
+		<item value="b"/>
+		<item value="v_nom"/>
+		<item value="Motor_ID"/>
+		<item value="id"/>
+		<item value="modbus"/>
+		<item value="4.5"/>
+		<item value="fifo"/>
+		<item value="ESP32 is c"/>
+		<item value="rtU.v"/>
+		<item value="100"/>
 		<item value="mx_usar"/>
 		<item value="Simulink_reset_integrator();"/>
 		<item value="simulink"/>
 		<item value="presca"/>
-		<item value="7"/>
-		<item value="baud"/>
-		<item value="6"/>
-		<item value="//"/>
-		<item value="infin"/>
-		<item value="htim1"/>
-		<item value="huart1"/>
-		<item value="TIM_CHANNEL"/>
-		<item value="data_ready"/>
-		<item value="dead"/>
-		<item value="a"/>
 	</list>
 	<list key="replacehistory">
 		<item value="4000"/>
