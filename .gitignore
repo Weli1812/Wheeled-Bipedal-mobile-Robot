@@ -6,6 +6,7 @@
 *.csv
 *.log
 *.xml
+*.asv
 # Optional: ignore OS files
 Thumbs.db
 .DS_Store
