@@ -4,6 +4,7 @@
 
 # Ignore CSV data files
 *.csv
+*.log
 *.xmi
 # Optional: ignore OS files
 Thumbs.db
