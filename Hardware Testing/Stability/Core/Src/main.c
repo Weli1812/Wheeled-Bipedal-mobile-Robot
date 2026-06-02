@@ -59,6 +59,10 @@ volatile float dynamic_K_gains[6] = {0};
 volatile float dynamic_KI_PHI = 0.0f;
 volatile float esp_wheel_speed_r = 0.0f; // NEW: Right wheel speed from ESP
 volatile float esp_wheel_speed_l = 0.0f; // NEW: Left wheel speed from ESP
+extern volatile float export_tau_r;
+extern volatile float export_tau_l;
+extern volatile float export_pwm_r;
+extern volatile float export_pwm_l;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -286,20 +290,37 @@ int main(void)
               __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
               Simulink_reset_integrator();
           }
-          else
-          {
-              // ROBOT IS UPRIGHT: Re-enable motors and balance
-              HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+                    else
+                    {
+                        // ROBOT IS UPRIGHT: Re-enable motors and balance
+                        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
 
-              // 1. Run the LQR Control Matrix calculation
-              Simulink_step();
+                        // 1. Run the LQR Control Matrix calculation
+                        Simulink_step();
 
-              // 2. Apply generated PWM to hardware timers dynamically
-              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);
-              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1);
-              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
-              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
-          }
+                        // 2. Apply generated PWM to hardware timers dynamically
+                        __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);
+                        __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1);
+                        __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
+                        __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
+
+                        // 3. NEW: Transmit Telemetry back to ESP32
+                        uint8_t tx_buf[19];
+                        tx_buf[0] = 0xBB; // Sync Byte 1
+                        tx_buf[1] = 0x66; // Sync Byte 2
+
+                        float telemetry_payload[4] = {export_tau_r, export_tau_l, export_pwm_r, export_pwm_l};
+                        memcpy(&tx_buf[2], telemetry_payload, 16);
+
+                        uint8_t tx_crc = 0;
+                        for(int i = 2; i < 18; i++) {
+                            tx_crc ^= tx_buf[i];
+                        }
+                        tx_buf[18] = tx_crc;
+
+                        // Polling TX is fine here since it's only 19 bytes at 460800 baud (~0.4ms)
+                        HAL_UART_Transmit(&huart1, tx_buf, 19, 2);
+                    }
       }
       else
       {

@@ -3,6 +3,7 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="esp_wheel_speed"/>
 		<item value="integrator"/>
 		<item value="b"/>
 		<item value="v_nom"/>
@@ -17,7 +18,6 @@
 		<item value="mx_usar"/>
 		<item value="Simulink_reset_integrator();"/>
 		<item value="simulink"/>
-		<item value="presca"/>
 	</list>
 	<list key="replacehistory">
 		<item value="4000"/>

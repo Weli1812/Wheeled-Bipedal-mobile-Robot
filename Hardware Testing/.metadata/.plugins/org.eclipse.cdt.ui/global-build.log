@@ -6830,3 +6830,186 @@ Memory region         Used Size  Region Size  %age Used
 
            FLASH:       47448 B       128 KB     36.20%
 
+10:53:05 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+CMake Warning (dev) at CMakeLists.txt:31 (enable_language):
+  project() should be called prior to this enable_language() call.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Build type: Debug
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/build/Debug
+[0/1] Re-running CMake...
+[1/4] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/4] Building C object CMakeFiles/Stability.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[3/4] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:90:25: warning: unused variable 'a' [-Wunused-variable]
+   90 |     static const real_T a[12] = {
+      |                         ^
+[4/4] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2224 B       128 KB      1.70%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47448 B       128 KB     36.20%
+
+10:55:26 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:90:25: warning: unused variable 'a' [-Wunused-variable]
+   90 |     static const real_T a[12] = {
+      |                         ^
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2224 B       128 KB      1.70%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47448 B       128 KB     36.20%
+
+18:04:29 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:75: error: 'V_batt' undeclared (first use in this function)
+  166 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm);
+      |                                                                           ^~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:75: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:85: error: 'max_pwm' undeclared (first use in this function)
+  166 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm);
+      |                                                                                     ^~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:96:25: warning: unused variable 'a' [-Wunused-variable]
+   96 |     static const real_T a[12] = {
+      |                         ^
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+18:05:24 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:75: error: 'V_batt' undeclared (first use in this function)
+  166 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm));
+      |                                                                           ^~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:75: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:85: error: 'max_pwm' undeclared (first use in this function)
+  166 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm));
+      |                                                                                     ^~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:166:93: error: expected ',' or ';' before ')' token
+  166 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm));
+      |                                                                                             ^
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:167:93: error: expected ',' or ';' before ')' token
+  167 |                         int32_T raw_pwm_l = (int32_T)rt_roundd_snf((v_l / V_batt) * max_pwm));
+      |                                                                                             ^
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:96:25: warning: unused variable 'a' [-Wunused-variable]
+   96 |     static const real_T a[12] = {
+      |                         ^
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+18:06:45 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:157:38: error: redefinition of 'max_pwm'
+  157 |                         const real_T max_pwm = 22.5;
+      |                                      ^~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:156:38: note: previous definition of 'max_pwm' with type 'real_T' {aka 'const double'}
+  156 |                         const real_T max_pwm = 4000;
+      |                                      ^~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:168:75: error: 'V_batt' undeclared (first use in this function)
+  168 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm));
+      |                                                                           ^~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:168:75: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:168:93: error: expected ',' or ';' before ')' token
+  168 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm));
+      |                                                                                             ^
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:169:93: error: expected ',' or ';' before ')' token
+  169 |                         int32_T raw_pwm_l = (int32_T)rt_roundd_snf((v_l / V_batt) * max_pwm));
+      |                                                                                             ^
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:96:25: warning: unused variable 'a' [-Wunused-variable]
+   96 |     static const real_T a[12] = {
+      |                         ^
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+18:06:58 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -MF CMakeFiles\Stability.dir\Core\Src\Simulink.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:168:93: error: expected ',' or ';' before ')' token
+  168 |                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm));
+      |                                                                                             ^
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:169:93: error: expected ',' or ';' before ')' token
+  169 |                         int32_T raw_pwm_l = (int32_T)rt_roundd_snf((v_l / V_batt) * max_pwm));
+      |                                                                                             ^
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:96:25: warning: unused variable 'a' [-Wunused-variable]
+   96 |     static const real_T a[12] = {
+      |                         ^
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+18:07:25 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:96:25: warning: unused variable 'a' [-Wunused-variable]
+   96 |     static const real_T a[12] = {
+      |                         ^
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2240 B       128 KB      1.71%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47856 B       128 KB     36.51%
+
+18:38:25 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+20:17:15 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/2] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c: In function 'Simulink_step':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/Simulink.c:96:25: warning: unused variable 'a' [-Wunused-variable]
+   96 |     static const real_T a[12] = {
+      |                         ^
+[2/2] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2240 B       128 KB      1.71%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47856 B       128 KB     36.51%
+
+20:19:14 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.

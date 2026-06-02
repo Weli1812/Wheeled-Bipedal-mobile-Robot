@@ -23,8 +23,14 @@ extern real_T rt_roundd_snf(real_T u);
 /* External tuning variables passed from main.c UART DMA */
 extern volatile float dynamic_K_gains[6];
 extern volatile float dynamic_KI_PHI;
-extern volatile float esp_wheel_speed_r; // NEW
-extern volatile float esp_wheel_speed_l; // NEW
+extern volatile float esp_wheel_speed_r;
+extern volatile float esp_wheel_speed_l;
+
+/* NEW: Variables to export to ESP32 */
+volatile float export_tau_r = 0.0f;
+volatile float export_tau_l = 0.0f;
+volatile float export_pwm_r = 0.0f;
+volatile float export_pwm_l = 0.0f;
 real_T rt_roundd_snf(real_T u)
 {
     real_T y;
@@ -132,29 +138,31 @@ void Simulink_step(void)
                 }
 
                 /* Add integrator contribution to both motor torque demands */
-                real_T ki_contribution = (real_T)dynamic_KI_PHI * phi_integral;
+                        real_T ki_contribution = (real_T)dynamic_KI_PHI * phi_integral;
 
-                /* u_idx_0 and u_idx_1 now represent tau_r_des and tau_l_des */
-                u_idx_0 -= ki_contribution;
-                u_idx_1 -= ki_contribution;
+                        /* u_idx_0 and u_idx_1 now represent tau_r_des and tau_l_des */
+                        u_idx_0 -= ki_contribution;
+                        u_idx_1 -= ki_contribution;
+
+                        /* NEW: Export Torque Values */
+                        export_tau_r = (float)u_idx_0;
+                        export_tau_l = (float)u_idx_1;
 
                 /* ── VOLTAGE/SPEED TO PWM CONVERSION ───────────────────────────────── */
 
                         /* NFP-42GP-775-EN Motor Parameters */
-                        const real_T K_t     = 0.6746;    /* Torque constant (Nm/A) */
-                        const real_T K_e     = 0.6746;    /* Back-EMF constant (V/(rad/s)) */
-                        const real_T R_res   = 0.9796;    /* Armature resistance (Ohms) */
-                        const real_T V_batt  = 24.0;      /* Battery voltage (V) */
-                        const real_T max_pwm = 4000.0;    /* Matched to TIM1/TIM8 Period */
-                        const real_T GR = 25.0; // Gear Ratio
+                        const real_T K_3     = 0.125;
+                        const real_T K_4     = 0.215;
+                        const real_T max_pwm = 4000;
+                        const real_T V_batt = 22.5;
                         /* 1. Fetch actual wheel speeds from ESP32 payload */
                         real_T omega_wheel_r = (real_T)esp_wheel_speed_r;
                         real_T omega_wheel_l = (real_T)esp_wheel_speed_l;
 
                         /* 2. Calculate Voltages (V = I*R + Back_EMF)
                               u_idx_0 and u_idx_1 are your desired torques (tau_r_des, tau_l_des) */
-                        real_T v_r = (((u_idx_0 / GR) / K_t) * R_res) + (K_e * omega_wheel_r);
-                        real_T v_l = (((u_idx_1 / GR) / K_t) * R_res) + (K_e * omega_wheel_l);
+                        real_T v_r = (u_idx_0 + K_3 * omega_wheel_r) / K_4;
+                        real_T v_l = (u_idx_1 + K_3 * omega_wheel_l) / K_4;
 
                         /* 3. Convert to PWM */
                         int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm);
@@ -170,7 +178,9 @@ void Simulink_step(void)
                         /* 5. Clamp safely to hardware limits */
                         pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, max_pwm), -max_pwm);
                         pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, max_pwm), -max_pwm);
-
+                        /* NEW: Export Raw PWM Values (After deadband/clamping) */
+                                export_pwm_r = (float)pwm_r;
+                                export_pwm_l = (float)pwm_l;
                         /* 6. Route to Outports (Direction Control) */
                         if (pwm_r >= 0) {
                             rtY.RPWM_R  = (real_T)pwm_r;
