@@ -21,16 +21,10 @@ RT_MODEL *const rtM = &rtM_;
 
 extern real_T rt_roundd_snf(real_T u);
 /* External tuning variables passed from main.c UART DMA */
-extern volatile float dynamic_K_gains[6];
-extern volatile float dynamic_KI_PHI;
+
 extern volatile float esp_wheel_speed_r;
 extern volatile float esp_wheel_speed_l;
 
-/* NEW: Variables to export to ESP32 */
-volatile float export_tau_r = 0.0f;
-volatile float export_tau_l = 0.0f;
-volatile float export_pwm_r = 0.0f;
-volatile float export_pwm_l = 0.0f;
 real_T rt_roundd_snf(real_T u)
 {
     real_T y;
@@ -93,25 +87,20 @@ void Simulink_step(void)
     const int32_T DEADBAND_OFFSET = 130;
 
     /* Updated LQR Gain Matrix (K) */
-    static const real_T a[12] = {
-  		  -0.0 ,   -0.0 ,  /* State 1 (phi)    : tau_r, tau_l */
-           -0.0,  -0.0,  /* State 2 (s)      : tau_r, tau_l */
-            0.00,  -0.00,  /* State 3 (theta)  : tau_r, tau_l */
-           -0.0,  -0.0,  /* State 4 (phi_dot): tau_r, tau_l */
-           -0.0,  -0.0,  /* State 5 (v)      : tau_r, tau_l */
-            0.000,  -0.000   /* State 6 (omega)  : tau_r, tau_l */
+    /* Hardcoded LQR Gain Matrix (K) - 2x6 for Right and Left motors */
+        static const real_T K_GAINS[2][6] = {
+            // State 1(phi), State 2(s), State 3(theta), State 4(phi_dot), State 5(v), State 6(omega)
+            {0.0,            0.0,        0.0,            0.0,              0.0,        0.0}, /* Row 0: Right Motor */
+            {0.0,            0.0,        0.0,            0.0,              0.0,        0.0}  /* Row 1: Left Motor  */
         };
-    /* 1. Extract states and multiply by LQR gain matrix */
-    // ... [Keep the dt and DEADBAND_OFFSET calculations as they were] ...
 
-        /* 1. Extract states and multiply by dynamic LQR gain array */
-        u_idx_0 = 0.0;
-        u_idx_1 = 0.0;
+        /* 1. Extract states and multiply by hardcoded LQR gain matrix */
+        u_idx_0 = 0.0; // Desired torque Right
+        u_idx_1 = 0.0; // Desired torque Left
         for (pwm_r = 0; pwm_r < 6; pwm_r++) {
             tmp = rtU.state_x[pwm_r];
-            // Apply the same gain to both left and right wheels
-            u_idx_0 += (real_T)dynamic_K_gains[pwm_r] * tmp;
-            u_idx_1 += (real_T)dynamic_K_gains[pwm_r] * tmp;
+            u_idx_0 += K_GAINS[0][pwm_r] * tmp; // Apply Row 0 to Right wheel
+            u_idx_1 += K_GAINS[1][pwm_r] * tmp; // Apply Row 1 to Left wheel
         }
 
         /* ── INTEGRATOR ────────────────────────────────────────────────────── */
@@ -128,25 +117,22 @@ void Simulink_step(void)
                 /* Step C — anti-windup: clamp integral in torque units */
                 const real_T int_clamp_torque = (real_T)INT_CLAMP_PWM * 6.0 / 4000.0;
 
-                if (dynamic_KI_PHI > 0.0001f) {
-                    if (phi_integral >  int_clamp_torque / (real_T)dynamic_KI_PHI)
-                        phi_integral =  int_clamp_torque / (real_T)dynamic_KI_PHI;
-                    if (phi_integral < -int_clamp_torque / (real_T)dynamic_KI_PHI)
-                        phi_integral = -int_clamp_torque / (real_T)dynamic_KI_PHI;
-                } else {
-                    phi_integral = 0.0;
-                }
+                if (KI_PHI > 0.0001f) {
+                        if (phi_integral >  int_clamp_torque / (real_T)KI_PHI)
+                            phi_integral =  int_clamp_torque / (real_T)KI_PHI;
+                        if (phi_integral < -int_clamp_torque / (real_T)KI_PHI)
+                            phi_integral = -int_clamp_torque / (real_T)KI_PHI;
+                    } else {
+                        phi_integral = 0.0;
+                    }
 
-                /* Add integrator contribution to both motor torque demands */
-                        real_T ki_contribution = (real_T)dynamic_KI_PHI * phi_integral;
+                    /* Add integrator contribution to both motor torque demands */
+                    real_T ki_contribution = (real_T)KI_PHI * phi_integral;
 
                         /* u_idx_0 and u_idx_1 now represent tau_r_des and tau_l_des */
                         u_idx_0 -= ki_contribution;
                         u_idx_1 -= ki_contribution;
 
-                        /* NEW: Export Torque Values */
-                        export_tau_r = (float)u_idx_0;
-                        export_tau_l = (float)u_idx_1;
 
                 /* ── VOLTAGE/SPEED TO PWM CONVERSION ───────────────────────────────── */
 
@@ -178,9 +164,7 @@ void Simulink_step(void)
                         /* 5. Clamp safely to hardware limits */
                         pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, max_pwm), -max_pwm);
                         pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, max_pwm), -max_pwm);
-                        /* NEW: Export Raw PWM Values (After deadband/clamping) */
-                                export_pwm_r = (float)pwm_r;
-                                export_pwm_l = (float)pwm_l;
+
                         /* 6. Route to Outports (Direction Control) */
                         if (pwm_r >= 0) {
                             rtY.RPWM_R  = (real_T)pwm_r;

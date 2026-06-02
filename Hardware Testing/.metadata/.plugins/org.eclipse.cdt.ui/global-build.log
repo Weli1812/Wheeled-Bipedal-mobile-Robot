@@ -7013,3 +7013,38 @@ Memory region         Used Size  Region Size  %age Used
 20:19:14 **** Incremental Build of configuration Debug for project Stability ****
 cmake --build "build\\Debug" 
 ninja: no work to do.
+00:31:58 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+FAILED: CMakeFiles/Stability.dir/Core/Src/main.c.obj 
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin\arm-none-eabi-gcc.exe -DDEBUG -DSTM32H750xx -DUSE_HAL_DRIVER -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Core/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32H7xx/Include" -I"C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/cmake/stm32cubemx/../../Drivers/CMSIS/Include" -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -g -std=gnu11 -MD -MT CMakeFiles/Stability.dir/Core/Src/main.c.obj -MF CMakeFiles\Stability.dir\Core\Src\main.c.obj.d -o CMakeFiles/Stability.dir/Core/Src/main.c.obj -c "C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c"
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c: In function 'main':
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:253:23: error: 'dynamic_K_gains' undeclared (first use in this function)
+  253 |                       dynamic_K_gains[i] = payload[i + 6];
+      |                       ^~~~~~~~~~~~~~~
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:253:23: note: each undeclared identifier is reported only once for each function it appears in
+C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability/Core/Src/main.c:255:19: error: 'dynamic_KI_PHI' undeclared (first use in this function)
+  255 |                   dynamic_KI_PHI = payload[12];
+      |                   ^~~~~~~~~~~~~~
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+ninja: build stopped: subcommand failed.
+"cmake --build build\Debug" terminated with exit code 1. Build might be incomplete.
+00:39:56 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+[3/3] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2192 B       128 KB      1.67%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47256 B       128 KB     36.05%
+

@@ -55,14 +55,8 @@ volatile uint8_t data_ready = 0;
 volatile uint32_t last_packet_time = 0;
 
 // --- Dynamic Tuning Variables ---
-volatile float dynamic_K_gains[6] = {0};
-volatile float dynamic_KI_PHI = 0.0f;
 volatile float esp_wheel_speed_r = 0.0f; // NEW: Right wheel speed from ESP
 volatile float esp_wheel_speed_l = 0.0f; // NEW: Left wheel speed from ESP
-extern volatile float export_tau_r;
-extern volatile float export_tau_l;
-extern volatile float export_pwm_r;
-extern volatile float export_pwm_l;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -168,16 +162,17 @@ int main(void)
                             // Check against byte 62 (the 63rd byte)
                             if (calc_crc == packet[62])
                             {
-                                float payload[15]; // Now holds 15 floats
-                                memcpy(payload, &packet[2], 60);
+                            	float payload[15]; // Holds 15 floats
+                            	    memcpy(payload, &packet[2], 60);
 
-                                for(int i = 0; i < 6; i++) {
-                                    rtU.state_x[i] = (double)payload[i];
-                                    dynamic_K_gains[i] = payload[i + 6];
-                                }
-                                dynamic_KI_PHI = payload[12];
-                                esp_wheel_speed_r = payload[13]; // Extract Right Speed
-                                esp_wheel_speed_l = payload[14]; // Extract Left Speed
+                            	    for(int i = 0; i < 6; i++) {
+                            	        rtU.state_x[i] = (double)payload[i];
+                            	        // Indices 6 through 11 (K_gains) are now ignored
+                            	    }
+                            	    // Index 12 (KI_PHI) is now ignored
+
+                            	    esp_wheel_speed_r = payload[13]; // Dynamically updated right wheel speed
+                            	    esp_wheel_speed_l = payload[14]; // Dynamically updated left wheel speed
 
                                 data_ready = 1;
                                 dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
@@ -250,10 +245,10 @@ int main(void)
                   memcpy(payload, &packet[2], 60);
 
                   for(int i = 0; i < 6; i++) {
-                      rtU.state_x[i] = (double)payload[i];
-                      dynamic_K_gains[i] = payload[i + 6];
-                  }
-                  dynamic_KI_PHI = payload[12];
+                                        rtU.state_x[i] = (double)payload[i];
+                                        // Indices 6 through 11 (K_gains) are now ignored
+                                    }
+                                    // Index 12 (KI_PHI) is now ignored
                   esp_wheel_speed_r = payload[13]; // Dynamically updated wheel speed
                   esp_wheel_speed_l = payload[14]; // Dynamically updated wheel speed
 
@@ -304,22 +299,6 @@ int main(void)
                         __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
                         __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
 
-                        // 3. NEW: Transmit Telemetry back to ESP32
-                        uint8_t tx_buf[19];
-                        tx_buf[0] = 0xBB; // Sync Byte 1
-                        tx_buf[1] = 0x66; // Sync Byte 2
-
-                        float telemetry_payload[4] = {export_tau_r, export_tau_l, export_pwm_r, export_pwm_l};
-                        memcpy(&tx_buf[2], telemetry_payload, 16);
-
-                        uint8_t tx_crc = 0;
-                        for(int i = 2; i < 18; i++) {
-                            tx_crc ^= tx_buf[i];
-                        }
-                        tx_buf[18] = tx_crc;
-
-                        // Polling TX is fine here since it's only 19 bytes at 460800 baud (~0.4ms)
-                        HAL_UART_Transmit(&huart1, tx_buf, 19, 2);
                     }
       }
       else
