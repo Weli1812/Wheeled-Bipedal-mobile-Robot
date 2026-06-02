@@ -55,7 +55,7 @@ int main() {
     InitKinematics(0.5f, 0.2f); 
     
     Pose start = {0.0f, 0.0f, 0.0f}; 
-    Pose goal = {45.0f, 0.0f, 0.0f}; 
+    Pose goal = {5.0f, 0.0f, 0.0f}; 
     Pose temp_path[MAX_PATH_LENGTH];
     
     InflateMap(global_map, inflated_map, 3); 
