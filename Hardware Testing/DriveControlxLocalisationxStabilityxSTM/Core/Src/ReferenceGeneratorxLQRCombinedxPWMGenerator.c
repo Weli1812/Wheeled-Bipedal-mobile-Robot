@@ -14,8 +14,8 @@
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
  * Code generation objectives:
- *    1. Execution efficiency
- *    2. RAM efficiency
+ * 1. Execution efficiency
+ * 2. RAM efficiency
  * Validation result: Not run
  */
 
@@ -56,8 +56,8 @@ static real32_T rtGetNaNF(void);
 
 /*
  * UNUSED_PARAMETER(x)
- *   Used to specify that a function parameter (argument) is required but not
- *   accessed by the function body.
+ * Used to specify that a function parameter (argument) is required but not
+ * accessed by the function body.
  */
 #ifndef UNUSED_PARAMETER
 #if defined(__LCC__)
@@ -216,55 +216,63 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
   int32_T k_prev;
   int32_T y;
   int32_T y_0;
-  static const real_T b_0[200] = { 0.0, 0.454545, 0.909091, 1.363636, 1.818182, //P
-    2.272727, 2.727273, 3.181818, 3.636364, 4.090909, 4.545455, 5.0, 5.454545,
-    5.909091, 6.363636, 6.818182, 7.272727, 7.727273, 8.181818, 8.636364,
-    9.090909, 9.545455, 10.0, 10.454545, 10.909091, 11.363636, 11.818182,
-    12.272727, 12.727273, 13.181818, 13.636364, 14.090909, 14.545455, 15.0,
-    15.454545, 15.909091, 16.363636, 16.818182, 17.272727, 17.727273, 18.181818,
-    18.636364, 19.090909, 19.545455, 20.0, 20.454545, 20.909091, 21.363636,
-    21.818182, 22.272727, 22.727273, 23.181818, 23.636364, 24.090909, 24.545455,
-    25.0, 25.454545, 25.909091, 26.363636, 26.818182, 27.272727, 27.727273,
-    28.181818, 28.636364, 29.090909, 29.545455, 30.0, 30.454545, 30.909091,
-    31.363636, 31.818182, 32.272727, 32.727273, 33.181818, 33.636364, 34.090909,
-    34.545455, 35.0, 35.454545, 35.909091, 36.363636, 36.818182, 37.272727,
-    37.727273, 38.181818, 38.636364, 39.090909, 39.545455, 40.0, 40.454545,
-    40.909091, 41.363636, 41.818182, 42.272727, 42.727273, 43.181818, 43.636364,
-    44.090909, 44.545455, 45.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
-  static const real_T c[100] = { 0.0, 0.454545, 0.909091, 1.363636, 1.818182, //S_Path
-    2.272727, 2.727273, 3.181818, 3.636364, 4.090909, 4.545455, 5.0, 5.454545,
-    5.909091, 6.363636, 6.818182, 7.272727, 7.727273, 8.181818, 8.636364,
-    9.090909, 9.545455, 10.0, 10.454545, 10.909091, 11.363636, 11.818182,
-    12.272727, 12.727273, 13.181818, 13.636364, 14.090909, 14.545455, 15.0,
-    15.454545, 15.909091, 16.363636, 16.818182, 17.272727, 17.727273, 18.181818,
-    18.636364, 19.090909, 19.545455, 20.0, 20.454545, 20.909091, 21.363636,
-    21.818182, 22.272727, 22.727273, 23.181818, 23.636364, 24.090909, 24.545455,
-    25.0, 25.454545, 25.909091, 26.363636, 26.818182, 27.272727, 27.727273,
-    28.181818, 28.636364, 29.090909, 29.545455, 30.0, 30.454545, 30.909091,
-    31.363636, 31.818182, 32.272727, 32.727273, 33.181818, 33.636364, 34.090909,
-    34.545455, 35.0, 35.454545, 35.909091, 36.363636, 36.818182, 37.272727,
-    37.727273, 38.181818, 38.636364, 39.090909, 39.545455, 40.0, 40.454545,
-    40.909091, 41.363636, 41.818182, 42.272727, 42.727273, 43.181818, 43.636364,
-    44.090909, 44.545455, 45.0 };
+  // FIX: Padded the end of the X array with 45.0 instead of 0.0
+  // Path arrays updated to match CSV (100 points, 0.0 to 4.95m)
+    static const real_T b_0[200] = {
+      // X Coordinates (0.00m to 4.95m)
+      0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45,
+      0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95,
+      1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40, 1.45,
+      1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95,
+      2.00, 2.05, 2.10, 2.15, 2.20, 2.25, 2.30, 2.35, 2.40, 2.45,
+      2.50, 2.55, 2.60, 2.65, 2.70, 2.75, 2.80, 2.85, 2.90, 2.95,
+      3.00, 3.05, 3.10, 3.15, 3.20, 3.25, 3.30, 3.35, 3.40, 3.45,
+      3.50, 3.55, 3.60, 3.65, 3.70, 3.75, 3.80, 3.85, 3.90, 3.95,
+      4.00, 4.05, 4.10, 4.15, 4.20, 4.25, 4.30, 4.35, 4.40, 4.45,
+      4.50, 4.55, 4.60, 4.65, 4.70, 4.75, 4.80, 4.85, 4.90, 4.95,
 
-  static const real_T a[12] = {
-	16.616882069954595, 16.6168820699546, //k
-    1.1180339887498989, 1.1180339887499,
-	-3.162277660168384, 3.162277660168376,
-    2.938330914554923, 2.9383309145549221,
-	2.0613551855486412,2.0613551855486438,
-	-1.622468529505869, 1.6224685295058661 };
+      // Y Coordinates (100 points, all 0.00m)
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+      0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00
+    };
+
+    static const real_T c[100] = {
+      // S_Path (matches X distance)
+      0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45,
+      0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95,
+      1.00, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.35, 1.40, 1.45,
+      1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95,
+      2.00, 2.05, 2.10, 2.15, 2.20, 2.25, 2.30, 2.35, 2.40, 2.45,
+      2.50, 2.55, 2.60, 2.65, 2.70, 2.75, 2.80, 2.85, 2.90, 2.95,
+      3.00, 3.05, 3.10, 3.15, 3.20, 3.25, 3.30, 3.35, 3.40, 3.45,
+      3.50, 3.55, 3.60, 3.65, 3.70, 3.75, 3.80, 3.85, 3.90, 3.95,
+      4.00, 4.05, 4.10, 4.15, 4.20, 4.25, 4.30, 4.35, 4.40, 4.45,
+      4.50, 4.55, 4.60, 4.65, 4.70, 4.75, 4.80, 4.85, 4.90, 4.95
+    };
+
+    static const real_T a[12] = { // K matrix (LQR Gains) - REVERSED POLARITY
+          // Format: { Right_Wheel_Gain, Left_Wheel_Gain }
+
+         -5.616882069954595, -5.6168820699546,    // State 1: Pitch Angle Error (e_phi)
+         -0.6180339887498989,-0.6180339887499,    // State 2: Path Displacement Error (e_s)
+          2.762277660168384, -2.762277660168376,  // State 3: Heading Error (e_theta)
+         -1.238330914554923, -1.2383309145549221, // State 4: Pitch Angular Rate (phi_dot)
+         -2.0613551855486412,-2.0613551855486438, // State 5: Forward Velocity Error (e_v)
+          1.622468529505869, -1.6224685295058661  // State 6: Yaw Rate (omega)
+        };
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
-   *  Inport: '<Root>/x_robot'
-   *  Inport: '<Root>/y_robot'
+   * Inport: '<Root>/x_robot'
+   * Inport: '<Root>/y_robot'
    */
   u_des_idx_1 = (rtInf);
   k_min = 0;
@@ -323,15 +331,15 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
   }
 
   /* MATLAB Function: '<Root>/CombinedLQR' incorporates:
-   *  Inport: '<Root>/omega'
-   *  Inport: '<Root>/phi'
-   *  Inport: '<Root>/phi_dot'
-   *  Inport: '<Root>/s'
-   *  Inport: '<Root>/theta'
-   *  Inport: '<Root>/v'
-   *  Inport: '<Root>/x_robot'
-   *  Inport: '<Root>/y_robot'
-   *  MATLAB Function: '<Root>/MATLAB Function'
+   * Inport: '<Root>/omega'
+   * Inport: '<Root>/phi'
+   * Inport: '<Root>/phi_dot'
+   * Inport: '<Root>/s'
+   * Inport: '<Root>/theta'
+   * Inport: '<Root>/v'
+   * Inport: '<Root>/x_robot'
+   * Inport: '<Root>/y_robot'
+   * MATLAB Function: '<Root>/MATLAB Function'
    */
   b[3] = rtU.phi_dot;
   u_des_idx_0 = ((((1.0 - u_des_idx_1) * b_0[k_prev] + u_des_idx_1 * b_0[k_next])
@@ -357,11 +365,30 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
       b[0] = 0.0;
     }
   }
-    /* ----------------------------------------- */
-  b[1] = rtU.s - ((1.0 - u_des_idx_1) * c[k_prev] + u_des_idx_1 * c[k_next]);
+
+  /* --- CUSTOM VELOCITY PROFILE (Spatial Ramp) --- */
+  /* Determine where the robot is along the path (S_target) */
+    real_T s_target = ((1.0 - u_des_idx_1) * c[k_prev] + u_des_idx_1 * c[k_next]);
+
+    // 1. Calculate the raw spatial error (this provides your required 5cm pull)
+    real_T raw_e_s = rtU.s - s_target;
+
+    // 2. Smooth the introduction of the spatial error to prevent startup jerk
+    static real_T smoothed_e_s = 0.0;
+
+    // Filter coefficient. Lower = gentler startup tip. Higher = sharper response.
+    real_T alpha_s = 0.02;
+
+    smoothed_e_s = ((1.0 - alpha_s) * smoothed_e_s) + (alpha_s * raw_e_s);
+
+    b[1] = smoothed_e_s; // Feed the smoothed spatial error to the LQR
+
+    // 3. Keep velocity error standard, letting the spatial pull do the work
+    b[4] = rtU.v - 0.15;
+    /* ---------------------------------------------- */
+
   u_des_idx_0 = rtU.theta - u_des_idx_0;
   b[2] = rt_atan2d_snf(sin(u_des_idx_0), cos(u_des_idx_0));
-  b[4] = rtU.v - fmin((1.0 - u_des_idx_1) + u_des_idx_1, 0.3);
   b[5] = rtU.omega;
   u_des_idx_0 = 0.0;
   u_des_idx_1 = 0.0;
@@ -385,10 +412,10 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
   }
 
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
-   *  MATLAB Function: '<Root>/CombinedLQR'
+   * MATLAB Function: '<Root>/CombinedLQR'
    */
-  u_des_idx_0 = rt_roundd_snf(u_des_idx_0 / 4.5 * 4000.0);
-  u_des_idx_1 = rt_roundd_snf(u_des_idx_1 / 4.5 * 4000.0);
+  u_des_idx_0 = rt_roundd_snf(u_des_idx_0 / 3 * 4000.0);
+  u_des_idx_1 = rt_roundd_snf(u_des_idx_1 / 3 * 4000.0);
   if (u_des_idx_0 != 0.0) {
     if (rtIsNaN(u_des_idx_0)) {
       dy = (rtNaN);
@@ -413,26 +440,26 @@ void ReferenceGeneratorxLQRCombinedxPWMGenerator_step(void)
     u_des_idx_1 += dy * 130.0;
   }
 
-  u_des_idx_0 = fmax(fmin(u_des_idx_0, 3500.0), -3500.0);
-  u_des_idx_1 = fmax(fmin(u_des_idx_1, 3500.0), -3500.0);
+  u_des_idx_0 = fmax(fmin(u_des_idx_0, 4000.0), -4000.0);
+  u_des_idx_1 = fmax(fmin(u_des_idx_1, 4000.0), -4000.0);
 
   /* Outport: '<Root>/RPWM_R' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.RPWM_R = fmax(0.0, u_des_idx_0);
 
   /* Outport: '<Root>/LPWM_R' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.LPWM_R = fmax(0.0, -u_des_idx_0);
 
   /* Outport: '<Root>/RPWM_L' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.RPWM_L = fmax(0.0, u_des_idx_1);
 
   /* Outport: '<Root>/LPWM_L' incorporates:
-   *  MATLAB Function: '<Root>/MATLAB Function1'
+   * MATLAB Function: '<Root>/MATLAB Function1'
    */
   rtY.LPWM_L = fmax(0.0, -u_des_idx_1);
 }

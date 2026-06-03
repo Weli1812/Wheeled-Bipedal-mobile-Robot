@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "ReferenceGeneratorxLQRCombinedxPWMGenerator.h" // Auto-generated Simulink header
 #include <string.h> // Required for memcpy
+#include <math.h>   // Required for fabs
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,7 +33,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define RX_BUFFER_SIZE 140  // Fits exactly 4 packets of 35 bytes
+#define PACKET_SIZE 35      // 2 Header + 32 Payload + 1 Checksum
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,6 +53,8 @@ DMA_HandleTypeDef hdma_usart1_rx;
 /* USER CODE BEGIN PV */
 // 1. STM32H7 CRITICAL: Force buffer to AXI SRAM so DMA and CPU Cache don't fight
 uint8_t * const uart_rx_buffer = (uint8_t*)0x24000000;
+uint16_t dma_tail = 0; // Ring buffer read pointer
+
 volatile uint8_t data_ready = 0; // Flag to trigger control loop
 volatile uint32_t last_packet_time = 0; // Failsafe watchdog timer
 /* USER CODE END PV */
@@ -68,7 +72,6 @@ void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 
 // 1. Error Recovery Callback (Catches Overrun/Framing Errors safely)
-// Directly clears the flags and restarts the DMA, avoiding HAL abort deadlocks.
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART1)
@@ -76,78 +79,8 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
     // 1. Clear all UART error flags (ORE, NE, FE, PE)
     __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF | UART_CLEAR_NEF | UART_CLEAR_FEF | UART_CLEAR_PEF);
 
-    // 2. Directly restart the DMA in "Hunting Mode" (1 byte)
-    HAL_UART_Receive_DMA(huart, uart_rx_buffer, 1);
-  }
-}
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  if (huart->Instance == USART1)
-  {
-    SCB_InvalidateDCache_by_Addr((uint32_t *)uart_rx_buffer, 64); // Increased cache line invalidation size just to be safe
-
-    // --- STATE 1: Normal 34-byte synchronized reading ---
-    if (huart->RxXferSize == 34)
-    {
-        if (uart_rx_buffer[0] == 0xAA && uart_rx_buffer[1] == 0x55)
-        {
-            float temp_states[8]; // Now an array of 8
-            memcpy(temp_states, &uart_rx_buffer[2], 32); // Copy 32 bytes of payload
-
-            // Map incoming ESP32 data to the new rtU structure.
-            // YOU MUST VERIFY THIS ORDER MATCHES WHAT THE ESP32 SENDS
-            rtU.x_robot = (double)temp_states[0];
-            rtU.y_robot = (double)temp_states[1];
-            rtU.phi     = (double)temp_states[2];
-            rtU.s       = (double)temp_states[3];
-            rtU.theta   = (double)temp_states[4];
-            rtU.v       = (double)temp_states[5];
-            rtU.omega   = (double)temp_states[6];
-            rtU.phi_dot = (double)temp_states[7];
-
-            data_ready = 1;
-
-            // Request next 34-byte packet
-            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 34);
-        }
-        else
-        {
-            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 1); // Fallback to hunting
-        }
-    }
-
-    // --- STATE 2: Hunting Mode ---
-    else if (huart->RxXferSize == 1)
-    {
-        static uint8_t last_byte = 0;
-        if (last_byte == 0xAA && uart_rx_buffer[0] == 0x55)
-        {
-            // Found headers. Request the remaining 32 bytes
-            HAL_UART_Receive_DMA(&huart1, &uart_rx_buffer[2], 32);
-            last_byte = 0;
-        }
-        else
-        {
-            last_byte = uart_rx_buffer[0];
-            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 1);
-        }
-    }
-
-    // --- STATE 3: Payload Recovery ---
-    else if (huart->RxXferSize == 32)
-    {
-        float temp_states[8];
-        memcpy(temp_states, &uart_rx_buffer[2], 32);
-
-        // Map them (same order as State 1)
-        rtU.x_robot = (double)temp_states[0];
-        // ... (map the rest) ...
-        rtU.phi_dot = (double)temp_states[7];
-
-        data_ready = 1;
-        HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 34); // Back to normal 34-byte stream
-    }
+    // 2. Restart the Circular DMA
+    HAL_UART_Receive_DMA(huart, uart_rx_buffer, RX_BUFFER_SIZE);
   }
 }
 /* USER CODE END 0 */
@@ -165,6 +98,10 @@ int main(void)
 
   /* MPU Configuration--------------------------------------------------------*/
   MPU_Config();
+
+  /* Enable the CPU Caches */
+  SCB_EnableICache();
+  SCB_EnableDCache();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -192,19 +129,78 @@ int main(void)
 
   // 1. SAFETY: Override CubeMX init and explicitly pull PE3 LOW to disable motors
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
-
+  HAL_Delay(5000);
   // 2. Initialize the Simulink controller
   ReferenceGeneratorxLQRCombinedxPWMGenerator_initialize();
 
-  // Kick off the asynchronous DMA listener to receive data from ESP32
-  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, 34);
+  // 3. Wait for ESP32 to boot, then kick off the DMA listener
+   HAL_Delay(500);  // ESP32 typically needs 200-500ms to boot and start transmitting
+  HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, RX_BUFFER_SIZE);
 
-  // 4. BLOCKING WAIT: Trap the STM32 here until the ESP32 sends the first packet
-  while(data_ready == 0)
-  {
-      // Waiting for ESP32 connection...
-      HAL_Delay(10);
-  }
+  // 4. BLOCKING WAIT with self-healing: restart DMA periodically if no packet arrives
+    uint32_t wait_start = HAL_GetTick();
+
+    while(data_ready == 0)
+    {
+        HAL_Delay(10); // Prevent tight loop lockup
+
+        uint16_t dma_head = RX_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+        uint16_t available = (dma_head >= dma_tail) ? (dma_head - dma_tail) : (RX_BUFFER_SIZE - dma_tail + dma_head);
+
+        while(available >= PACKET_SIZE)
+        {
+            uint8_t b1 = uart_rx_buffer[dma_tail];
+            uint8_t b2 = uart_rx_buffer[(dma_tail + 1) % RX_BUFFER_SIZE];
+
+            if (b1 == 0xAA && b2 == 0x55)
+            {
+                uint8_t packet[PACKET_SIZE];
+                for(int i = 0; i < PACKET_SIZE; i++)
+                {
+                    packet[i] = uart_rx_buffer[(dma_tail + i) % RX_BUFFER_SIZE];
+                }
+
+                // Calculate XOR Checksum over the 32 bytes of payload
+                uint8_t calc_crc = 0;
+                for(int i = 2; i < 34; i++)
+                {
+                    calc_crc ^= packet[i];
+                }
+
+                if (calc_crc == packet[34])
+                {
+                    float temp_states[8];
+                    memcpy(temp_states, &packet[2], 32);
+
+                    rtU.x_robot = (double)temp_states[0];
+                    rtU.y_robot = (double)temp_states[1];
+                    rtU.phi     = (double)temp_states[2];
+                    rtU.s       = (double)temp_states[3];
+                    rtU.theta   = (double)temp_states[4];
+                    rtU.v       = (double)temp_states[5];
+                    rtU.omega   = (double)temp_states[6];
+                    rtU.phi_dot = (double)temp_states[7];
+
+                    data_ready = 1;
+                    dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
+                    available -= PACKET_SIZE;
+                    continue;
+                }
+            }
+            // Bad header or CRC: slide window by 1 byte
+            dma_tail = (dma_tail + 1) % RX_BUFFER_SIZE;
+            available--;
+        }
+
+        // Self-healing block: Every 200ms, abort and restart DMA in case it silently died
+        if (HAL_GetTick() - wait_start > 200)
+        {
+            HAL_UART_AbortReceive(&huart1);
+            dma_tail = 0; // CRITICAL: Reset circular buffer tail to match new DMA Head
+            HAL_UART_Receive_DMA(&huart1, uart_rx_buffer, RX_BUFFER_SIZE);
+            wait_start = HAL_GetTick();
+        }
+    }
 
   // ESP32 IS CONNECTED! Clear the flag from the first packet
   data_ready = 0;
@@ -225,17 +221,60 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
+  {
+      // 1. Process Ring Buffer for new packets
+      uint16_t dma_head = RX_BUFFER_SIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+      uint16_t available = (dma_head >= dma_tail) ? (dma_head - dma_tail) : (RX_BUFFER_SIZE - dma_tail + dma_head);
+
+      while(available >= PACKET_SIZE)
       {
-        // CRITICAL: Only run LQR math when NEW data arrives from the ESP32.
-        if (data_ready == 1)
-        {
+          uint8_t b1 = uart_rx_buffer[dma_tail];
+          uint8_t b2 = uart_rx_buffer[(dma_tail + 1) % RX_BUFFER_SIZE];
+
+          if (b1 == 0xAA && b2 == 0x55)
+          {
+              uint8_t packet[PACKET_SIZE];
+              for(int i = 0; i < PACKET_SIZE; i++)
+              {
+                  packet[i] = uart_rx_buffer[(dma_tail + i) % RX_BUFFER_SIZE];
+              }
+
+              uint8_t calc_crc = 0;
+              for(int i = 2; i < 34; i++) calc_crc ^= packet[i];
+
+              if (calc_crc == packet[34])
+              {
+                  float temp_states[8];
+                  memcpy(temp_states, &packet[2], 32);
+
+                  rtU.x_robot = (double)temp_states[0];
+                  rtU.y_robot = (double)temp_states[1];
+                  rtU.phi     = (double)temp_states[2];
+                  rtU.s       = (double)temp_states[3];
+                  rtU.theta   = (double)temp_states[4];
+                  rtU.v       = (double)temp_states[5];
+                  rtU.omega   = (double)temp_states[6];
+                  rtU.phi_dot = (double)temp_states[7];
+
+                  data_ready = 1;
+                  dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
+                  available -= PACKET_SIZE;
+                  continue;
+              }
+          }
+          dma_tail = (dma_tail + 1) % RX_BUFFER_SIZE;
+          available--;
+      }
+
+      // 2. Control Loop Execution
+      if (data_ready == 1)
+      {
           // Acknowledge the flag and update timestamp
           data_ready = 0;
           last_packet_time = HAL_GetTick();
 
           // -------------------------------------------------------------
           // FALL DETECTION: Check if pitch is outside controllable range
-          // Assuming rtU.state_x[0] is Pitch in radians (0.7 rad ≈ 40 deg)
           // -------------------------------------------------------------
           if (fabs(rtU.phi) > 0.7)
           {
@@ -247,7 +286,6 @@ int main(void)
               __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);
               __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
               __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
-              // Note: We DO NOT call Simulink_step() here. We just wait.
           }
           else
           {
@@ -258,17 +296,14 @@ int main(void)
               ReferenceGeneratorxLQRCombinedxPWMGenerator_step();
 
               // 2. Apply generated PWM to hardware timers dynamically
-              // Right Motor (TIM1) -> PA9 and PA10
               __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R); // Right wheel forward
               __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.LPWM_R); // Right wheel reverse
-
-              // Left Motor (TIM8) -> PC6 and PC7
-              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_L); // Left wheel forward
-              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.LPWM_L); // Left wheel reverse
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.LPWM_L); // Left wheel forward
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_L); // Left wheel reverse
           }
-        }
-        else
-        {
+      }
+      else
+      {
           // Failsafe Watchdog: If no packet received for > 100ms, shutdown motors
           if (HAL_GetTick() - last_packet_time > 100)
           {
@@ -278,8 +313,8 @@ int main(void)
             __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 0);
             __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
           }
-        }
       }
+  }
   /* USER CODE END 3 */
 }
 
@@ -528,7 +563,7 @@ void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
+  if (HAL_UARTEx_EnableFifoMode(&huart1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -548,7 +583,7 @@ void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 
 }
@@ -572,7 +607,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PE3 */
   GPIO_InitStruct.Pin = GPIO_PIN_3;
@@ -590,7 +625,6 @@ void MX_GPIO_Init(void)
 /* USER CODE END 4 */
 
  /* MPU Configuration */
-
 void MPU_Config(void)
 {
   MPU_Region_InitTypeDef MPU_InitStruct = {0};
@@ -598,15 +632,17 @@ void MPU_Config(void)
   /* Disables the MPU */
   HAL_MPU_Disable();
 
-  /** Initializes and configures the Region and the memory to be protected
+  /** * Sets AXI SRAM (0x24000000) specifically to NOT CACHEABLE
+   * Allows the rest of the 4GB space to benefit from global CPU cache.
   */
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-  MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-  MPU_InitStruct.BaseAddress = 0x0;
-  MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-  MPU_InitStruct.SubRegionDisable = 0x87;
-  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
+  MPU_InitStruct.Number = MPU_REGION_NUMBER1;
+  MPU_InitStruct.BaseAddress = 0x24000000;
+  // CONFLICT RESOLUTION: Increased to 256B because your new RX_BUFFER_SIZE is 140 bytes
+  MPU_InitStruct.Size = MPU_REGION_SIZE_256B;
+  MPU_InitStruct.SubRegionDisable = 0x00;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;
+  MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
   MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
   MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
   MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
@@ -615,7 +651,6 @@ void MPU_Config(void)
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
-
 }
 
 /**

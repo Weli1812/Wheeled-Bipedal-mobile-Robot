@@ -1,4 +1,4 @@
-16:22:08 **** Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
+06:47:59 **** Incremental Build of configuration Debug for project DriveControlxLocalisationxStabilityxSTM ****
 cmake --build "build\\Debug" 
 [1/2] Building C object CMakeFiles/DriveControlxLocalisationxStabilityxSTM.dir/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c.obj
 C:/Users/hassa/OneDrive/Desktop/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/DriveControlxLocalisationxStabilityxSTM/Core/Src/ReferenceGeneratorxLQRCombinedxPWMGenerator.c:147:18: warning: 'rtIsNaNF' defined but not used [-Wunused-function]
@@ -40,8 +40,8 @@ Memory region         Used Size  Region Size  %age Used
 
          ITCMRAM:           0 B        64 KB      0.00%
 
-           FLASH:       54176 B       128 KB     41.33%
+           FLASH:       56000 B       128 KB     42.72%
 
 
-16:22:14 Build Finished. 0 errors, 9 warnings. (took 5s.806ms)
+06:48:24 Build Finished. 0 errors, 9 warnings. (took 25s.344ms)
 

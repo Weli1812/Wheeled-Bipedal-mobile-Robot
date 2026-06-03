@@ -21,8 +21,10 @@ RT_MODEL *const rtM = &rtM_;
 
 extern real_T rt_roundd_snf(real_T u);
 /* External tuning variables passed from main.c UART DMA */
-extern volatile float dynamic_K_gains[6];
-extern volatile float dynamic_KI_PHI;
+
+extern volatile float esp_wheel_speed_r;
+extern volatile float esp_wheel_speed_l;
+
 real_T rt_roundd_snf(real_T u)
 {
     real_T y;
@@ -85,90 +87,111 @@ void Simulink_step(void)
     const int32_T DEADBAND_OFFSET = 130;
 
     /* Updated LQR Gain Matrix (K) */
-    static const real_T a[12] = {
-  		  -7.25 ,   -7.25 ,  /* State 1 (phi)    : tau_r, tau_l */
-           -0.123,  -0.123,  /* State 2 (s)      : tau_r, tau_l */
-            0.00,  -0.00,  /* State 3 (theta)  : tau_r, tau_l */
-           -0.80,  -0.80,  /* State 4 (phi_dot): tau_r, tau_l */
-           -0.2,  -0.2,  /* State 5 (v)      : tau_r, tau_l */
-            0.000,  -0.000   /* State 6 (omega)  : tau_r, tau_l */
+    /* Hardcoded LQR Gain Matrix (K) - 2x6 for Right and Left motors */
+        static const real_T K_GAINS[2][6] = {
+            // State 1(phi), State 2(s), State 3(theta), State 4(phi_dot), State 5(v), State 6(omega)
+            {0.0,            0.0,        0.0,            0.0,              0.0,        0.0}, /* Row 0: Right Motor */
+            {0.0,            0.0,        0.0,            0.0,              0.0,        0.0}  /* Row 1: Left Motor  */
         };
-    /* 1. Extract states and multiply by LQR gain matrix */
-    // ... [Keep the dt and DEADBAND_OFFSET calculations as they were] ...
 
-        /* 1. Extract states and multiply by dynamic LQR gain array */
-        u_idx_0 = 0.0;
-        u_idx_1 = 0.0;
+        /* 1. Extract states and multiply by hardcoded LQR gain matrix */
+        u_idx_0 = 0.0; // Desired torque Right
+        u_idx_1 = 0.0; // Desired torque Left
         for (pwm_r = 0; pwm_r < 6; pwm_r++) {
             tmp = rtU.state_x[pwm_r];
-            // Apply the same gain to both left and right wheels
-            u_idx_0 += (real_T)dynamic_K_gains[pwm_r] * tmp;
-            u_idx_1 += (real_T)dynamic_K_gains[pwm_r] * tmp;
+            u_idx_0 += K_GAINS[0][pwm_r] * tmp; // Apply Row 0 to Right wheel
+            u_idx_1 += K_GAINS[1][pwm_r] * tmp; // Apply Row 1 to Left wheel
         }
 
         /* ── INTEGRATOR ────────────────────────────────────────────────────── */
-        real_T phi = rtU.state_x[0];
+                real_T phi = rtU.state_x[0];
 
-        /* Step A — reset on fall */
-        if (fabs(phi) > INT_RESET_RAD) {
-            phi_integral = 0.0;
-        }
+                /* Step A — reset on fall */
+                if (fabs(phi) > INT_RESET_RAD) {
+                    phi_integral = 0.0;
+                }
 
-        /* Step B — accumulate */
-        phi_integral += phi * dt;
+                /* Step B — accumulate */
+                phi_integral += phi * dt;
 
-        /* Step C — anti-windup: clamp integral in torque units */
-        const real_T int_clamp_torque = (real_T)INT_CLAMP_PWM * 6.0 / 4000.0;
+                /* Step C — anti-windup: clamp integral in torque units */
+                const real_T int_clamp_torque = (real_T)INT_CLAMP_PWM * 6.0 / 4000.0;
 
-        // Use dynamic_KI_PHI safely (avoiding divide-by-zero)
-        if (dynamic_KI_PHI > 0.0001f) {
-            if (phi_integral >  int_clamp_torque / (real_T)dynamic_KI_PHI)
-                phi_integral =  int_clamp_torque / (real_T)dynamic_KI_PHI;
-            if (phi_integral < -int_clamp_torque / (real_T)dynamic_KI_PHI)
-                phi_integral = -int_clamp_torque / (real_T)dynamic_KI_PHI;
-        } else {
-            // If KI_PHI is essentially 0, zero out the accumulated integral
-            phi_integral = 0.0;
-        }
+                if (KI_PHI > 0.0001f) {
+                        if (phi_integral >  int_clamp_torque / (real_T)KI_PHI)
+                            phi_integral =  int_clamp_torque / (real_T)KI_PHI;
+                        if (phi_integral < -int_clamp_torque / (real_T)KI_PHI)
+                            phi_integral = -int_clamp_torque / (real_T)KI_PHI;
+                    } else {
+                        phi_integral = 0.0;
+                    }
 
-        /* Add integrator contribution to both motor torque demands */
-        real_T ki_contribution = (real_T)dynamic_KI_PHI * phi_integral;
-        u_idx_0 -= ki_contribution;
-        u_idx_1 -= ki_contribution;
+                    /* Add integrator contribution to both motor torque demands */
+                    real_T ki_contribution = (real_T)KI_PHI * phi_integral;
 
-        /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
-        // ... [Rest of the file remains unchanged] ...
+                        /* u_idx_0 and u_idx_1 now represent tau_r_des and tau_l_des */
+                        u_idx_0 -= ki_contribution;
+                        u_idx_1 -= ki_contribution;
 
-    /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
-    int32_T raw_pwm_r = (int32_T)rt_roundd_snf(u_idx_0 / 4.5 * 4000.0);
-    int32_T raw_pwm_l = (int32_T)rt_roundd_snf(u_idx_1 / 4.5 * 4000.0);
 
-    /* 3. Apply Deadband Compensation (only if LQR demands movement) */
-    if (raw_pwm_r > 0)       raw_pwm_r += DEADBAND_OFFSET;
-    else if (raw_pwm_r < 0)  raw_pwm_r -= DEADBAND_OFFSET;
+                /* ── VOLTAGE/SPEED TO PWM CONVERSION ───────────────────────────────── */
 
-    if (raw_pwm_l > 0)       raw_pwm_l += DEADBAND_OFFSET;
-    else if (raw_pwm_l < 0)  raw_pwm_l -= DEADBAND_OFFSET;
+                        /* NFP-42GP-775-EN Motor Parameters */
+                        const real_T K_3     = 0.125;
+                        const real_T K_4     = 0.215;
+                        const real_T max_pwm = 4000;
+                        const real_T V_batt = 22.5;
+                        /* 1. Fetch actual wheel speeds from ESP32 payload */
+                        real_T omega_wheel_r = (real_T)esp_wheel_speed_r;
+                        real_T omega_wheel_l = (real_T)esp_wheel_speed_l;
 
-    /* 4. Clamp safely to hardware limits */
-    pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, 4000.0), -4000.0);
-    pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, 4000.0), -4000.0);
+                        /* 2. Calculate Voltages (V = I*R + Back_EMF)
+                              u_idx_0 and u_idx_1 are your desired torques (tau_r_des, tau_l_des) */
+                        real_T v_r = (u_idx_0 + K_3 * omega_wheel_r) / K_4;
+                        real_T v_l = (u_idx_1 + K_3 * omega_wheel_l) / K_4;
 
-    /* 5. Route to Outports (Direction Control) */
-    if (pwm_r >= 0) { rtY.RPWM_R  = pwm_r;           rtY.RPWM_R1 = 0.0; }
-    else            { rtY.RPWM_R  = 0.0;              rtY.RPWM_R1 = fabs((real_T)pwm_r); }
+                        /* 3. Convert to PWM */
+                        int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm);
+                        int32_T raw_pwm_l = (int32_T)rt_roundd_snf((v_l / V_batt) * max_pwm);
 
-    if (pwm_l >= 0) { rtY.RPWM_R2 = pwm_l;           rtY.RPWM_R3 = 0.0; }
-    else            { rtY.RPWM_R2 = 0.0;              rtY.RPWM_R3 = fabs((real_T)pwm_l); }
-}
+                        /* 4. Apply Deadband Compensation */
+                        if (raw_pwm_r > 0)       raw_pwm_r += DEADBAND_OFFSET;
+                        else if (raw_pwm_r < 0)  raw_pwm_r -= DEADBAND_OFFSET;
 
-/* Model initialize function */
-void Simulink_initialize(void)
-{
-    phi_integral   = 0.0;
-    last_step_tick = HAL_GetTick();
-}
-void Simulink_reset_integrator(void)
-{
-    phi_integral = 0.0;
-}
+                        if (raw_pwm_l > 0)       raw_pwm_l += DEADBAND_OFFSET;
+                        else if (raw_pwm_l < 0)  raw_pwm_l -= DEADBAND_OFFSET;
+
+                        /* 5. Clamp safely to hardware limits */
+                        pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, max_pwm), -max_pwm);
+                        pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, max_pwm), -max_pwm);
+
+                        /* 6. Route to Outports (Direction Control) */
+                        if (pwm_r >= 0) {
+                            rtY.RPWM_R  = (real_T)pwm_r;
+                            rtY.RPWM_R1 = 0.0;
+                        } else {
+                            rtY.RPWM_R  = 0.0;
+                            rtY.RPWM_R1 = fabs((real_T)pwm_r);
+                        }
+
+                        if (pwm_l >= 0) {
+                            rtY.RPWM_R2 = (real_T)pwm_l;
+                            rtY.RPWM_R3 = 0.0;
+                        } else {
+                            rtY.RPWM_R2 = 0.0;
+                            rtY.RPWM_R3 = fabs((real_T)pwm_l);
+                        }
+                        // ... end of Simulink_step function ...
+                        } // This closes Simulink_step
+
+                        void Simulink_initialize(void)
+                        {
+                            phi_integral   = 0.0;
+                            last_step_tick = HAL_GetTick();
+                        }
+
+                        void Simulink_reset_integrator(void)
+                        {
+                            phi_integral = 0.0;
+                        }
+                        // DELETE ANY EXTRA BRACES HERE. There should be no more code or braces.
