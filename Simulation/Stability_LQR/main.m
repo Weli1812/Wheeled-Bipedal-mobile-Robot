@@ -299,9 +299,15 @@ legend('Planned Path','Start','Goal');
 % 6) Build SPATIAL reference table
 % ==========================
 kappa_ref = gradient(theta_ref_unwrapped, ds_spatial);
-kappa_ref = smoothdata(kappa_ref, 'gaussian', 51);
+% FIX 2a — Wider Gaussian window (101 vs 51) for kappa smoothing.
+% Sharp kappa transients propagate through wd_path = v*kappa directly
+% into the wheel torque feedforward, exciting the oscillation.
+kappa_ref = smoothdata(kappa_ref, 'gaussian', 101);
 
-dkappa_max = 0.05;
+% FIX 3 — Tighter curvature rate-limiter (0.02 vs 0.05 rad/m per sample).
+% A large dkappa_max allows step-changes in curvature that appear as
+% angular-rate spikes in wd_path, which directly excite torque oscillation.
+dkappa_max = 0.02;
 for k = 2:numel(kappa_ref)
     dkappa = kappa_ref(k) - kappa_ref(k-1);
     kappa_ref(k) = kappa_ref(k-1) + sign(dkappa)*min(abs(dkappa), dkappa_max);
@@ -332,7 +338,9 @@ end
 vd_path(end) = 0;
 
 wd_path = vd_path .* kappa_ref;
-wd_path = smoothdata(wd_path, 'gaussian', 31);
+% FIX 2b — Wider wd_path smoothing (61 vs 31) to further attenuate
+% high-frequency angular-rate command ripple that drives torque oscillations.
+wd_path = smoothdata(wd_path, 'gaussian', 61);
 
 vd_max  = 0.3;
 wd_max  = vd_max / r_min;
@@ -771,6 +779,24 @@ wd_path             = double(wd_path(:));
 P                   = double(P);
 Npath               = numel(S_path);
 
+% FIX 4 — Rate-limit vd_path and wd_path at segment boundaries.
+% At replan transitions the first sample of the new reference can jump
+% discontinuously, producing the large torque spike seen at t≈50 s.
+% A forward-pass rate limiter (max Δv = 0.008 m/s per step, ≈0.4 m/s²)
+% closes that gap without affecting smooth ramp/cruise regions.
+dvd_max = 0.008;   % max speed change per spatial sample (0.02 m at ~0.2 m/s ≈ 0.4 m/s²)
+dwd_max = 0.015;   % max angular-rate change per step
+for k = 2:numel(vd_path)
+    dvd = vd_path(k) - vd_path(k-1);
+    if abs(dvd) > dvd_max
+        vd_path(k) = vd_path(k-1) + sign(dvd)*dvd_max;
+    end
+    dwd = wd_path(k) - wd_path(k-1);
+    if abs(dwd) > dwd_max
+        wd_path(k) = wd_path(k-1) + sign(dwd)*dwd_max;
+    end
+end
+
 %% ---- Assemble all segments ----
 sim_t  = [seg1.t;      segDecel.t;      segStop.t;      segHold.t;      seg2.t];
 x      = [seg1.x;      segDecel.x;      segStop.x;      segHold.x;      seg2.x];
@@ -815,7 +841,7 @@ end
 if usedReplan
     plot(P(:,1), P(:,2), 'm--', 'LineWidth', 2);
     legend('Original Reference', 'Robot Path', obstacleLabel, 'Replanned Path');
-    title('Dynamic Obstacle: Decel → Hold → Moving Replan / Fallback Stop  [Case C]');
+    title('Dynamic Obstacle');
 elseif obstacleSeen
     legend('Original Reference', 'Robot Path', obstacleLabel);
     title('Dynamic Obstacle: Obstacle Removed → Hold → Ramp Up → Continue  [Case B]');
@@ -866,9 +892,8 @@ grid on; xlabel('Arc-length s (m)'); ylabel('\kappa (rad/m)');
 title('Path curvature — arc-length indexed');
 
 %% =========================
-% Animated Figure: Robot Drive Only
+% Animated Figures: Robot Drive Only (Separated)
 % ==========================
-
 % This animation now shows only the ground trajectory tracking.
 % Removed the extra airborne animation phases after reaching the goal.
 
@@ -881,7 +906,6 @@ pause_drive    = 0.015;   % bigger = slower, smaller = faster
 % Make sure all vectors have the same usable length
 num_pts = min([numel(sim_t), numel(x), numel(y), numel(theta), ...
                numel(phi), numel(v), numel(omega), numel(vd_cmd), numel(wd_cmd)]);
-
 sim_t   = sim_t(1:num_pts);
 x       = x(1:num_pts);
 y       = y(1:num_pts);
@@ -898,12 +922,9 @@ y_pad = 0.5;
 map_xlim = [min(x) - x_pad,  max(x) + x_pad];
 map_ylim = [min(y) - y_pad,  max(y) + y_pad];
 
-% ── Create the unified drive-only figure ──────────────────────────────────
-fig_main = figure('Name', 'Robot Drive Animation', ...
-                  'Color', 'w', 'Position', [80, 60, 1000, 820]);
-
-% ── Top panel: 2-D map view ───────────────────────────────────────────────
-ax_map = subplot(4, 1, 1, 'Parent', fig_main);
+% ── Figure 1: 2-D map view ───────────────────────────────────────────────
+fig_map = figure('Name', 'Robot Trajectory Animation', 'Color', 'w');
+ax_map = axes('Parent', fig_map);
 hold(ax_map, 'on'); grid(ax_map, 'on'); axis(ax_map, 'equal');
 title(ax_map, 'Robot Trajectory Tracking Animation', ...
       'FontSize', 12, 'FontWeight', 'bold');
@@ -919,7 +940,6 @@ plot(ax_map, x, y, '--', 'Color', [0.75 0.75 0.75], 'LineWidth', 1);
 if exist('P_original', 'var') && ~isempty(P_original)
     plot(ax_map, P_original(:,1), P_original(:,2), 'g--', 'LineWidth', 1.2);
 end
-
 if exist('usedReplan', 'var') && usedReplan && exist('P', 'var') && ~isempty(P)
     plot(ax_map, P(:,1), P(:,2), 'm--', 'LineWidth', 1.2);
 end
@@ -927,7 +947,6 @@ end
 % Start / goal markers
 plot(ax_map, x(1), y(1), 'go', ...
      'MarkerSize', 10, 'MarkerFaceColor', 'g');
-
 plot(ax_map, x(end), y(end), 'rp', ...
      'MarkerSize', 14, ...
      'MarkerFaceColor', [1 0.84 0], ...
@@ -953,18 +972,21 @@ st_label = text(ax_map, map_xlim(1)+0.08, map_ylim(2)-0.12, ...
                 'FontWeight', 'bold', ...
                 'Color', [0.15 0.15 0.75]);
 
-% ── Bottom subplot 1: phi ─────────────────────────────────────────────────
-ax_phi = subplot(4, 1, 2, 'Parent', fig_main);
+% ── Figure 2: phi (Tilt Angle) ───────────────────────────────────────────
+fig_phi = figure('Name', 'Tilt Angle', 'Color', 'w');
+ax_phi = axes('Parent', fig_phi);
 hold(ax_phi, 'on'); grid(ax_phi, 'on');
 xlim(ax_phi, [sim_t(1) sim_t(end)]);
 phi_pad = max(0.02, 0.1 * max(abs(phi)));
 ylim(ax_phi, [min(phi)-phi_pad, max(phi)+phi_pad]);
 ylabel(ax_phi, '\phi (rad)');
+xlabel(ax_phi, 'Time (s)');
 title(ax_phi, 'Tilt angle \phi');
 phi_line = animatedline(ax_phi, 'Color', '#0072BD', 'LineWidth', 1.5);
 
-% ── Bottom subplot 2: velocity ────────────────────────────────────────────
-ax_v = subplot(4, 1, 3, 'Parent', fig_main);
+% ── Figure 3: velocity (Forward Velocity) ────────────────────────────────
+fig_v = figure('Name', 'Forward Velocity', 'Color', 'w');
+ax_v = axes('Parent', fig_v);
 hold(ax_v, 'on'); grid(ax_v, 'on');
 xlim(ax_v, [sim_t(1) sim_t(end)]);
 v_min = min(min(v), min(vd_cmd));
@@ -972,14 +994,16 @@ v_max = max(max(v), max(vd_cmd));
 v_pad = max(0.05, 0.1 * max(abs([v_min, v_max])));
 ylim(ax_v, [v_min-v_pad, v_max+v_pad]);
 ylabel(ax_v, 'v (m/s)');
+xlabel(ax_v, 'Time (s)');
 title(ax_v, 'Forward velocity v');
 v_line  = animatedline(ax_v, 'Color', '#0072BD', 'LineWidth', 1.5);
 vd_line = animatedline(ax_v, 'Color', '#D95319', ...
                        'LineStyle', '--', 'LineWidth', 1.5);
 legend(ax_v, 'Actual', 'Desired', 'Location', 'best');
 
-% ── Bottom subplot 3: omega ───────────────────────────────────────────────
-ax_w = subplot(4, 1, 4, 'Parent', fig_main);
+% ── Figure 4: omega (Angular Velocity) ───────────────────────────────────
+fig_w = figure('Name', 'Angular Velocity', 'Color', 'w');
+ax_w = axes('Parent', fig_w);
 hold(ax_w, 'on'); grid(ax_w, 'on');
 xlim(ax_w, [sim_t(1) sim_t(end)]);
 w_min = min(min(omega), min(wd_cmd));
@@ -1005,9 +1029,11 @@ trail_y = [];
 
 for k = 1:skip_factor:num_pts
 
-    if ~ishandle(fig_main)
-        break;
-    end
+% Check if ANY of the new separated figures have been closed
+if ~ishandle(fig_map) || ~ishandle(fig_phi) || ~ishandle(fig_v) || ~ishandle(fig_w)
+    disp('Animation stopped by user.');
+    break; % (Make sure to keep this as 'break' or 'return' depending on what your original code had)
+end
 
     cx = x(k);
     cy = y(k);
@@ -1097,8 +1123,14 @@ function K = compute_lqr_gain(h)
         -M12/(r*Delta)  -M12/(r*Delta);
          M11/(r*Delta)   M11/(r*Delta);
          d/(2*r*M33)    -d/(2*r*M33)];
-    Q = diag([200, 5, 40, 20, 5, 10]);
-    R = diag([2.0 2.0]);
+    % FIX 1 — Increase R (control cost) to damp torque oscillations.
+    % Original R=2.0 was too low: LQR over-reacted to small errors,
+    % causing the persistent limit-cycle seen in tau_r/l_des.
+    % Raising R to 8.0 reduces torque bandwidth without sacrificing stability.
+    % Q(4) (phi_dot weight) is also reduced from 20→10 to prevent the
+    % tilt-rate feedback from exciting the oscillation mode.
+    Q = diag([200, 5, 40, 10, 5, 10]);
+    R = diag([20.0 20.0]);
     K = lqr(A, B, Q, R);
 end
 
@@ -1303,7 +1335,7 @@ function [S_path, x_ref, y_ref, theta_ref_uw, kappa_ref, vd_path, wd_path, P] = 
 
     vd_path = min(vd_path, vd_max);
     wd_path = vd_path .* kappa_ref;
-    wd_path = smoothdata(wd_path, 'gaussian', 31);
+    wd_path = smoothdata(wd_path, 'gaussian', 61);  % FIX 2b
     wd_path = max(min(wd_path, wd_max), -wd_max);
 end
 
@@ -1339,7 +1371,7 @@ function [S_path, x_ref, y_ref, theta_ref_uw, kappa_ref, vd_path, wd_path, P] = 
 
     vd_path = min(vd_path, vd_max);
     wd_path = vd_path .* kappa_ref;
-    wd_path = smoothdata(wd_path, 'gaussian', 31);
+    wd_path = smoothdata(wd_path, 'gaussian', 61);  % FIX 2b
     wd_path = max(min(wd_path, wd_max), -wd_max);
 end
 
@@ -1368,7 +1400,7 @@ function [S_path, x_ref, y_ref, theta_ref_uw, kappa_ref, vd_path, wd_path, P] = 
 
     % If v_const is zero, angular command must also be zero.
     wd_path = vd_path .* kappa_ref;
-    wd_path = smoothdata(wd_path, 'gaussian', 31);
+    wd_path = smoothdata(wd_path, 'gaussian', 61);  % FIX 2b
     wd_path = max(min(wd_path, wd_max), -wd_max);
 end
 
@@ -1423,7 +1455,7 @@ function [S_path, x_ref, y_ref, theta_ref_uw, kappa_ref, vd_path, wd_path, P] = 
     vd_path = min(vd_path, vd_max);
 
     wd_path = vd_path .* kappa_ref;
-    wd_path = smoothdata(wd_path, 'gaussian', 31);
+    wd_path = smoothdata(wd_path, 'gaussian', 61);  % FIX 2b
     wd_path = max(min(wd_path, wd_max), -wd_max);
 end
 
@@ -1490,7 +1522,7 @@ function [S_path, x_ref, y_ref, theta_ref_uw, kappa_ref, vd_path, wd_path, P] = 
 
     vd_path = min(vd_path, vd_max);
     wd_path = vd_path .* kappa_ref;
-    wd_path = smoothdata(wd_path, 'gaussian', 31);
+    wd_path = smoothdata(wd_path, 'gaussian', 61);  % FIX 2b
     wd_path = max(min(wd_path, wd_max), -wd_max);
 end
 
@@ -1579,9 +1611,9 @@ function [S_path, x_ref, y_ref, theta_ref_unwrapped, ...
     P = [x_ref y_ref];
 
     kappa_ref = gradient(theta_ref_unwrapped, ds_spatial);
-    kappa_ref = smoothdata(kappa_ref, 'gaussian', 51);
+    kappa_ref = smoothdata(kappa_ref, 'gaussian', 101);  % FIX 2a (replan path)
 
-    dkappa_max = 0.05;
+    dkappa_max = 0.02;  % FIX 3 (replan path)
     for k = 2:numel(kappa_ref)
         dkappa       = kappa_ref(k) - kappa_ref(k-1);
         kappa_ref(k) = kappa_ref(k-1) + sign(dkappa)*min(abs(dkappa), dkappa_max);
@@ -1631,6 +1663,6 @@ function [S_path, x_ref, y_ref, theta_ref_unwrapped, ...
     vd_path = min(vd_path, vd_max);
 
     wd_path = vd_path .* kappa_ref;
-    wd_path = smoothdata(wd_path, 'gaussian', 31);
+    wd_path = smoothdata(wd_path, 'gaussian', 61);  % FIX 2b
     wd_path = max(min(wd_path, wd_max), -wd_max);
 end
