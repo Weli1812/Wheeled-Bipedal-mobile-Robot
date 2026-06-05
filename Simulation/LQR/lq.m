@@ -405,7 +405,7 @@ B = [1 0;
      0 0;
      0 1];
 
-Q = diag([30 50 15]);
+Q = diag([50 50 15]);
 R = diag([10 3]);
 
 K = lqr(A, B, Q, R);
@@ -486,7 +486,7 @@ for k = 1:step:length(x)
         'VData', sin(theta(k)));
     set(traj, 'XData', x(1:k), 'YData', y(1:k));
     drawnow;
-    pause(0.00001);
+    pause(0.1);
 end
 
 %%
