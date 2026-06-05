@@ -1,0 +1,6 @@
+﻿-I"D:\GIU\Sixth semester\Automation Project\Wheeled-Bipedal-mobile-Robot\Simulation\LQR"
+-I"D:\GIU\Sixth semester\Automation Project\Wheeled-Bipedal-mobile-Robot\Simulation\LQR\Traj2_grt_rtw"
+-I"C:\Program Files\MATLAB\R2025b\extern\include"
+-I"C:\Program Files\MATLAB\R2025b\simulink\include"
+-I"C:\Program Files\MATLAB\R2025b\rtw\c\src"
+-I"C:\Program Files\MATLAB\R2025b\rtw\c\src\ext_mode\common"

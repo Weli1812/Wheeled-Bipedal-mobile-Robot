@@ -1,0 +1,119 @@
+/*
+ * Academic License - for use in teaching, academic research, and meeting
+ * course requirements at degree granting institutions only.
+ *
+ * File: Simulink.c
+ */
+
+#include "Simulink.h"
+#include <math.h>
+#include "rtwtypes.h"
+
+/* External inputs (root inport signals with default storage) */
+ExtU rtU;
+
+/* External outputs (root outports fed by signals with default storage) */
+ExtY rtY;
+
+/* Real-time model */
+static RT_MODEL rtM_;
+RT_MODEL *const rtM = &rtM_;
+extern real_T rt_roundd_snf(real_T u);
+
+real_T rt_roundd_snf(real_T u)
+{
+  real_T y;
+  if (fabs(u) < 4.503599627370496E+15) {
+    if (u >= 0.5) {
+      y = floor(u + 0.5);
+    } else if (u > -0.5) {
+      y = u * 0.0;
+    } else {
+      y = ceil(u - 0.5);
+    }
+  } else {
+    y = u;
+  }
+  return y;
+}
+
+/* Model step function */
+void Simulink_step(void)
+{
+  real_T tmp;
+  real_T u_idx_0;
+  real_T u_idx_1;
+  int32_T pwm_l;
+  int32_T pwm_r;
+
+  // TUNE THIS: Minimum PWM required to overcome 775 motor static friction.
+  const int32_T DEADBAND_OFFSET = 700;
+
+  /* Updated LQR Gain Matrix (K) for Phase 1 Tuning (Pitch Stabilization) */
+  static const real_T a[12] = {
+		  -6.65 ,   -6.65 ,  /* State 1 (phi)    : tau_r, tau_l */
+         -0.1,  -0.1,  /* State 2 (s)      : tau_r, tau_l */
+          0.00,  -0.00,  /* State 3 (theta)  : tau_r, tau_l */
+         -1.369,  -1.369,  /* State 4 (phi_dot): tau_r, tau_l */
+         -0.275,  -0.275,  /* State 5 (v)      : tau_r, tau_l */
+          0.000,  -0.000   /* State 6 (omega)  : tau_r, tau_l */
+      };
+  /* 1. Extract states and multiply by LQR gain matrix */
+  u_idx_0 = 0.0;
+  u_idx_1 = 0.0;
+  for (pwm_r = 0; pwm_r < 6; pwm_r++) {
+    tmp = rtU.state_x[pwm_r];
+    pwm_l = pwm_r << 1;
+    u_idx_0 += a[pwm_l] * tmp;
+    u_idx_1 += a[pwm_l + 1] * tmp;
+  }
+
+  /* 2. Calculate raw target PWM mapped to your 4000 timer limit */
+  // Scale factor: Max motor torque is 3.0 N.m, mapped to 4000.0 PWM
+  int32_T raw_pwm_r = 0;//(int32_T)rt_roundd_snf(u_idx_0 / 6.0 * 4000.0);
+  int32_T raw_pwm_l = 0;//(int32_T)rt_roundd_snf(u_idx_1 / 6.0 * 4000.0);
+
+  /* 3. Apply Deadband Compensation (Only if LQR demands movement) */
+
+  if (raw_pwm_r >= 0) {
+      raw_pwm_r += DEADBAND_OFFSET;
+  } else if (raw_pwm_r < 0) {
+      raw_pwm_r -= DEADBAND_OFFSET;
+  }
+
+  if (raw_pwm_l >= 0) {
+      raw_pwm_l += DEADBAND_OFFSET;
+  } else if (raw_pwm_l < 0) {
+      raw_pwm_l -= DEADBAND_OFFSET;
+  }
+
+
+  /* 4. Clamp safely to hardware limits (-4000 to 4000) */
+  pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, 3500.0), -3500.0);
+  pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, 3500.0), -3500.0);
+
+  /* 5. Route to Outports (Direction Control) */
+  if (pwm_r >= 0) {
+    rtY.RPWM_R = pwm_r;
+    rtY.RPWM_R1 = 0.0;
+  } else {
+    rtY.RPWM_R = 0.0;
+    rtY.RPWM_R1 = fabs((real_T)pwm_r);
+  }
+
+  if (pwm_l >= 0) {
+    rtY.RPWM_R2 = pwm_l;
+    rtY.RPWM_R3 = 0.0;
+  } else {
+    rtY.RPWM_R2 = 0.0;
+    rtY.RPWM_R3 = fabs((real_T)pwm_l);
+  }
+}
+
+/* Model initialize function */
+void Simulink_initialize(void)
+{
+  /* (no initialization code required) */
+}
+
+/* [EOF] */

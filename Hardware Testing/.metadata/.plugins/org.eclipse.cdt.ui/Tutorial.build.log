@@ -1,0 +1,41 @@
+17:15:53 **** Build of configuration Debug for project Tutorial ****
+cmake --build "build\\Debug" 
+[1/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/main.c.obj
+[2/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/stm32h7xx_it.c.obj
+[3/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/stm32h7xx_hal_msp.c.obj
+[4/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj
+[5/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj
+[6/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj
+[7/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj
+[8/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj
+[9/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj
+[10/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj
+[11/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj
+[12/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj
+[13/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj
+[14/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj
+[15/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj
+[16/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj
+[17/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj
+[18/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj
+[19/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj
+[20/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj
+[21/26] Building C object CMakeFiles/Tutorial.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj
+[22/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/system_stm32h7xx.c.obj
+[23/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/sysmem.c.obj
+[24/26] Building C object CMakeFiles/Tutorial.dir/Core/Src/syscalls.c.obj
+[25/26] Building ASM object CMakeFiles/Tutorial.dir/startup_stm32h750xx.s.obj
+[26/26] Linking C executable Tutorial.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Tutorial.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        1584 B       128 KB      1.21%
+             RAM:           0 B       512 KB      0.00%
+          RAM_D2:           0 B       288 KB      0.00%
+          RAM_D3:           0 B        64 KB      0.00%
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:        7024 B       128 KB      5.36%
+
+
+17:16:09 Build Finished. 0 errors, 1 warnings. (took 16s.443ms)
+

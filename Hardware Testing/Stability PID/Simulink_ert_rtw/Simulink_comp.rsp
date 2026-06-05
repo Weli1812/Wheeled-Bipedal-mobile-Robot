@@ -1,0 +1,20 @@
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID"
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID/Simulink_ert_rtw"
+-I"D:/programs/matlab 2025b/matlab/extern/include"
+-I"D:/programs/matlab 2025b/matlab/simulink/include"
+-I"D:/programs/matlab 2025b/matlab/rtw/c/src"
+-I"D:/programs/matlab 2025b/matlab/rtw/c/src/ext_mode/common"
+-I"D:/programs/matlab 2025b/matlab/rtw/c/ert"
+-I"D:/programs/matlab 2025b/matlab/toolbox/target/shared/armcortexmbase/scheduler/include"
+-I"D:/programs/matlab 2025b/matlab/rtw/c/src/ext_mode/serial"
+-IC:/ProgramData/MATLAB/SupportPackages/R2025b/toolbox/shared/supportpackages/stm32/include
+-I"D:/programs/matlab 2025b/matlab/toolbox/target/shared/svd/common/include"
+-IC:/ProgramData/MATLAB/SupportPackages/R2025b/3P.instrset/cmsis.instrset/CMSIS/Core/Include
+-IC:/ProgramData/MATLAB/SupportPackages/R2025b/3P.instrset/cmsis_dsp.instrset/Include
+-IC:/ProgramData/MATLAB/SupportPackages/R2025b/3P.instrset/cmsis_dsp.instrset/Include/dsp
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID/Drivers/STM32H7xx_HAL_Driver/Inc"
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID/Drivers/CMSIS/Device/ST/STM32H7xx/Include"
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID/Drivers/CMSIS/Include"
+-I"D:/GIU/git/Wheeled-Bipedal-mobile-Robot/Hardware Testing/Stability PID/Core/Inc"
+-I../Core/Inc

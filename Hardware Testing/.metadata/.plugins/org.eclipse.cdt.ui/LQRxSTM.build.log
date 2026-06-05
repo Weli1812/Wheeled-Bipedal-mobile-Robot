@@ -1,0 +1,6 @@
+00:26:10 **** Incremental Build of configuration Debug for project LQRxSTM ****
+cmake --build "build\\Debug" 
+ninja: no work to do.
+
+00:26:11 Build Finished. 0 errors, 0 warnings. (took 584ms)
+
