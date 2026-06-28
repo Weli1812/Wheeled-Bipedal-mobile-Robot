@@ -20,10 +20,14 @@ static RT_MODEL rtM_;
 RT_MODEL *const rtM = &rtM_;
 
 extern real_T rt_roundd_snf(real_T u);
-/* External tuning variables passed from main.c UART DMA */
 
+/* External tuning variables passed from main.c UART DMA */
 extern volatile float esp_wheel_speed_r;
 extern volatile float esp_wheel_speed_l;
+
+/* Dynamic SMC Gains linked from main.c */
+extern volatile float esp_smc_gains[6];
+extern volatile float esp_smc_eta;
 
 real_T rt_roundd_snf(real_T u)
 {
@@ -43,33 +47,19 @@ real_T rt_roundd_snf(real_T u)
 }
 
 /* -----------------------------------------------------------------------
- * INTEGRATOR STATE — persists between Simulink_step() calls
+ * PERSISTENT CONTROLLER STATE
  * ----------------------------------------------------------------------- */
-static real_T phi_integral    = 0.0;  /* accumulated pitch error          */
-static uint32_T last_step_tick = 0;   /* for real dt measurement          */
+static uint32_T last_step_tick = 0;   /* For real dt measurements */
 
 /* -----------------------------------------------------------------------
- * INTEGRATOR TUNING — start here, change only these values
- *
- *  KI_PHI        how fast the integrator corrects a steady lean
- *                start at 0.0, increase by 0.3 each test run
- *                typical useful range: 0.3 – 1.5
- *
- *  INT_CLAMP_PWM max PWM counts the integrator term can ever add
- *                keep at ~15% of your 4000 limit = 600
- *                prevents windup from swamping the P+D terms
- *
- *  INT_RESET_RAD kill integrator if pitch exceeds this (robot falling)
- *                0.35 rad ≈ 20° — well inside your 0.52 fall-detect
+ * CONTROLLER CONSTRAINTS
  * ----------------------------------------------------------------------- */
-#define KI_PHI          0.05f    /* SET TO 0 FIRST — confirm P+D still works */
-#define INT_CLAMP_PWM   600     /* max integrator contribution in PWM counts */
-#define INT_RESET_RAD   0.35    /* reset threshold in radians               */
+#define INT_RESET_RAD   0.35    /* Reset sliding parameters if pitch > ~20 deg */
+#define PHI_BOUNDARY    0.08    /* Boundary layer width to limit chattering noise */
 
 /* Model step function */
 void Simulink_step(void)
 {
-    real_T tmp;
     real_T u_idx_0;
     real_T u_idx_1;
     int32_T pwm_l;
@@ -81,117 +71,94 @@ void Simulink_step(void)
     last_step_tick   = now;
 
     /* Guard: clamp dt to sane range on first call or timer wrap */
-    if (dt <= 0.0 || dt > 0.05) dt = 0.01;   /* assume 100 Hz if bad */
+    if (dt <= 0.0 || dt > 0.05) dt = 0.01;   /* Assume 100 Hz fallback */
 
-    // TUNE THIS: Minimum PWM required to overcome 775 motor static friction.
+    // Minimum PWM required to overcome 775 motor static friction.
     const int32_T DEADBAND_OFFSET = 130;
 
-    /* Updated LQR Gain Matrix (K) */
-    /* Hardcoded LQR Gain Matrix (K) - 2x6 for Right and Left motors */
-        static const real_T K_GAINS[2][6] = {
-            // State 1(phi), State 2(s), State 3(theta), State 4(phi_dot), State 5(v), State 6(omega)
-            {0.0,            0.0,        0.0,            0.0,              0.0,        0.0}, /* Row 0: Right Motor */
-            {0.0,            0.0,        0.0,            0.0,              0.0,        0.0}  /* Row 1: Left Motor  */
-        };
+    /* ── SLIDING MODE CONTROL (SMC) IMPLEMENTATION ─────────────────────── */
+    real_T phi = rtU.state_x[0];
 
-        /* 1. Extract states and multiply by hardcoded LQR gain matrix */
-        u_idx_0 = 0.0; // Desired torque Right
-        u_idx_1 = 0.0; // Desired torque Left
-        for (pwm_r = 0; pwm_r < 6; pwm_r++) {
-            tmp = rtU.state_x[pwm_r];
-            u_idx_0 += K_GAINS[0][pwm_r] * tmp; // Apply Row 0 to Right wheel
-            u_idx_1 += K_GAINS[1][pwm_r] * tmp; // Apply Row 1 to Left wheel
-        }
+    /* 1. Calculate the dynamic sliding surface (s = C^T * x) */
+    real_T s_surface = 0.0;
+    for (int i = 0; i < 6; i++) {
+        s_surface += (real_T)esp_smc_gains[i] * rtU.state_x[i];
+    }
 
-        /* ── INTEGRATOR ────────────────────────────────────────────────────── */
-                real_T phi = rtU.state_x[0];
+    /* Guard boundary condition if completely out of bounds */
+    if (fabs(phi) > INT_RESET_RAD) {
+        s_surface = 0.0;
+    }
 
-                /* Step A — reset on fall */
-                if (fabs(phi) > INT_RESET_RAD) {
-                    phi_integral = 0.0;
-                }
+    /* 2. Boundary Layer Evaluation (Continuous saturation replaces sign function to stop chattering) */
+    real_T sat_s = s_surface / PHI_BOUNDARY;
+    if (sat_s > 1.0)  sat_s = 1.0;
+    if (sat_s < -1.0) sat_s = -1.0;
 
-                /* Step B — accumulate */
-                phi_integral += phi * dt;
+    /* 3. Sliding Mode Control Output: u = -eta * sat(s / Phi) */
+    real_T smc_base_torque = -((real_T)esp_smc_eta * sat_s);
 
-                /* Step C — anti-windup: clamp integral in torque units */
-                const real_T int_clamp_torque = (real_T)INT_CLAMP_PWM * 6.0 / 4000.0;
+    /* 4. Multi-Input Decoupling/Mixing (Right and Left Outputs)
+          Indices 0-4 handle uniform pitch/position mapping, index 5 handles differential steering yaw rate. */
+    real_T differential_steering = (real_T)esp_smc_gains[5] * rtU.state_x[5];
 
-                if (KI_PHI > 0.0001f) {
-                        if (phi_integral >  int_clamp_torque / (real_T)KI_PHI)
-                            phi_integral =  int_clamp_torque / (real_T)KI_PHI;
-                        if (phi_integral < -int_clamp_torque / (real_T)KI_PHI)
-                            phi_integral = -int_clamp_torque / (real_T)KI_PHI;
-                    } else {
-                        phi_integral = 0.0;
-                    }
+    u_idx_0 = smc_base_torque + differential_steering; // Right wheel demand
+    u_idx_1 = smc_base_torque - differential_steering; // Left wheel demand
 
-                    /* Add integrator contribution to both motor torque demands */
-                    real_T ki_contribution = (real_T)KI_PHI * phi_integral;
+    /* ── VOLTAGE/SPEED TO PWM CONVERSION ───────────────────────────────── */
+    /* NFP-42GP-775-EN Motor Parameters */
+    const real_T K_3     = 0.125;
+    const real_T K_4     = 0.215;
+    const real_T max_pwm = 4000;
+    const real_T V_batt  = 22.5;
 
-                        /* u_idx_0 and u_idx_1 now represent tau_r_des and tau_l_des */
-                        u_idx_0 -= ki_contribution;
-                        u_idx_1 -= ki_contribution;
+    /* 1. Fetch actual wheel speeds from ESP32 payload */
+    real_T omega_wheel_r = (real_T)esp_wheel_speed_r;
+    real_T omega_wheel_l = (real_T)esp_wheel_speed_l;
 
+    /* 2. Calculate Voltages (V = I*R + Back_EMF) */
+    real_T v_r = (u_idx_0 + K_3 * omega_wheel_r) / K_4;
+    real_T v_l = (u_idx_1 + K_3 * omega_wheel_l) / K_4;
 
-                /* ── VOLTAGE/SPEED TO PWM CONVERSION ───────────────────────────────── */
+    /* 3. Convert to PWM */
+    int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm);
+    int32_T raw_pwm_l = (int32_T)rt_roundd_snf((v_l / V_batt) * max_pwm);
 
-                        /* NFP-42GP-775-EN Motor Parameters */
-                        const real_T K_3     = 0.125;
-                        const real_T K_4     = 0.215;
-                        const real_T max_pwm = 4000;
-                        const real_T V_batt = 22.5;
-                        /* 1. Fetch actual wheel speeds from ESP32 payload */
-                        real_T omega_wheel_r = (real_T)esp_wheel_speed_r;
-                        real_T omega_wheel_l = (real_T)esp_wheel_speed_l;
+    /* 4. Apply Deadband Compensation */
+    if (raw_pwm_r > 0)       raw_pwm_r += DEADBAND_OFFSET;
+    else if (raw_pwm_r < 0)  raw_pwm_r -= DEADBAND_OFFSET;
 
-                        /* 2. Calculate Voltages (V = I*R + Back_EMF)
-                              u_idx_0 and u_idx_1 are your desired torques (tau_r_des, tau_l_des) */
-                        real_T v_r = (u_idx_0 + K_3 * omega_wheel_r) / K_4;
-                        real_T v_l = (u_idx_1 + K_3 * omega_wheel_l) / K_4;
+    if (raw_pwm_l > 0)       raw_pwm_l += DEADBAND_OFFSET;
+    else if (raw_pwm_l < 0)  raw_pwm_l -= DEADBAND_OFFSET;
 
-                        /* 3. Convert to PWM */
-                        int32_T raw_pwm_r = (int32_T)rt_roundd_snf((v_r / V_batt) * max_pwm);
-                        int32_T raw_pwm_l = (int32_T)rt_roundd_snf((v_l / V_batt) * max_pwm);
+    /* 5. Clamp safely to hardware limits */
+    pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, max_pwm), -max_pwm);
+    pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, max_pwm), -max_pwm);
 
-                        /* 4. Apply Deadband Compensation */
-                        if (raw_pwm_r > 0)       raw_pwm_r += DEADBAND_OFFSET;
-                        else if (raw_pwm_r < 0)  raw_pwm_r -= DEADBAND_OFFSET;
+    /* 6. Route to Outports (Direction Control) */
+    if (pwm_r >= 0) {
+        rtY.RPWM_R  = (real_T)pwm_r;
+        rtY.RPWM_R1 = 0.0;
+    } else {
+        rtY.RPWM_R  = 0.0;
+        rtY.RPWM_R1 = fabs((real_T)pwm_r);
+    }
 
-                        if (raw_pwm_l > 0)       raw_pwm_l += DEADBAND_OFFSET;
-                        else if (raw_pwm_l < 0)  raw_pwm_l -= DEADBAND_OFFSET;
+    if (pwm_l >= 0) {
+        rtY.RPWM_R2 = (real_T)pwm_l;
+        rtY.RPWM_R3 = 0.0;
+    } else {
+        rtY.RPWM_R2 = 0.0;
+        rtY.RPWM_R3 = fabs((real_T)pwm_l);
+    }
+}
 
-                        /* 5. Clamp safely to hardware limits */
-                        pwm_r = (int32_T)fmax(fmin((real_T)raw_pwm_r, max_pwm), -max_pwm);
-                        pwm_l = (int32_T)fmax(fmin((real_T)raw_pwm_l, max_pwm), -max_pwm);
+void Simulink_initialize(void)
+{
+    last_step_tick = HAL_GetTick();
+}
 
-                        /* 6. Route to Outports (Direction Control) */
-                        if (pwm_r >= 0) {
-                            rtY.RPWM_R  = (real_T)pwm_r;
-                            rtY.RPWM_R1 = 0.0;
-                        } else {
-                            rtY.RPWM_R  = 0.0;
-                            rtY.RPWM_R1 = fabs((real_T)pwm_r);
-                        }
-
-                        if (pwm_l >= 0) {
-                            rtY.RPWM_R2 = (real_T)pwm_l;
-                            rtY.RPWM_R3 = 0.0;
-                        } else {
-                            rtY.RPWM_R2 = 0.0;
-                            rtY.RPWM_R3 = fabs((real_T)pwm_l);
-                        }
-                        // ... end of Simulink_step function ...
-                        } // This closes Simulink_step
-
-                        void Simulink_initialize(void)
-                        {
-                            phi_integral   = 0.0;
-                            last_step_tick = HAL_GetTick();
-                        }
-
-                        void Simulink_reset_integrator(void)
-                        {
-                            phi_integral = 0.0;
-                        }
-                        // DELETE ANY EXTRA BRACES HERE. There should be no more code or braces.
+void Simulink_reset_integrator(void)
+{
+    // Integration parameters discarded for dynamic surface execution
+}

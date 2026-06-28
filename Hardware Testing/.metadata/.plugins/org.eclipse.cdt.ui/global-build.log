@@ -7048,3 +7048,25 @@ Memory region         Used Size  Region Size  %age Used
 
            FLASH:       47256 B       128 KB     36.05%
 
+11:59:37 **** Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+[1/3] Building C object CMakeFiles/Stability.dir/Core/Src/main.c.obj
+[2/3] Building C object CMakeFiles/Stability.dir/Core/Src/Simulink.c.obj
+[3/3] Linking C executable Stability.elf
+D:\programs\STM32Cube\STM32CUBEIDE\STM32CubeIDE_2.1.1\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\arm-none-eabi\bin\ld.exe: warning: Stability.elf has a LOAD segment with RWX permissions
+Memory region         Used Size  Region Size  %age Used
+         DTCMRAM:        2216 B       128 KB      1.69%
+
+             RAM:           0 B       512 KB      0.00%
+
+          RAM_D2:           0 B       288 KB      0.00%
+
+          RAM_D3:           0 B        64 KB      0.00%
+
+         ITCMRAM:           0 B        64 KB      0.00%
+
+           FLASH:       47176 B       128 KB     35.99%
+
+12:00:33 **** Incremental Build of configuration Debug for project Stability ****
+cmake --build "build\\Debug" 
+ninja: no work to do.

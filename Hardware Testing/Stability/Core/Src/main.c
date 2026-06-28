@@ -1,8 +1,8 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file : main.c
-  * @brief : Main program body
+  * @file           : main.c
+  * @brief          : Main program body
   ******************************************************************************
   * @attention
   *
@@ -55,8 +55,12 @@ volatile uint8_t data_ready = 0;
 volatile uint32_t last_packet_time = 0;
 
 // --- Dynamic Tuning Variables ---
-volatile float esp_wheel_speed_r = 0.0f; // NEW: Right wheel speed from ESP
-volatile float esp_wheel_speed_l = 0.0f; // NEW: Left wheel speed from ESP
+volatile float esp_wheel_speed_r = 0.0f; // Right wheel speed from ESP
+volatile float esp_wheel_speed_l = 0.0f; // Left wheel speed from ESP
+
+// --- Dynamic SMC Gain Variables ---
+volatile float esp_smc_gains[6] = {0.0f}; // Sliding surface coefficients (Indices 6 to 11)
+volatile float esp_smc_eta = 0.0f;        // Robust switching gain / parameter (Index 12)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -153,32 +157,32 @@ int main(void)
               }
 
               // Calculate XOR Checksum over the 60 bytes of payload (indices 2 through 61)
-                            uint8_t calc_crc = 0;
-                            for(int i = 2; i < 62; i++)
-                            {
-                                calc_crc ^= packet[i];
-                            }
+              uint8_t calc_crc = 0;
+              for(int i = 2; i < 62; i++)
+              {
+                  calc_crc ^= packet[i];
+              }
 
-                            // Check against byte 62 (the 63rd byte)
-                            if (calc_crc == packet[62])
-                            {
-                            	float payload[15]; // Holds 15 floats
-                            	    memcpy(payload, &packet[2], 60);
+              // Check against byte 62 (the 63rd byte)
+              if (calc_crc == packet[62])
+              {
+                    float payload[15]; // Holds 15 floats
+                    memcpy(payload, &packet[2], 60);
 
-                            	    for(int i = 0; i < 6; i++) {
-                            	        rtU.state_x[i] = (double)payload[i];
-                            	        // Indices 6 through 11 (K_gains) are now ignored
-                            	    }
-                            	    // Index 12 (KI_PHI) is now ignored
+                    for(int i = 0; i < 6; i++) {
+                        rtU.state_x[i] = (double)payload[i];
+                        esp_smc_gains[i] = payload[6 + i]; // Extract SMC surface gains
+                    }
+                    esp_smc_eta = payload[12]; // Extract switching gain (former KI_PHI slot)
 
-                            	    esp_wheel_speed_r = payload[13]; // Dynamically updated right wheel speed
-                            	    esp_wheel_speed_l = payload[14]; // Dynamically updated left wheel speed
+                    esp_wheel_speed_r = payload[13]; // Dynamically updated right wheel speed
+                    esp_wheel_speed_l = payload[14]; // Dynamically updated left wheel speed
 
-                                data_ready = 1;
-                                dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
-                                available -= PACKET_SIZE;
-                                continue;
-                            }
+                    data_ready = 1;
+                    dma_tail = (dma_tail + PACKET_SIZE) % RX_BUFFER_SIZE;
+                    available -= PACKET_SIZE;
+                    continue;
+              }
           }
           // Bad header or CRC: slide window by 1 byte
           dma_tail = (dma_tail + 1) % RX_BUFFER_SIZE;
@@ -245,10 +249,11 @@ int main(void)
                   memcpy(payload, &packet[2], 60);
 
                   for(int i = 0; i < 6; i++) {
-                                        rtU.state_x[i] = (double)payload[i];
-                                        // Indices 6 through 11 (K_gains) are now ignored
-                                    }
-                                    // Index 12 (KI_PHI) is now ignored
+                      rtU.state_x[i] = (double)payload[i];
+                      esp_smc_gains[i] = payload[6 + i]; // Dynamically update SMC surface gains
+                  }
+                  esp_smc_eta = payload[12]; // Dynamically update switching gain
+
                   esp_wheel_speed_r = payload[13]; // Dynamically updated wheel speed
                   esp_wheel_speed_l = payload[14]; // Dynamically updated wheel speed
 
@@ -263,7 +268,6 @@ int main(void)
       }
 
       // 2. Control Loop Execution
-      // ... (Keep your existing data_ready == 1 control loop logic below here)
       if (data_ready == 1)
       {
           // Acknowledge the flag and update timestamp
@@ -285,21 +289,20 @@ int main(void)
               __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 0);
               Simulink_reset_integrator();
           }
-                    else
-                    {
-                        // ROBOT IS UPRIGHT: Re-enable motors and balance
-                        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+          else
+          {
+              // ROBOT IS UPRIGHT: Re-enable motors and balance
+              HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
 
-                        // 1. Run the LQR Control Matrix calculation
-                        Simulink_step();
+              // 1. Run the dynamic SMC Control Step calculation
+              Simulink_step();
 
-                        // 2. Apply generated PWM to hardware timers dynamically
-                        __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);
-                        __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1);
-                        __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
-                        __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
-
-                    }
+              // 2. Apply generated PWM to hardware timers dynamically
+              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R);
+              __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint32_t)rtY.RPWM_R1);
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, (uint32_t)rtY.RPWM_R3);
+              __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, (uint32_t)rtY.RPWM_R2);
+          }
       }
       else
       {
